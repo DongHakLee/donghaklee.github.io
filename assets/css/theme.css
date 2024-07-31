@@ -205,7 +205,7 @@ a.text-dark:hover {
 .navbar-brand {
 	margin-right:2rem;
 	font-size:1.55rem;
-    font-family:"Georgia","Times New Roman",serif;
+    font-family:inherit;
 }
 .dropdown-item {
 	font-weight:400;
@@ -297,7 +297,7 @@ a.text-dark:hover {
 		right:0;
 	}
     .jumbotron-home h1 {
-        font-family: Georgia,Times,"Times New Roman",serif;
+        font-family: inherit;
         font-size: 2.4rem;
         font-weight: 700;
         line-height: 1.1;
@@ -629,7 +629,7 @@ ol.list-featured li:before {
     font-weight: bold;
     font-size: 2rem;
     margin-right: 0.5rem;
-    font-family: Arial;
+    font-family: inherit;
     line-height: 1;
     opacity: .1;
 }
@@ -654,10 +654,10 @@ footer {
 article {
 	font-size:20px;
 	line-height:1.86;
-    font-family:Lora;
+    font-family:inherit;
 }
 .article-headline {
-    font-family: Georgia,Times,"Times New Roman",serif;
+    font-family: inherit;
     font-size: 3.2rem;
     font-weight: 400;
     line-height: 1.15;
@@ -674,7 +674,7 @@ article blockquote {
 }
 article blockquote:before {
 	content:"“";
-	font-family:Georgia;
+	font-family:inherit;
 	font-size:8rem;
 	margin:-1rem 2rem 0 -3.9rem;
 	position:absolute;
@@ -789,12 +789,12 @@ a.a2a_i, i.a2a_i, .a2a_menu a.a2a_i:visited, .a2a_menu a.a2a_more {
 div.a2a_full_footer {display:none;}
 @media (min-width: 1920px) {
 	html {font-size:17px;}
-	.container, .container-lg {    
+	.container, .container-lg {
 	 width: 1280px;
 	 max-width: 1280px;
 	 }
-	 h6,.h6 { 
-		 font-size: 1.1rem; 
+	 h6,.h6 {
+		 font-size: 1.1rem;
 	 }
 	 article {
 		 font-size:1.24rem;
@@ -803,4 +803,3 @@ div.a2a_full_footer {display:none;}
 		 height:280px !Important;
 	 }
  }
- 
