@@ -1,11 +1,23 @@
-collections:
-  - name: "blog"
-    label: "Blog"
-    folder: "content/blog"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+backend:
+  name: git-gateway # Git Gateway를 사용하여 GitHub과 연동
+  branch: main # 관리할 기본 브랜치 (예: main, master 등)
 
-    fields:
+media_folder: "static/images/uploads" # 업로드되는 미디어 파일이 저장될 폴더 경로
+public_folder: "/images/uploads" # 미디어 파일에 접근할 공개 경로
+
+media_library: # 미디어 라이브러리 설정
+  name: uploadcare # Uploadcare와 같은 외부 미디어 라이브러리 사용 가능 (선택 사항)
+  config:
+    public_key: your_public_key # Uploadcare 사용 시 필요한 API 키 (선택 사항)
+
+collections:
+  - name: "blog" # 컬렉션 이름 (콘텐츠 타입)
+    label: "Blog" # 관리 화면에서 보이는 컬렉션 이름
+    folder: "content/blog" # 콘텐츠가 저장될 폴더 경로
+    create: true # 새로운 콘텐츠를 생성할 수 있도록 허용
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # URL 구조
+
+    fields: # 각 콘텐츠의 필드를 정의
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
