@@ -1,5 +1,5 @@
 <!--  Replace menu links here -->
-
+<!--
 <li class="nav-item">
 <a class="nav-link" href="{{site.baseurl}}/index.html">Home</a>
 </li>
@@ -9,12 +9,27 @@
 <li class="nav-item">
 <a class="nav-link" href="{{site.baseurl}}/contact.html">Contact</a>
 </li>
+-->
 <li class="nav-item">
-<a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mundana-wordpress/">WP</a>
+    <a class="nav-link" href="{{ site.baseurl }}/index.html">Home</a>
 </li>
+
+<!-- 카테고리 값을 직접 출력해보기 -->
+<pre>
+    Categories: {{ site.posts | map: 'category' | uniq | sort | join: ', ' }}
+</pre>
+
+<!-- 실제 네비게이션 메뉴 -->
+{% assign categories = site.posts | map: 'category' | uniq | sort %}
+{% for category in categories %}
+    {% assign first_post = site.posts | where: "category", category | first %}
+    {% assign category_name = first_post.category_name %}
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ site.baseurl }}/{{ category }}/">{{ category_name }}</a>
+    </li>
+{% endfor %}
+
 <li class="nav-item">
-<a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mundana-ghost/">Ghost</a>
-</li>
-<li class="nav-item">
-<a target="_blank" class="nav-link" href="https://www.wowthemes.net/donate/">Buy me a coffee <i class="fa fa-coffee text-danger"></i></a>
+    <a class="nav-link" href="{{ site.baseurl }}/contact.html">Contact</a>
 </li>
