@@ -32,7 +32,7 @@
     #scrollingMenu {
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
+        scroll-behavior: auto;
     }
     #scrollingMenu ul {
         padding-left: 0;
@@ -52,7 +52,6 @@
         color: #007bff;
         border-bottom: 2px solid #007bff;
     }
-
     #scrollingMenu a:focus {
         outline: none;
     }
@@ -61,7 +60,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const activeLink = document.querySelector("#scrollingMenu a.active");
         if (activeLink) {
-            activeLink.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+            activeLink.scrollIntoView({ behavior: "auto", block: "nearest", inline: "center" });
         }
     });
 </script>
@@ -76,7 +75,7 @@
 <body class="{% if page.url == "/" %} homefirstpage {% endif %}">
 
 <!-- Navbar -->
-<nav id="MagicMenu" class="topnav navbar navbar-light bg-white fixed-top">
+<nav id="MagicMenu" class="topnav navbar navbar-light bg-white">
     <div class="container flex-column">
         <!-- Logo Section -->
         <div id="brandSection" class="text-center w-100 py-3 border-bottom">
