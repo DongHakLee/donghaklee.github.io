@@ -1,0 +1,66 @@
+---
+layout: default
+---
+{% assign category_slug = page.category_slug %}
+<!--<p>Category Slug: {{ category_slug }}</p>-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="mb-4">
+                <h4 class="font-weight-bold border-bottom pb-3">
+                    <span>{{ page.title }}</span>
+                </h4>
+            </div>
+            
+            {% if paginator.posts.size > 0 %}
+                <div class="posts-list mb-4">
+                    {% for post in paginator.posts %}
+                        {% include main-loop-card.html %}
+                    {% endfor %}
+                </div>
+
+                {% if paginator.total_pages > 1 %}
+                    <nav aria-label="Page navigation" class="mb-4">
+                        <ul class="pagination justify-content-center">
+                            {% if paginator.previous_page %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ site.baseurl }}/{{category_slug}}{% if paginator.previous_page != 1 %}/page/{{ paginator.previous_page }}{% endif %}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% for page in (1..paginator.total_pages) %}
+                                {% if page == paginator.page %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ page }}</span>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ site.baseurl }}/{{category_slug}}{% if page != 1 %}/page/{{ page }}{% endif %}">{{ page }}</a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if paginator.next_page %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ site.baseurl }}/{{category_slug}}/page/{{ paginator.next_page }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-info">
+                    현재 등록된 게시물이 없습니다.
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-4">
+            {% include sidebar-featured.html %}
+        </div>
+    </div>
+</div>

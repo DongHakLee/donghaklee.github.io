@@ -8,9 +8,7 @@
 	</p>
 	<small class="d-block text-muted">
 		In <span class="catlist">
-		{% for category in post.categories %}
-		<a class="text-capitalize text-muted smoothscroll" href="{{site.baseurl}}/categories.html#{{ category | downcase }}">{{ category }}</a><span class="sep">, </span>
-		{% endfor %}
+		<a class="text-capitalize text-muted smoothscroll" href="{{site.baseurl}}/{{ post.category | downcase }}">{{ post.category_name }}</a><span class="sep">, </span>
 		</span>
 	</small>
 	<small class="text-muted">

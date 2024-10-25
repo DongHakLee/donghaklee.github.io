@@ -9,13 +9,12 @@ email: 'leedongja111@gmail.com'
 mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
 
 include: ["_pages"]
-permalink: /:categories/:name/
 
 # Plugins
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-paginate
+  - jekyll-paginate-v2
   - jekyll-seo-tag
 
 authors:
@@ -57,7 +56,11 @@ markdown: kramdown
 highlighter: rouge
 
 # Paginate
-paginate: 10
+pagination:
+  enabled: true
+  per_page: 5  # 전역 per_page 설정
+  sort_field: date
+  sort_reverse: true
 
 
 

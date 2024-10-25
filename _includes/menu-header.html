@@ -1,34 +1,45 @@
-<!--  Replace menu links here -->
-<!--
-<li class="nav-item">
-<a class="nav-link" href="{{site.baseurl}}/index.html">Home</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="{{site.baseurl}}/authors-list.html">Authors</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="{{site.baseurl}}/contact.html">Contact</a>
-</li>
--->
-<li class="nav-item">
+<li class="nav-item"></li>
     <a class="nav-link" href="{{ site.baseurl }}/index.html">Home</a>
+</li>
+<!--  Replace menu links here -->
+<li class="nav-item">
+<a class="nav-link" href="{{site.baseurl}}/trend-issue">트랜드/이슈</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{{site.baseurl}}/politics-economy">정치/경제</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{{site.baseurl}}/society-international">사회/국제</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{{site.baseurl}}/tech-it">기술/IT</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{{site.baseurl}}/culture-sports">문화/스포츠</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{{site.baseurl}}/lifestyle">라이프스타일</a>
 </li>
 
 <!-- 카테고리 값을 직접 출력해보기 -->
+ <!--
 <pre>
-    Categories: {{ site.posts | map: 'category' | uniq | sort | join: ', ' }}
+    Categories: {{ site.posts | map: 'categories' | flatten | uniq | sort | join: ', ' }}
 </pre>
+-->
 
-<!-- 실제 네비게이션 메뉴 -->
-{% assign categories = site.posts | map: 'category' | uniq | sort %}
+<!-- 현재 네비게이션 메뉴 -->
+<!--
+{% assign categories = site.posts | map: 'categories' | compact | flatten | uniq | sort %}
 {% for category in categories %}
-    {% assign first_post = site.posts | where: "category", category | first %}
-    {% assign category_name = first_post.category_name %}
+    {% assign posts_in_category = site.posts | where_exp: "post", "post.categories contains category" %}
+    {% assign category_name = posts_in_category[0].categories_name[0] %}
 
     <li class="nav-item">
         <a class="nav-link" href="{{ site.baseurl }}/{{ category }}/">{{ category_name }}</a>
     </li>
 {% endfor %}
+-->
 
 <li class="nav-item">
     <a class="nav-link" href="{{ site.baseurl }}/contact.html">Contact</a>
