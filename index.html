@@ -5,13 +5,207 @@ pagination:
     enabled: true
 description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신뢰할 수 있는 소식을 제공합니다."
 ---
+<div class="container container-sm-fluid mt-4">
+    <div class="row g-0">
+        <!-- 왼쪽 메인 뉴스 -->
+        <div class="col-lg-6 p-2">
+            <article class="main-news card">
+                {% assign latest_post = site.posts.first %}
+                <div class="main-image">
+                    {% if latest_post.image %}
+                    <img src="{% if latest_post.image contains "://" %}{{ latest_post.image }}{% else %}{{ latest_post.image | absolute_url }}{% endif %}" alt="{{ latest_post.title }}">
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h2 class="news-title">{{ latest_post.title }}</h2>
+                    <p class="news-excerpt">{{ latest_post.excerpt | strip_html | slice: 0, 100 }}...</p>
+                </div>
+            </article>
+        </div>
 
-
-<div class="container">
-
-
-
-
-11
-
+        <!-- 오른쪽 서브 뉴스 -->
+        <div class="col-lg-6 p-2">
+            <div class="card">
+                {% for post in site.posts limit:3 offset:1 %}
+                <article class="sub-news">
+                    <div class="sub-news-wrap">
+                        <div class="text-content">
+                            <h3 class="title">{{ post.title }}</h3>
+                            <p class="excerpt">{{ post.excerpt | strip_html | slice: 0, 50 }}...</p>
+                        </div>
+                        {% if post.image %}
+                        <div class="image-wrap">
+                            <img src="{% if post.image contains "://" %}{{ post.image }}{% else %}{{ post.image | absolute_url }}{% endif %}" alt="{{ post.title }}">
+                        </div>
+                        {% endif %}
+                    </div>
+                </article>
+                {% unless forloop.last %}
+                <hr class="m-0">
+                {% endunless %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- 구분선 -->
+<div class="container container-sm-fluid my-4">
+    <hr class="section-divider">
+</div>
+
+<!-- 하단 전체기사/추천기사 영역 -->
+<div class="container container-sm-fluid">
+    <div class="row g-0">
+        <!-- 전체 기사 -->
+        <div class="col-lg-6 p-2">
+            {% include all-posts.html %}
+        </div>
+
+        <!-- 추천 기사 -->
+        <div class="col-lg-6 p-2">
+            {% include sidebar-featured.html %}
+        </div>
+    </div>
+</div>
+
+<style>
+/* 카드 기본 스타일 */
+.card {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: #fff;
+    height: 100%;
+}
+
+/* 메인 뉴스 */
+.main-image {
+    overflow: hidden;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    height: 180px;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.main-news {
+    height: 100%;
+}
+
+.main-news:hover {
+    background-color: #f8f9fa;
+}
+
+.main-news:hover .main-image img {
+    transform: scale(1.05);
+}
+
+/* 서브 뉴스 */
+.sub-news {
+    padding: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.sub-news:hover {
+    background-color: #f8f9fa;
+}
+
+.sub-news-wrap {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 90px;
+}
+
+.text-content {
+    flex: 1;
+    padding-right: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 90px;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+    word-break: keep-all;
+}
+
+.excerpt {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.image-wrap {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.sub-news:hover .image-wrap img {
+    transform: scale(1.05);
+}
+
+/* 메인 뉴스 내용 */
+.card-body {
+    padding: 1.25rem;
+}
+
+.news-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.news-excerpt {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* 구분선 */
+hr {
+    border-top: 1px solid rgba(0,0,0,0.1);
+    margin: 0;
+}
+
+/* 호버 효과 공통 */
+.main-news, .sub-news {
+    cursor: pointer;
+}
+
+.section-divider {
+    border-top: 1px solid rgba(0,0,0,0.1);
+    margin: 0;
+}
+</style>
