@@ -55,36 +55,158 @@
         #scrollingMenu a:focus, #scrollingHiddenMenu a:focus {
             outline: none;
         }
+        /* 버튼 스타일 수정 */
+        #buttonSection .btn {
+            border: none;
+            padding: 8px 12px;
+            margin: 0 6px;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        #buttonSection .btn:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+
+        #shareOptions {
+            min-width: 120px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1050;
+        }
+
+        #shareOptions .btn-link {
+            width: 100%;
+            text-align: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        /* 햄버거 메뉴 스타일 */
+        #hamburgerMenu {
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1050;
+            right: -12px !important;
+        }
+
+        #hamburgerMenu .nav-link {
+            padding: 8px 16px;
+            color: #333;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        #hamburgerMenu .nav-link:hover {
+            background-color: #f8f9fa;
+        }
+
+        #hamburgerMenu .nav-link.active {
+            color: #007bff;
+            font-weight: bold;
+            background-color: #f8f9fa;
+        }
     </style>
     
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const activeLink = document.querySelector("#scrollingMenu a.active");
-            if (activeLink) {
-                activeLink.scrollIntoView({ behavior: "auto", block: "nearest", inline: "center" });
+        // JavaScript for showing/hiding the hidden menu bar and share options
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('scroll', function() {
+                const hiddenMenuBar = document.getElementById('hiddenMenuBar');
+                if (window.scrollY > 100) {
+                    hiddenMenuBar.style.display = 'flex';
+                } else {
+                    hiddenMenuBar.style.display = 'none';
+                }
+            });
+    
+            // Scroll to Top Button Functionality
+            const scrollTopButton = document.getElementById('scrollTopButton');
+            if (scrollTopButton) {
+                scrollTopButton.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             }
     
-            let lastScrollTop = 0;
-            window.addEventListener("scroll", function() {
-                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const hiddenMenuBar = document.getElementById("hiddenMenuBar");
-                const brandSection = document.getElementById("brandSection");
-                
-                if (scrollTop > 100) {
-                    hiddenMenuBar.style.display = "block";
-                } else {
-                    hiddenMenuBar.style.display = "none";
+            // Share Button Functionality
+            const shareButton = document.getElementById('shareButton');
+            const shareOptions = document.getElementById('shareOptions');
+            if (shareButton && shareOptions) {
+                shareButton.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    shareOptions.style.display = shareOptions.style.display === 'none' ? 'block' : 'none';
+                    // 햄버거 메뉴가 열려있다면 닫기
+                    if (hamburgerMenu) {
+                        hamburgerMenu.style.display = 'none';
+                    }
+                });
+            }
+
+            // Hamburger Button Functionality
+            const hamburgerButton = document.getElementById('hamburgerButton');
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            
+            if (hamburgerButton && hamburgerMenu) {
+                hamburgerButton.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    hamburgerMenu.style.display = hamburgerMenu.style.display === 'none' ? 'block' : 'none';
+                    // 공유 메뉴가 열려있다면 닫기
+                    if (shareOptions) {
+                        shareOptions.style.display = 'none';
+                    }
+                });
+            }
+
+            // Close menus when clicking outside
+            document.addEventListener('click', function(event) {
+                if (shareOptions && !shareButton.contains(event.target) && !shareOptions.contains(event.target)) {
+                    shareOptions.style.display = 'none';
                 }
-                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-    
-                // Update scroll progress bar
-                const scrollProgressBar = document.getElementById("scrollProgressBar");
-                const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const progress = (scrollTop / totalHeight) * 100;
-                scrollProgressBar.style.width = progress + "%";
+                if (hamburgerMenu && !hamburgerButton.contains(event.target) && !hamburgerMenu.contains(event.target)) {
+                    hamburgerMenu.style.display = 'none';
+                }
+            });
+
+            // Share button functionality
+            document.getElementById('shareX').addEventListener('click', function() {
+                showToast('Shared to X');
+            });
+            document.getElementById('shareFacebook').addEventListener('click', function() {
+                showToast('Shared to Facebook');
+            });
+            document.getElementById('shareUrl').addEventListener('click', function() {
+                navigator.clipboard.writeText(window.location.href).then(function() {
+                    showToast('URL copied to clipboard');
+                });
             });
         });
+
+        // Function to show toast messages
+        function showToast(message) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastElement = document.createElement('div');
+            toastElement.className = 'toast align-items-center text-bg-primary border-0 show';
+            toastElement.setAttribute('role', 'alert');
+            toastElement.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            toastContainer.appendChild(toastElement);
+
+            // Automatically remove toast after 3 seconds
+            setTimeout(function() {
+                toastElement.remove();
+            }, 3000);
+        }
     </script>
+    
+    
 
     
 
@@ -95,44 +217,77 @@
 
 <body class="{% if page.url == "/" %} homefirstpage {% endif %}">
 
-<!-- Navbar -->
-<nav id="MagicMenu" class="topnav navbar navbar-light bg-white" >
-    <div class="container flex-column">
-        <!-- Logo Section -->
-        <div id="brandSection" class="text-center w-100 py-3 border-bottom">
-            <a class="navbar-brand" href="{{ site.baseurl }}/"><strong>{{site.name}}</strong></a>
-        </div>
-        
-        <!-- Menu Section -->
-        <div class="w-100">
-            <div id="scrollingMenu" class="d-flex overflow-auto py-2 justify-content-start">
-                <ul class="navbar-nav d-flex flex-row mx-auto">
-                    {% include menu-header.html %}
-                </ul>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Hidden Menu Bar -->
-    <div id="hiddenMenuBar" class="topnav navbar navbar-light bg-light fixed-top" style="display: none;">
+    <nav id="MagicMenu" class="topnav navbar navbar-light bg-white">
         <div class="container flex-column">
+            <!-- Logo Section -->
+            <div id="brandSection" class="text-center w-100 py-3 border-bottom">
+                <a class="navbar-brand" href="{{ site.baseurl }}/"><strong>{{site.name}}</strong></a>
+            </div>
+    
+            <!-- Menu Section -->
             <div class="w-100">
-                <div id="scrollingHiddenMenu" class="d-flex overflow-auto py-2 justify-content-start">
+                <div id="scrollingMenu" class="collapse navbar-collapse d-flex overflow-auto py-2 justify-content-start">
                     <ul class="navbar-nav d-flex flex-row mx-auto">
                         {% include menu-header.html %}
                     </ul>
                 </div>
-                <!-- Scroll Progress Bar Inside Hidden Menu Bar -->
-                <div id="scrollProgressBar" style="height: 5px; background-color: #007bff; width: 0;"></div>
+            </div>
+        </div>
+    <!-- Hidden Menu Bar (Updated) -->
+    <div id="hiddenMenuBar" class="topnav navbar navbar-light bg-light fixed-top" style="display: none;">
+        <div class="container d-flex justify-content-between align-items-center py-2">
+            <!-- Title Section -->
+            <div id="hiddenTitle" class="text-truncate" style="max-width: 60%;">
+                <strong>{{page.title}}</strong>
+            </div>
+
+            <!-- Buttons Section -->
+            <div id="buttonSection" class="d-flex align-items-center">
+                <!-- Scroll to Top Button -->
+                <button id="scrollTopButton" class="btn">
+                    <i class="fas fa-arrow-up"></i>
+                </button>
+
+                <!-- Share Button -->
+                <div id="shareButtonContainer" class="position-relative">
+                    <button id="shareButton" class="btn">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+
+                    <!-- Hidden Share Options -->
+                    <div id="shareOptions" class="position-absolute bg-white shadow p-2" style="display: none; top: 120%; right: 0;">
+                        <button id="shareX" class="btn btn-link">
+                            <i class="fa-brands fa-x-twitter"></i> X
+                        </button>
+                        <button id="shareFacebook" class="btn btn-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button id="shareUrl" class="btn btn-link">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+
+               <!-- Hamburger Menu -->
+               <div id="hamburgerButtonContainer" class="position-relative">
+                <button id="hamburgerButton" class="btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Hidden Hamburger Menu -->
+                <div id="hamburgerMenu" class="position-absolute bg-white shadow p-2" style="display: none; top: 120%; right: 0;">
+                    <ul class="navbar-nav">
+                        {% include menu-header.html %}
+                    </ul>
+                </div>
+            </div>
+
             </div>
         </div>
     </div>
-</nav>
-
-
-
-
-
+    </nav>
+    
+    <div id="toastContainer" class="position-fixed p-3" style="z-index: 11; bottom: 20px; left: 50%; transform: translateX(-50%);"></div>
 
     <!-- Search Results -->
     <div id="lunrsearchresults">
