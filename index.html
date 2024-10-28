@@ -11,15 +11,17 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
         <div class="col-lg-6 p-2">
             <article class="main-news card">
                 {% assign latest_post = site.posts.first %}
-                <div class="main-image">
-                    {% if latest_post.image %}
-                    <img src="{% if latest_post.image contains "://" %}{{ latest_post.image }}{% else %}{{ latest_post.image | absolute_url }}{% endif %}" alt="{{ latest_post.title }}">
-                    {% endif %}
-                </div>
-                <div class="card-body">
-                    <h2 class="news-title">{{ latest_post.title }}</h2>
-                    <p class="news-excerpt">{{ latest_post.excerpt | strip_html | slice: 0, 100 }}...</p>
-                </div>
+                <a href="{{ latest_post.permalink | default: latest_post.url }}" class="text-decoration-none text-dark">
+                    <div class="main-image">
+                        {% if latest_post.image %}
+                        <img src="{% if latest_post.image contains "://" %}{{ latest_post.image }}{% else %}{{ latest_post.image | absolute_url }}{% endif %}" alt="{{ latest_post.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h2 class="news-title">{{ latest_post.title }}</h2>
+                        <p class="news-excerpt">{{ latest_post.excerpt | strip_html | slice: 0, 100 }}...</p>
+                    </div>
+                </a>
             </article>
         </div>
 
@@ -28,17 +30,19 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
             <div class="card">
                 {% for post in site.posts limit:3 offset:1 %}
                 <article class="sub-news">
-                    <div class="sub-news-wrap">
-                        <div class="text-content">
-                            <h3 class="title">{{ post.title }}</h3>
-                            <p class="excerpt">{{ post.excerpt | strip_html | slice: 0, 50 }}...</p>
+                    <a href="{{ post.permalink | default: post.url }}" class="text-decoration-none text-dark">
+                        <div class="sub-news-wrap">
+                            <div class="text-content">
+                                <h3 class="title">{{ post.title }}</h3>
+                                <p class="excerpt">{{ post.excerpt | strip_html | slice: 0, 50 }}...</p>
+                            </div>
+                            {% if post.image %}
+                            <div class="image-wrap">
+                                <img src="{% if post.image contains "://" %}{{ post.image }}{% else %}{{ post.image | absolute_url }}{% endif %}" alt="{{ post.title }}">
+                            </div>
+                            {% endif %}
                         </div>
-                        {% if post.image %}
-                        <div class="image-wrap">
-                            <img src="{% if post.image contains "://" %}{{ post.image }}{% else %}{{ post.image | absolute_url }}{% endif %}" alt="{{ post.title }}">
-                        </div>
-                        {% endif %}
-                    </div>
+                    </a>
                 </article>
                 {% unless forloop.last %}
                 <hr class="m-0">
@@ -59,7 +63,7 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
     <div class="row g-0">
         <!-- 전체 기사 -->
         <div class="col-lg-6 p-2">
-            {% include all-posts.html %}
+전체
         </div>
 
         <!-- 추천 기사 -->
