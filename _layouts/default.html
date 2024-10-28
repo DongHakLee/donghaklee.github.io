@@ -15,12 +15,13 @@
 
     <!-- Google Fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 
     <!-- Bootstrap Modified -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
     <!-- Theme Stylesheet -->
-    <!-- <link rel="stylesheet" href="{{site.baseurl}}/assets/css/theme.css"> -->
+    <link rel="stylesheet" href="{{site.baseurl}}/assets/css/main.css">
 
     <!-- Jquery on header to make sure everything works, the rest  of the scripts in footer for fast loading -->
     <script
@@ -29,86 +30,7 @@
     crossorigin="anonymous"></script>
 
     <style>
-        #scrollingMenu, #scrollingHiddenMenu {
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: auto;
-        }
-        #scrollingMenu ul, #scrollingHiddenMenu ul {
-            padding-left: 0;
-            margin: 0;
-        }
-        #scrollingMenu li, #scrollingHiddenMenu li {
-            list-style: none;
-            margin-right: 20px;
-        }
-        #scrollingMenu a, #scrollingHiddenMenu a {
-            text-decoration: none;
-            color: #000;
-            padding: 5px 10px;
-        }
-        #scrollingMenu a.active, #scrollingHiddenMenu a.active {
-            font-weight: bold;
-            color: #007bff;
-            border-bottom: 2px solid #007bff;
-        }
-        #scrollingMenu a:focus, #scrollingHiddenMenu a:focus {
-            outline: none;
-        }
-        /* 버튼 스타일 수정 */
-        #buttonSection .btn {
-            border: none;
-            padding: 8px 12px;
-            margin: 0 6px;
-            background: transparent;
-            transition: all 0.3s ease;
-        }
 
-        #buttonSection .btn:hover {
-            background-color: rgba(0, 123, 255, 0.1);
-            color: #007bff;
-        }
-
-        #shareOptions {
-            min-width: 120px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1050;
-        }
-
-        #shareOptions .btn-link {
-            width: 100%;
-            text-align: left;
-            padding: 8px 16px;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
-
-        /* 햄버거 메뉴 스타일 */
-        #hamburgerMenu {
-            min-width: 200px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1050;
-            right: -12px !important;
-        }
-
-        #hamburgerMenu .nav-link {
-            padding: 8px 16px;
-            color: #333;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-        }
-
-        #hamburgerMenu .nav-link:hover {
-            background-color: #f8f9fa;
-        }
-
-        #hamburgerMenu .nav-link.active {
-            color: #007bff;
-            font-weight: bold;
-            background-color: #f8f9fa;
-        }
     </style>
     
     <script>
@@ -182,6 +104,39 @@
                     showToast('URL copied to clipboard');
                 });
             });
+
+            // 초기 로드 시 - 애니메이션 없이 즉시 이동
+            const activeMenuItem = document.querySelector('#scrollingMenu .nav-link.active');
+            const scrollingMenu = document.querySelector('#scrollingMenu');
+            
+            if (activeMenuItem && scrollingMenu) {
+                const scrollPosition = activeMenuItem.offsetLeft - scrollingMenu.offsetLeft - 
+                    (scrollingMenu.offsetWidth / 2) + (activeMenuItem.offsetWidth / 2);
+                scrollingMenu.scrollLeft = scrollPosition;
+            }
+
+            // 메뉴 클릭 시 처리
+            const menuItems = document.querySelectorAll('#scrollingMenu .nav-link');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    // 기존 active 클래스 제거
+                    menuItems.forEach(menuItem => {
+                        menuItem.classList.remove('active');
+                    });
+                    
+                    // 클릭된 항목에 active 클래스 추가
+                    this.classList.add('active');
+                    
+                    // 중앙으로 스크롤
+                    const scrollPosition = this.offsetLeft - scrollingMenu.offsetLeft - 
+                        (scrollingMenu.offsetWidth / 2) + (this.offsetWidth / 2);
+                    
+                    scrollingMenu.scrollTo({
+                        left: scrollPosition,
+                        behavior: 'smooth'
+                    });
+                });
+            });
         });
 
         // Function to show toast messages
@@ -205,34 +160,31 @@
             }, 3000);
         }
     </script>
-    
-    
-
-    
 
     {% include tracking-header.html %}
-
 
 </head>
 
 <body class="{% if page.url == "/" %} homefirstpage {% endif %}">
 
-    <nav id="MagicMenu" class="topnav navbar navbar-light bg-white">
-        <div class="container flex-column">
-            <!-- Logo Section -->
-            <div id="brandSection" class="text-center w-100 py-3 border-bottom">
-                <a class="navbar-brand" href="{{ site.baseurl }}/"><strong>{{site.name}}</strong></a>
+    <nav id="MagicMenu" class="topnav navbar navbar-light bg-white nav-down px-0">
+        <div class="container-fluid px-0">
+            <!-- 로고 섹션 -->
+            <div id="brandSection" class="w-100 py-3 border-bottom text-center">
+                <a class="navbar-brand" href="{{ site.baseurl }}/">{{site.name}}</a>
             </div>
-    
-            <!-- Menu Section -->
+
+            <!-- 메뉴 섹션 -->
             <div class="w-100">
-                <div id="scrollingMenu" class="collapse navbar-collapse d-flex overflow-auto py-2 justify-content-start">
+                <div id="scrollingMenu" class="d-flex overflow-auto py-2">
                     <ul class="navbar-nav d-flex flex-row mx-auto">
                         {% include menu-header.html %}
                     </ul>
                 </div>
             </div>
         </div>
+    </nav>
+    
     <!-- Hidden Menu Bar (Updated) -->
     <div id="hiddenMenuBar" class="topnav navbar navbar-light bg-light fixed-top" style="display: none;">
         <div class="container d-flex justify-content-between align-items-center py-2">
