@@ -7,6 +7,9 @@ baseurl: ''
 disqus: 'demowebsite'
 email: 'leedongja111@gmail.com'
 mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
+menu_name_company: '매체 소개'
+menu_name_contact: '문의하기'
+menu_name_terms: '이용약관'
 
 include: ["_pages"]
 
@@ -62,6 +65,13 @@ pagination:
   sort_field: date
   sort_reverse: true
 
+company:
+  name: "ABC뉴스"
+  ceo: "홍길동"
+  registration_number: "123-45-67890"
+  address: "서울특별시 강남구 테헤란로 123"
+  phone: "02-1234-5678"
+  email: "contact@abcnews.co.kr"
 
 
 # Exclude metadata and development time dependencies (like Grunt plugins)

@@ -30,7 +30,51 @@
     crossorigin="anonymous"></script>
 
     <style>
+    #dsMenuDiv {
+        background-color: black;
+    }
 
+    /* active 상태: 흰색 배경, 검은색 글씨 */
+    #scrollingMenu .nav-link.active {
+        background-color: white;
+        color: black;
+        text-decoration: none;
+    }
+    #scrollingMenu .nav-link.hover {
+        text-decoration: none;
+        font-size: 1.1rem; /* 글자 크기 키움 */
+    }
+
+
+    #scrollingMenu .nav-link {
+        color: white;
+        /*
+        padding: 10px 15px;
+        margin: 0 5px;
+        */
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    /* hover 상태: 흰색 배경, 검은색 글씨 */
+    #scrollingMenu .nav-link:hover {
+        background-color: white;
+        color: black;
+    }
+
+    /* active 상태: 흰색 배경, 검은색 글씨 */
+    #scrollingMenu .nav-link.active {
+        background-color: white;
+        color: black;
+    }
+    #scrollingMenu .nav-link span {
+        margin-left: 23px;
+        margin-right: 23px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
     </style>
     
     <script>
@@ -175,8 +219,8 @@
             </div>
 
             <!-- 메뉴 섹션 -->
-            <div class="w-100">
-                <div id="scrollingMenu" class="d-flex overflow-auto py-2">
+            <div id="dsMenuDiv" class="w-100">
+                <div id="scrollingMenu" class="d-flex overflow-auto px-2">
                     <ul class="navbar-nav d-flex flex-row mx-auto">
                         {% include menu-header.html %}
                     </ul>
@@ -259,23 +303,30 @@
 
     <script src="{{site.baseurl}}/assets/js/theme.js"></script>
 
-
     <!-- Footer -->
     <footer class="bg-white border-top p-3 text-muted small">
         <div class="container">
-        <div class="row align-items-center justify-content-between">
-            <div>
-                <span class="navbar-brand mr-2 mb-0"><strong>{{site.name}}</strong></span>
-                <span>Copyright © <script>document.write(new Date().getFullYear())</script>.</span>
-
-                <!--  Github Repo Star Btn-->
-                <!-- <a class="text-dark ml-1" target="_blank" href="https://github.com/wowthemesnet/mundana-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a> -->
-
+            <div class="row align-items-center justify-content-between">
+                <div>
+                    <span class="navbar-brand mr-2 mb-0"><strong>{{site.name}}</strong></span>
+                    <span>© {{site.name}}. All rights reserved.</span>
+                </div>
+                <div>
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="/about-us" class="text-muted">{{site.menu_name_company}}</a></li>
+                        <li class="list-inline-item"><a href="/terms-of-service" class="text-muted">{{site.menu_name_terms}}</a></li>
+                        <li class="list-inline-item"><a href="/contact-us" class="text-muted">{{site.menu_name_contact}}</a></li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                Made with <a target="_blank" class="text-dark font-weight-bold" href="https://www.wowthemes.net/mundana-jekyll-theme/"> Mundana Jekyll Theme </a> by <a class="text-dark" target="_blank" href="https://www.wowthemes.net">WowThemes</a>.
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p class="mb-0">
+                        대표자: {{site.company.ceo}} | 사업자 등록번호: {{site.company.registration_number}}<br>
+                        주소: {{site.company.address}} | 전화: {{site.company.phone}} | 이메일: {{site.company.email}}
+                    </p>
+                </div>
             </div>
-        </div>
         </div>
     </footer>
 

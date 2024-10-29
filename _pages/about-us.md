@@ -1,7 +1,7 @@
 ---
-title: "About"
+title: "About Us"
 layout: page-sidebar
-permalink: "/about.html"
+permalink: "/about-us"
 image: "/assets/images/screenshot.jpg"
 comments: true
 ---

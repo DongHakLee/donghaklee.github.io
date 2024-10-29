@@ -62,7 +62,6 @@ p {
 }
 #scrollingMenu li, #scrollingHiddenMenu li {
   list-style: none;
-  margin-right: 20px;
 }
 #scrollingMenu a, #scrollingHiddenMenu a {
   text-decoration: none;
@@ -71,8 +70,6 @@ p {
 }
 #scrollingMenu a.active, #scrollingHiddenMenu a.active {
   font-weight: bold;
-  color: #007bff;
-  border-bottom: 2px solid #007bff;
 }
 #scrollingMenu a:focus, #scrollingHiddenMenu a:focus {
   outline: none;
@@ -130,4 +127,10 @@ p {
   color: #007bff;
   font-weight: bold;
   background-color: #f8f9fa;
+}
+
+
+
+#brandSection {
+  border-bottom: 0px !important;
 }
