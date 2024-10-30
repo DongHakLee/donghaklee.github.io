@@ -1,24 +1,12 @@
 ---
 layout: default
 ---
-<style>
-article.article-post figure {
-    margin: 2em 0;
-}
-
-article.article-post figcaption {
-    margin-top: 0.5em;
-    color: #666;
-    font-size: 0.9em;
-    text-align: center;
-}
-</style>
 {% assign author = site.authors[page.author] %}
 <div class="container">
     <div class="content-header mb-3 pl-0 pt-0 pb-0 bg-white position-relative">
         <div class="h-100 tofront">
 			<div class="row justify-content-center">
-				<div class="col-md-10 pr-0 pr-md-4 pt-4 pb-4 align-self-center">
+				<div class="col-md-10 pt-4 pb-4 align-self-center">
                     <p class="text-uppercase font-weight-bold">
                         <span class="catlist">
                             {% for category in page.categories %}
@@ -26,7 +14,7 @@ article.article-post figcaption {
                             {% endfor %}
                         </span>
                     </p>
-                    <h1 class="display-4 mb-4 article-headline">{{ page.title }}</h1>
+                    <h1 class="display-5 mb-4 article-headline">{{ page.title }}</h1>
                     <div class="d-flex align-items-center">
                         <small class="ml-3"> {{ author.name }}
                             <span class="text-muted d-block mt-1">{{ page.date | date: '%b %d, %Y' }} · {% include meta-read-time.html %}</span>
@@ -67,6 +55,7 @@ article.article-post figcaption {
 			</div>
 		</div>
         
+
 		<div class="col-md-12 col-lg-8">
             
 			<article class="article-post">
