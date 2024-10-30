@@ -25,32 +25,15 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
                         <a href="{{ latest_post.permalink | default: latest_post.url }}" class="text-decoration-none text-dark mb-3">
                             <div class="card-body">
                                 <h2 class="news-title">{{ latest_post.title }}</h2>
-                                <p class="news-excerpt">{{ latest_post.excerpt }}</p>
+                                <p class="news-date text-muted">{{ latest_post.date | date: "%Y년 %m월 %d일" }}</p>
                             </div>
                         </a>
-                        
-                        <!-- 최근글 2개 추가 -->
-<!-- 최근글 2개 -->
-<div class="recent-posts">
-    <ul class="styled-list">
-        {% assign recent_posts = site.posts | slice: 1, 2 %}
-        {% for post in recent_posts %}
-        <li class="recent-post-item">
-            <a href="{{ post.permalink | default: post.url }}" class="text-decoration-none text-dark">
-                {{ post.title }}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
                     </div>
                 </div>
             </article>
         </div>
     </div>
 </div>
-
-
 
 <!-- 구분선 -->
 <div class="container container-sm-fluid my-4">
@@ -75,64 +58,37 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
 <style>
 /* 메인 뉴스 제목 크기 및 줄 간격 조정 */
 .main-news .news-title {
-  font-size: 1.5rem; /* 기존보다 더 크게 설정 */
-  font-weight: bold; /* 강조 효과 */
-  line-height: 1.3; /* 줄 간격을 넓혀 가독성 향상 */
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.3;
+    margin-bottom: 0.5rem; /* 제목과 날짜 사이 간격 */
 }
-/* 메인 뉴스 */
+
+/* 날짜 스타일 */
+.main-news .news-date {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* 메인 뉴스 이미지 */
 .main-news .main-image {
-  height: 0;
-  padding-bottom: 70%;
-  overflow: hidden;
-  position: relative;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 비율로 변경 */
+    overflow: hidden;
+    position: relative;
 }
 
 .main-news .main-image img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
 .main-news:hover .main-image img {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
-
-/* news-excerpt 스타일링 */
-.news-excerpt {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 4; /* 최대 라인 수를 설정하여 텍스트가 넘칠 때만 ... 표시 */
-  line-height: 1.5;
-  max-height: calc(1.5em * 4); /* line-height와 최대 라인 수를 곱해서 높이 제한 설정 */
-}
-
-/* 스타일된 목록 */
-.styled-list {
-  list-style-type: none; /* 기본 점 스타일 제거 */
-  padding-left: 1.5rem; /* 왼쪽에 여백 추가 */
-}
-
-.styled-list .recent-post-item {
-  position: relative;
-  padding-left: 1.5rem; /* 항목 왼쪽 공간 확보 */
-  margin-bottom: 0.5rem; /* 항목 간의 간격 */
-}
-
-.styled-list .recent-post-item::before {
-  content: "•"; /* 점 대신 다른 스타일의 점 사용 */
-  position: absolute;
-  left: 0; /* 점을 왼쪽에 배치 */
-  top: 50%; /* 점의 수직 위치 중앙으로 설정 */
-  transform: translateY(-50%); /* 수직 정렬 보정 */
-  font-size: 1.2rem; /* 점 크기 */
-  color: #007bff; /* 점 색상 변경 */
-}
-
-
 </style>

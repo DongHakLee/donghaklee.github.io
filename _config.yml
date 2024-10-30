@@ -11,6 +11,10 @@ menu_name_company: '매체 소개'
 menu_name_contact: '문의하기'
 menu_name_terms: '이용약관'
 
+kramdown:
+  parse_block_html: true
+  syntax_highlighter: rouge
+
 include: ["_pages"]
 
 # Plugins
@@ -47,6 +51,8 @@ defaults:
       layout: post
       author: sal
       avatar: /assets/images/avatar1.jpg
+      image_converter:
+        enabled: true
 
   # all pages
   - scope:
@@ -64,6 +70,7 @@ pagination:
   per_page: 5  # 전역 per_page 설정
   sort_field: date
   sort_reverse: true
+  
 
 company:
   name: "ABC뉴스"
