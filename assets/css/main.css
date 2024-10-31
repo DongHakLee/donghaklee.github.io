@@ -133,6 +133,11 @@ p {
   border-bottom: 0px !important;
 }
 
+
+.main-news.card{
+  border: 0px;
+}
+
 #article_div{
   padding-left: 0px;
   padding-right: 0px;
@@ -176,4 +181,8 @@ figcaption {
 .px-0 {
   padding-left: 0px !important;
   padding-right: 0px !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
 }
