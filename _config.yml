@@ -1,6 +1,6 @@
 # Site
-name: '누리뉴스'
-description: '최신 이슈, 심층 보도, 그리고 독자와 세상을 연결하는 누리뉴스입니다.'
+name: '도담뉴스'
+description: '최신 이슈, 심층 보도, 그리고 독자와 세상을 연결하는 도담뉴스입니다.'
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
@@ -11,9 +11,7 @@ menu_name_company: '매체 소개'
 menu_name_contact: '문의하기'
 menu_name_terms: '이용약관'
 
-kramdown:
-  parse_block_html: true
-  syntax_highlighter: rouge
+remove_generator_tag: false # 커스텀 generator 정보를 사용하려면
 
 include: ["_pages"]
 
