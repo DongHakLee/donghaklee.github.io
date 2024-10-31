@@ -5,10 +5,10 @@ pagination:
     enabled: true
 description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신뢰할 수 있는 소식을 제공합니다."
 ---
-<div class="container-fluid mt-4 px-0">
+<div class="container-fluid px-0">
     <div class="row justify-content-center px-0 mx-0">
         <!-- 메인 뉴스 -->
-        <div class="col-lg-9 px-0">
+        <div class="col-md-12 mw-880 px-0 mx-0">
             <article class="main-news card">
                 {% assign latest_post = site.posts.first %}
                 <div class="row px-0 mx-0">
@@ -23,7 +23,7 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
                     <!-- 본문과 최근글 섹션 -->
                     <div class="col-md-6 order-md-1 d-flex flex-column">
                         <a href="{{ latest_post.permalink | default: latest_post.url }}" class="text-decoration-none text-dark mb-3">
-                            <div class="card-body">
+                            <div class="card-body px-0">
                                 <h2 class="news-title">{{ latest_post.title }}</h2>
                                 <p class="news-date text-muted">{{ latest_post.date | date: "%Y년 %m월 %d일" }}</p>
                             </div>
