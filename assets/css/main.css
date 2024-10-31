@@ -167,3 +167,13 @@ figcaption {
   padding: 8px 0;
   font-style: italic;
 }
+
+.mx-0 {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.px-0 {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
