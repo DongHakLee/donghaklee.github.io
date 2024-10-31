@@ -33,9 +33,28 @@ layout: default
 	<div class="row justify-content-center">
 		<div class="col-md-10">
             
-			<article class="article-post">
-				{{ content }}
-			</article>
+            {% assign content_with_figure = content | replace: '<img', '||TEMP_IMG||' %}
+            {% assign content_with_figure = content_with_figure | replace: '<p><||TEMP_IMG||', '<figure><img' %}
+            {% assign content_with_figure = content_with_figure | replace: '||TEMP_IMG||', '<figure><img' %}
+            
+            {% assign splits = content_with_figure | split: 'alt="' %}
+            {% assign final_content = '' %}
+            {% for split in splits %}
+              {% if forloop.first %}
+                {% assign final_content = split %}
+              {% else %}
+                {% assign text_and_rest = split | split: '"' %}
+                {% assign alt_text = text_and_rest | first %}
+                {% assign rest_content = text_and_rest | slice: 1, text_and_rest.size | join: '"' %}
+                {% assign final_content = final_content | append: '" alt="' | append: alt_text | append: '" title="' | append: alt_text | append: '"><figcaption>' | append: alt_text | append: '</figcaption></figure>' %}
+                {% assign rest_content = rest_content | replace: '/>', '' %}
+                {% assign final_content = final_content | append: rest_content %}
+              {% endif %}
+            {% endfor %}
+            
+            <article class="article-post">
+            {{ final_content }}
+            </article>
 			
 			
             

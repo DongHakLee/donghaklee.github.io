@@ -129,19 +129,16 @@ p {
   background-color: #f8f9fa;
 }
 
-
-
 #brandSection {
   border-bottom: 0px !important;
 }
-
 
 #article_div{
   padding-left: 0px;
   padding-right: 0px;
 }
 
-.article-post {
+.article-post p {
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -150,4 +147,23 @@ p {
     max-width: 100%;
     height: auto;
     display: block;
+}
+
+figure {
+  margin: 1.5em 0;
+  text-align: center;
+}
+
+figure > img {
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+figcaption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  padding: 8px 0;
+  font-style: italic;
 }
