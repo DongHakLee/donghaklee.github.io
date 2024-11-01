@@ -1,3 +1,28 @@
+<!-- Bootstrap Icons을 포함 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
+<style>
+    /* input에 포커스 시 검은색 그림자 */
+    input:focus, textarea:focus {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        border-color: black;
+    }
+
+    /* label 스타일 */
+    .form-label {
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    /* 글자 수 표시 스타일 */
+    .char-count {
+        font-size: 0.8rem;
+        color: #666;
+        text-align: right;
+    }
+</style>
+
 <div id="comments" class="mt-5">
     <h3>Comments</h3>
     
@@ -6,32 +31,39 @@
 
     <!-- 댓글 작성 폼 -->
     <form id="comment-form" class="mb-3">
-        <input type="hidden" id="post_id" value="123"> <!-- 게시물 ID 설정 -->
-        <div class="form-group">
-            <label for="user_name">Name:</label>
-            <input type="text" class="form-control" id="user_name" required>
+        <input type="hidden" id="post_id" value="123">
+        
+        <!-- 이름과 비밀번호 행 -->
+        <div class="form-row row">
+            <div class="col-md-6 mb-3">
+                <label for="user_name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="user_name" placeholder="Enter your name" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter a password" required>
+                <small class="form-text text-muted">Use this password to delete your comment later.</small>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="comment">Comment:</label>
-            <textarea class="form-control" id="comment" rows="3" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" required>
-            <small class="form-text text-muted">Use this password to delete your comment later.</small>
+
+        <!-- 댓글 내용 행 -->
+        <div class="form-group mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea class="form-control" id="comment" rows="3" placeholder="Write your comment here" maxlength="500" required></textarea>
+            <div class="char-count"><span id="char-count">0</span> / 500</div>
         </div>
         
         <!-- CAPTCHA 이미지 -->
         <div id="captcha-section" class="form-group d-none">
-            <label for="captcha">Solve the CAPTCHA:</label>
-            <canvas id="captcha-canvas" width="150" height="50"></canvas>
-            <input type="number" class="form-control mt-2" id="captcha-answer" required>
+            <label for="captcha" class="form-label">Solve the CAPTCHA</label>
+            <canvas id="captcha-canvas" width="150" height="50" class="d-block mb-2"></canvas>
+            <input type="number" class="form-control mt-2" id="captcha-answer" placeholder="Enter CAPTCHA answer" required>
             <input type="hidden" id="captcha-id">
             <button type="button" class="btn btn-primary mt-2" id="verify-captcha-btn">Submit CAPTCHA</button>
         </div>
         
         <!-- 첫 번째 작성 버튼 -->
-        <button type="button" class="btn btn-primary" id="generate-captcha-btn">Submit</button>
+        <button type="button" class="btn btn-primary mt-3" id="generate-captcha-btn">Submit</button>
     </form>
     
     <!-- Toast 알림 -->
@@ -48,6 +80,18 @@
 
 <script type="text/javascript">
     const apiUrl = 'https://ep-core.mynews1237.workers.dev';
+
+    // 댓글 길이 제한과 현재 글자 수 표시
+    const commentTextarea = document.getElementById('comment');
+    const charCountDisplay = document.getElementById('char-count');
+
+    commentTextarea.addEventListener('input', () => {
+        const currentLength = commentTextarea.value.length;
+        if (currentLength > 500) {
+            commentTextarea.value = commentTextarea.value.slice(0, 500);
+        }
+        charCountDisplay.textContent = currentLength;
+    });
 
     // Toast 메시지 표시
     function showToast(message) {
@@ -67,6 +111,18 @@
         }
     }
 
+    // 한국식 날짜 형식 변환 함수
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleString('ko-KR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+    }
+
     // 댓글 목록 표시하기
     function displayComments(comments) {
         const commentsSection = document.getElementById('comments-section');
@@ -74,10 +130,18 @@
         comments.forEach(comment => {
             const commentElement = document.createElement('div');
             commentElement.classList.add("border", "p-3", "mb-2", "rounded");
+
             commentElement.innerHTML = `
-                <strong>${comment.user_name}</strong> <span class="text-muted">(${comment.created_at})</span><br>
-                <p>${comment.comment}</p>
-                <button class="btn btn-danger btn-sm mt-2" onclick="deleteComment(${comment.id})">Delete</button>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="bi bi-person-fill me-1"></i><strong>${comment.user_name}</strong>
+                    </div>
+                    <button class="btn btn-link p-0 m-0 text-decoration-none" onclick="deleteComment(${comment.id})">
+                        <i class="bi bi-trash" style="font-size: 1.2em;"></i>
+                    </button>
+                </div>
+                <small class="text-muted">${formatDate(comment.created_at)}</small>
+                <p class="mt-2">${comment.comment}</p>
             `;
             commentsSection.appendChild(commentElement);
         });
@@ -138,6 +202,7 @@
                 document.getElementById('captcha-section').classList.add('d-none');
                 document.getElementById('captcha-answer').value = ""; // 답변 초기화
                 document.getElementById('captcha-id').value = ""; // CAPTCHA ID 초기화
+                charCountDisplay.textContent = "0"; // 글자 수 초기화
             } else {
                 showToast('Incorrect CAPTCHA, please try again.');
                 document.getElementById('captcha-section').classList.add('d-none');

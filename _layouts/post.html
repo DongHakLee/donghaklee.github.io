@@ -55,6 +55,13 @@ layout: default
             <article class="article-post">
             {{ final_content }}
             </article>
+
+
+            <!-- Comments -->
+            {% if page.comments != false %}
+                {% include comments.html %}
+            {% endif %}
+
 			
 			
             
@@ -62,10 +69,6 @@ layout: default
 	</div>
 </div>
 
-            <!-- Comments -->
-            {% if page.comments != false %}
-                {% include comments.html %}
-            {% endif %}
 
 
 
