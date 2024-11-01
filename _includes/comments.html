@@ -1,23 +1,177 @@
-<!--  Don't edit anything here. Set your disqus id in _config.yml -->
-
 <div id="comments" class="mt-5">
-    <!--
-    <div id="disqus_thread">
+    <h3>Comments</h3>
+    
+    <!-- 댓글 목록 -->
+    <div id="comments-section" class="mb-4"></div>
+
+    <!-- 댓글 작성 폼 -->
+    <form id="comment-form" class="mb-3">
+        <input type="hidden" id="post_id" value="123"> <!-- 게시물 ID 설정 -->
+        <div class="form-group">
+            <label for="user_name">Name:</label>
+            <input type="text" class="form-control" id="user_name" required>
+        </div>
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" id="comment" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" required>
+            <small class="form-text text-muted">Use this password to delete your comment later.</small>
+        </div>
+        
+        <!-- CAPTCHA 이미지 -->
+        <div id="captcha-section" class="form-group d-none">
+            <label for="captcha">Solve the CAPTCHA:</label>
+            <canvas id="captcha-canvas" width="150" height="50"></canvas>
+            <input type="number" class="form-control mt-2" id="captcha-answer" required>
+            <input type="hidden" id="captcha-id">
+            <button type="button" class="btn btn-primary mt-2" id="verify-captcha-btn">Submit CAPTCHA</button>
+        </div>
+        
+        <!-- 첫 번째 작성 버튼 -->
+        <button type="button" class="btn btn-primary" id="generate-captcha-btn">Submit</button>
+    </form>
+    
+    <!-- Toast 알림 -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container">
+        <div id="toast-message" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"></div>
+        </div>
     </div>
-    <script type="text/javascript">
-        var disqus_shortname = '{{site.disqus}}'; 
-        var disqus_developer = 0;
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>
-    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-    </noscript>
-    -->
-    <pre>
-        comments
-    </pre>
 </div>
+
+<script type="text/javascript">
+    const apiUrl = 'https://mynews.taejonldh.workers.dev';
+
+    // Toast 메시지 표시
+    function showToast(message) {
+        alert(message);
+    }
+
+    // 댓글 목록 불러오기
+    async function fetchComments() {
+        const postId = document.getElementById('post_id').value;
+        try {
+            const response = await fetch(`${apiUrl}/comments?post_id=${postId}`);
+            const data = await response.json();
+            displayComments(data.results || []);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            showToast('Error fetching comments. Please try again.');
+        }
+    }
+
+    // 댓글 목록 표시하기
+    function displayComments(comments) {
+        const commentsSection = document.getElementById('comments-section');
+        commentsSection.innerHTML = '';
+        comments.forEach(comment => {
+            const commentElement = document.createElement('div');
+            commentElement.classList.add("border", "p-3", "mb-2", "rounded");
+            commentElement.innerHTML = `
+                <strong>${comment.user_name}</strong> <span class="text-muted">(${comment.created_at})</span><br>
+                <p>${comment.comment}</p>
+                <button class="btn btn-danger btn-sm mt-2" onclick="deleteComment(${comment.id})">Delete</button>
+            `;
+            commentsSection.appendChild(commentElement);
+        });
+    }
+
+    // CAPTCHA 생성
+    document.getElementById('generate-captcha-btn').addEventListener('click', async () => {
+        const user_name = document.getElementById('user_name').value;
+        const comment = document.getElementById('comment').value;
+        const post_id = document.getElementById('post_id').value;
+
+        try {
+            const response = await fetch(`${apiUrl}/generate-captcha`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ post_id, user_name, comment })
+            });
+            const data = await response.json();
+
+            // CAPTCHA 질문을 Canvas에 렌더링
+            const canvas = document.getElementById('captcha-canvas');
+            const context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
+            context.font = "20px Arial";
+            context.fillStyle = "black";
+            context.fillText(data.question, 10, 30);
+
+            document.getElementById('captcha-id').value = data.captchaId;
+            document.getElementById('captcha-section').classList.remove('d-none');
+        } catch (error) {
+            console.error('Error generating CAPTCHA:', error);
+            showToast('Error generating CAPTCHA. Please try again.');
+        }
+    });
+
+    // CAPTCHA 검증 및 댓글 저장
+    document.getElementById('verify-captcha-btn').addEventListener('click', async () => {
+        const captchaAnswer = document.getElementById('captcha-answer').value;
+        const captchaId = document.getElementById('captcha-id').value;
+        const post_id = document.getElementById('post_id').value;
+        const user_name = document.getElementById('user_name').value;
+        const comment = document.getElementById('comment').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch(`${apiUrl}/comments`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ post_id, user_name, comment, password, captchaId, captchaAnswer })
+            });
+            
+            if (response.ok) {
+                showToast('Comment added successfully!');
+                fetchComments();
+                
+                // 댓글 작성 폼과 CAPTCHA 초기화
+                document.getElementById('comment-form').reset();
+                document.getElementById('captcha-section').classList.add('d-none');
+                document.getElementById('captcha-answer').value = ""; // 답변 초기화
+                document.getElementById('captcha-id').value = ""; // CAPTCHA ID 초기화
+            } else {
+                showToast('Incorrect CAPTCHA, please try again.');
+                document.getElementById('captcha-section').classList.add('d-none');
+            }
+        } catch (error) {
+            console.error('Error verifying CAPTCHA:', error);
+            showToast('Error verifying CAPTCHA. Please try again.');
+        }
+    });
+
+    // 댓글 삭제
+    async function deleteComment(commentId) {
+        const password = prompt("Enter the password to delete this comment:");
+        if (!password) return;
+
+        try {
+            const response = await fetch(`${apiUrl}/comments`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ comment_id: commentId, password })
+            });
+
+            if (response.ok) {
+                showToast('Comment deleted successfully!');
+                fetchComments();
+            } else {
+                showToast('Incorrect password. Unable to delete the comment.');
+            }
+        } catch (error) {
+            console.error('Error deleting comment:', error);
+            showToast('Error deleting comment. Please try again.');
+        }
+    }
+
+    // 페이지 로드 시 댓글 목록 불러오기
+    fetchComments();
+</script>
