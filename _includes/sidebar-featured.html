@@ -1,21 +1,62 @@
 <div class="sticky-top sticky-top-offset">
-    <h4 class="font-weight-bold spanborder"><span>추천기사</span></h4>  
-    <ol class="list-featured">
-        {% for post in site.tags.featured %}
-            <li class="mb-4">
-            <span>
-                <h6 class="font-weight-bold">
-                    <a href="{{site.baseurl}}{{ post.url }}" class="text-dark">{{ post.title }}</a>
-                </h6>
-                <span class="d-block text-muted">
-                    In <span class="catlist">
-                    {% for category in post.categories %}
-                    <a class="text-capitalize text-muted smoothscroll" href="{{site.baseurl}}/{{ category | downcase }}">{{ category }}</a><span class="sep">, </span>
-                    {% endfor %}
+<h4 class="font-weight-bold spanborder"><span>추천기사</span></h4>
+<ol class="list-featured">
+        <li class="mb-4">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <span>
+                        <h6 class="font-weight-bold">
+                            <a href="/trend-issue/19841034" class="text-dark">있지도 않은 창문을 그리워한 이준석, 샌델 교수 배경 착각 해프닝 다시 화제</a>
+                        </h6>
+                        <span class="d-block text-muted">
+                            In <span class="catlist">
+                                <a class="text-capitalize text-muted smoothscroll" href="/trend-issue">트렌드/이슈</a>
+                            </span>
+                        </span>
                     </span>
-                </span>
-            </span>
-            </li>
-        {% endfor %}
-    </ol>
+                </div>
+                <div class="ml-3">
+                    <img src="http://res.cloudinary.com/dwgemrzfr/image/upload/v1730942388/ufu9sbh0zgntvim4gwna.png" class="rounded" width="120" height="80" />
+                </div>
+            </div>
+        </li>
+        <li class="mb-4">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <span>
+                        <h6 class="font-weight-bold">
+                            <a href="/culture-sports/66850953" class="text-dark">아시안게임 금메달리스트 사격 김예지, 파리 올림픽 국가대표 선발전에서 아쉽게 탈락</a>
+                        </h6>
+                        <span class="d-block text-muted">
+                            In <span class="catlist">
+                                <a class="text-capitalize text-muted smoothscroll" href="/culture-sports">문화/스포츠</a>
+                            </span>
+                        </span>
+                    </span>
+                </div>
+                <div class="ml-3">
+                    <img src="http://res.cloudinary.com/dwgemrzfr/image/upload/v1730935820/y7vlzbj0gbzj308fzszv.png" class="rounded" width="120" height="80" />
+                </div>
+            </div>
+        </li>
+        <li class="mb-4">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <span>
+                        <h6 class="font-weight-bold">
+                            <a href="/politics-economy/79078263" class="text-dark">법륜스님, 이재명 대표에게 의료대란·경제난 관련 민주당 책임 지적</a>
+                        </h6>
+                        <span class="d-block text-muted">
+                            In <span class="catlist">
+                                <a class="text-capitalize text-muted smoothscroll" href="/politics-economy">정치/경제</a>
+                            </span>
+                        </span>
+                    </span>
+                </div>
+                <div class="ml-3">
+                    <img src="http://res.cloudinary.com/dwgemrzfr/image/upload/v1730936160/dcspi21ntpy05yoba6k9.png" class="rounded" width="120" height="80" />
+                </div>
+            </div>
+        </li>
+</ol>
 </div>

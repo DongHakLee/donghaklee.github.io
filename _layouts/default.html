@@ -71,6 +71,19 @@
         margin-top: 12px;
         margin-bottom: 12px;
     }
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+
+    .pagination .page-item .page-link {
+        color: #007bff;
+    }
+
+    .pagination .page-item .page-link:hover {
+        background-color: #e9ecef;
+    }
     </style>
     
     <script>
@@ -331,5 +344,18 @@
     {% include tracking-footer.html %}
 
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const pageLinks = document.querySelectorAll(".page-link");
+    pageLinks.forEach(link => {
+        link.addEventListener("click", function () {
+            const loader = document.createElement("div");
+            loader.className = "spinner-border text-primary";
+            loader.setAttribute("role", "status");
+            document.body.appendChild(loader);
+        });
+    });
+});
+</script>
 
 </html>

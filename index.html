@@ -42,18 +42,32 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
 
 <!-- 하단 전체기사/추천기사 영역 -->
 <div class="container-fluid">
-    <div class="row g-0">
-        <!-- 전체 기사 -->
-        <div class="col-lg-6 p-2">
-전체
-        </div>
-
-        <!-- 추천 기사 -->
-        <div class="col-lg-6 p-2">
-            {% include sidebar-featured.html %}
+    <div class="mw-880 mx-auto">
+        <div class="row">
+            <!-- 전체 기사 -->
+            <div class="col-lg-6">
+                <div class="p-2">
+                    <h4 class="font-weight-bold spanborder"><span>All Stories</span></h4>
+            
+                    {% for post in paginator.posts %}
+                        {% include main-loop-card.html %}
+                    {% endfor %}
+                    
+                    <div class="mt-5 text-center">
+                        <a href="/all-stories" class="btn btn-primary px-5">전체 기사 보기</a>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- 추천 기사 -->
+            <div class="col-lg-6">
+                <div class="p-2">
+                    {% include sidebar-featured.html %}
+                </div>
+            </div>
         </div>
     </div>
-</div>
+ </div>
 
 <style>
 /* 메인 뉴스 제목 크기 및 줄 간격 조정 */

@@ -1,8 +1,8 @@
 ---
 layout: default
+title: "전체 기사 목록"
+description: "모든 게시물을 확인하세요. 최신 뉴스와 인기 기사를 한 곳에서 볼 수 있습니다."
 ---
-{% assign category_slug = page.category_slug %}
-
 <div class="container-fluid">
     <div class="mw-880 mx-auto">
         <div class="row">
@@ -19,7 +19,7 @@ layout: default
                             <ul class="pagination justify-content-center">
                                 {% if paginator.previous_page %}
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ site.baseurl }}/{{category_slug}}{% if paginator.previous_page != 1 %}/page/{{ paginator.previous_page }}{% endif %}" aria-label="Previous">
+                                    <a class="page-link" href="{{ site.baseurl }}{% if paginator.previous_page != 1 %}/page/{{ paginator.previous_page }}{% endif %}" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -32,14 +32,14 @@ layout: default
                                     </li>
                                     {% else %}
                                     <li class="page-item">
-                                        <a class="page-link" href="{{ site.baseurl }}/{{category_slug}}{% if page != 1 %}/page/{{ page }}{% endif %}">{{ page }}</a>
+                                        <a class="page-link" href="{{ site.baseurl }}{% if page != 1 %}/page/{{ page }}{% endif %}">{{ page }}</a>
                                     </li>
                                     {% endif %}
                                 {% endfor %}
 
                                 {% if paginator.next_page %}
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ site.baseurl }}/{{category_slug}}/page/{{ paginator.next_page }}" aria-label="Next">
+                                    <a class="page-link" href="{{ site.baseurl }}/page/{{ paginator.next_page }}" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
