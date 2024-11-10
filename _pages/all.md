@@ -1,11 +1,10 @@
 ---
-layout: all-page
+layout: category-page
 title: "전체기사"
 permalink: /all/
 pagination:
   enabled: true
   collection: posts
-  category: all
   permalink: /page/:num/
-category_slug: lifestyle
+category_slug: all
 ---
