@@ -1,45 +1,50 @@
 <div class="mb-5 d-flex main-loop-card align-items-start">
     {% if post.image %}
         <!-- 좌측 이미지 섹션 -->
-        <div class="image-container col-4 col-md-4 p-0 me-3 h-100">
+        <div class="image-container col-4 col-md-4 p-0 me-3">
             <a href="{{ site.baseurl }}{{ post.url }}" class="h-100 d-block">
-                <img class="cover-image w-100 h-100 object-fit-cover" src="{% if post.image contains '://' %}{{ post.image }}{% else %}{{ site.baseurl }}/{{ post.image }}{% endif %}" alt="{{ post.title }}">
+                <img class="cover-image object-fit-cover" src="{% if post.image contains '://' %}{{ post.image }}{% else %}{{ site.baseurl }}/{{ post.image }}{% endif %}" alt="{{ post.title }}">
             </a>
         </div>
     {% endif %}
 
     <!-- 우측 텍스트 섹션 -->
-    <div class="col-8 col-md-8 ps-2 pe-2">
+    <div class="col-8 col-md-8 ps-2 pe-2 d-flex flex-column" style="height: 100%;">
         <!-- 제목은 항상 표시 -->
         <h2 class="mb-1 h5 font-weight-bold">
             <a class="text-dark" href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
         </h2>
 
         <!-- 본문 내용과 카테고리는 데스크탑에서만 표시 -->
-        <div class="d-none d-md-block">
-            <p class="excerpt">
+        <div class="d-flex flex-column flex-grow-1">
+            <p class="excerpt d-none d-md-block">
                 {{ post.content | clean_excerpt | truncate: 95 }}
             </p>
-
-
-            <small class="text-muted d-block">
+        
+            <small class="text-muted d-block mt-auto">
                 <span class="catlist">
                     <a class="text-capitalize text-muted smoothscroll" href="/{{ post.categories[0] }}">{{ post.categories_name[0] }}</a>
                 </span> • <span class="timeago" data-date="{{ post.date | date: "%Y-%m-%d" }} {% if post.time %}{{ post.time | date: "%H:%M" }}{% endif %}"></span>
-                
-                <!-- 수정일: {{ post.last_modified_at | date: "%Y-%m-%d" }} {% if post.last_time %}{{ post.last_time | date: "%H:%M" }}{% endif %} -->
             </small>
         </div>
     </div>
 </div>
-
-<style>
-.image-container {
-    min-height: 120px;  /* 최소 높이 설정 */
-    max-height: 120px;  /* 최소 높이 설정 */
-}
-.cover-image {
-    height: 100%;
-    object-fit: cover;
-}
-</style>
+<script>
+document.querySelectorAll('.main-loop-card h2 a').forEach(title => {
+  title.addEventListener('mouseenter', () => {
+    const card = title.closest('.main-loop-card');
+    const image = card.querySelector('.cover-image');
+    if (image) {
+      image.style.transform = 'scale(1.1)';
+    }
+  });
+  
+  title.addEventListener('mouseleave', () => {
+    const card = title.closest('.main-loop-card');
+    const image = card.querySelector('.cover-image');
+    if (image) {
+      image.style.transform = 'scale(1)';
+    }
+  });
+});
+</script>

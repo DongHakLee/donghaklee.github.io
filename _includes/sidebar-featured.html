@@ -60,3 +60,23 @@
         </li>
 </ol>
 </div>
+<script>
+// 기존 코드에 추가
+document.querySelectorAll('.list-featured h6 a').forEach(title => {
+  title.addEventListener('mouseenter', () => {
+    const listItem = title.closest('li');
+    const image = listItem.querySelector('img');
+    if (image) {
+      image.style.transform = 'scale(1.1)';
+    }
+  });
+  
+  title.addEventListener('mouseleave', () => {
+    const listItem = title.closest('li');
+    const image = listItem.querySelector('img');
+    if (image) {
+      image.style.transform = 'scale(1)';
+    }
+  });
+});
+</script>

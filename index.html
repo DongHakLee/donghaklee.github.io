@@ -25,7 +25,18 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
                         <a href="{{ latest_post.permalink | default: latest_post.url }}" class="text-decoration-none text-dark mb-3">
                             <div class="card-body px-0">
                                 <h2 class="news-title">{{ latest_post.title }}</h2>
-                                <p class="news-date text-muted">{{ latest_post.date | date: "%Y년 %m월 %d일" }}</p>
+                                <p class="excerpt mb-2">
+                                    {{ latest_post.content | clean_excerpt | truncate: 180 }}
+                                </p>
+                    
+                    
+                                <small class="text-muted d-block">
+                                    <span class="catlist">
+                                        <a class="text-capitalize text-muted smoothscroll" href="/{{ latest_post.categories[0] }}">{{ latest_post.categories_name[0] }}</a>
+                                    </span> • <span class="timeago" data-date="{{ latest_post.date | date: "%Y-%m-%d" }} {% if latest_post.time %}{{ latest_post.time | date: "%H:%M" }}{% endif %}"></span>
+                                    
+                                    <!-- 수정일: {{ post.last_modified_at | date: "%Y-%m-%d" }} {% if post.last_time %}{{ post.last_time | date: "%H:%M" }}{% endif %} -->
+                                </small>
                             </div>
                         </a>
                     </div>
