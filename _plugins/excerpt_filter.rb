@@ -5,7 +5,7 @@ module Jekyll
       include Jekyll::Filters
       
       # 디버깅을 위한 로깅
-      Jekyll.logger.debug "ExcerptFilter:", "Processing input: #{input.inspect}"
+      # Jekyll.logger.debug "ExcerptFilter:", "Processing input: #{input.inspect}"
 
       # 입력값 검증
       return "" if input.nil?

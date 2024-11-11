@@ -1,4 +1,3 @@
-{% assign cleaned_content = post.content | clean_excerpt %}
 <div class="mb-5 d-flex main-loop-card align-items-start">
     {% if post.image %}
         <!-- 좌측 이미지 섹션 -->
@@ -19,7 +18,7 @@
         <!-- 본문 내용과 카테고리는 데스크탑에서만 표시 -->
         <div class="d-none d-md-block">
             <p class="excerpt">
-                {{ post.content | clean_excerpt | truncate: 95 }}
+                {{ post.content | truncate: 95 }}
             </p>
             <small class="text-muted d-block">
                 <span class="timeago" data-date="{{ post.date | date: "%Y-%m-%d" }} {% if post.time %}{{ post.time | date: "%H:%M" }}{% endif %}"></span>
