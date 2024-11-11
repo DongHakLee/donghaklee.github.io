@@ -16,7 +16,7 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
                     <div class="col-md-6 order-md-2 px-0">
                         <div class="main-image">
                             {% if latest_post.image %}
-                            <img src="{% if latest_post.image contains "://" %}{{ latest_post.image }}{% else %}{{ latest_post.image | absolute_url }}{% endif %}" alt="{{ latest_post.title }}">
+                            <img class="rounded" src="{% if latest_post.image contains "://" %}{{ latest_post.image }}{% else %}{{ latest_post.image | absolute_url }}{% endif %}" alt="{{ latest_post.title }}">
                             {% endif %}
                         </div>
                     </div>
@@ -103,6 +103,7 @@ description: "다양한 관점에서 모든 이슈를 다루며, 빠르고 신�
 }
 
 .main-news:hover .main-image img {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    border-radius: .45rem !important;
 }
 </style>
