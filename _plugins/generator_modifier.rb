@@ -1,3 +1,5 @@
+require_relative 'excerpt_filter'  # excerpt_filter.rb 파일을 명시적으로 로드
+
 Jekyll::Hooks.register [:pages, :posts, :documents], :post_render do |page|
     # 빈 generator 태그 제거
     page.output.gsub!(/<meta name="generator">\s*/, '')
