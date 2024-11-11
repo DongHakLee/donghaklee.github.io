@@ -22,7 +22,8 @@
                 {{ post.content | clean_excerpt | truncate: 95 }}
             </p>
             <small class="text-muted d-block">
-                {{ post.date | date: "%Y-%m-%d" }} {% if post.time %}{{ post.time | date: "%H:%M" }}{% endif %}<br>
+                <span class="timeago" data-date="{{ post.date | date: "%Y-%m-%d" }} {% if post.time %}{{ post.time | date: "%H:%M" }}{% endif %}"></span>
+                
                 <!-- 수정일: {{ post.last_modified_at | date: "%Y-%m-%d" }} {% if post.last_time %}{{ post.last_time | date: "%H:%M" }}{% endif %} -->
             </small>
         </div>

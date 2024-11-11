@@ -35,7 +35,7 @@ module Jekyll
       content.strip!
 
       # 결과 로깅
-      Jekyll.logger.debug "ExcerptFilter:", "Processed output: #{content.inspect}"
+      # Jekyll.logger.debug "ExcerptFilter:", "Processed output: #{content.inspect}"
       
       content
     end

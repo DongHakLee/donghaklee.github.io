@@ -16,6 +16,7 @@
     <!-- Google Fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+    
 
 
     <!-- Theme Stylesheet -->
@@ -26,6 +27,10 @@
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/ko.js"></script>
 
     <style>
     #dsMenuDiv {
@@ -191,7 +196,39 @@
                     });
                 });
             });
+
+            function updateTimes() {
+                document.querySelectorAll('.timeago').forEach(function(element) {
+                    console.log('haha',element)
+                    const date = moment(element.getAttribute('data-date'));
+                    const now = moment();
+                    const diffDays = now.diff(date, 'days');
+                    const diffHours = now.diff(date, 'hours');
+                    
+                    console.log('diffDays',diffDays)
+                    if (diffDays === 0) {
+                        // 오늘인 경우 - 시간 단위로 표시
+                        if (diffHours === 0) {
+                            element.textContent = `${now.diff(date, 'minutes')}분 전`;
+                        } else {
+                            element.textContent = `${diffHours}시간 전`;
+                        }
+                    } else if (diffDays < 7) {
+                        // 일주일 이내인 경우 - ?일 전으로 표시
+                        element.textContent = `${diffDays}일 전`;
+                    } else {
+                        // 일주일 이상인 경우 - 날짜로 표시
+                        element.textContent = date.format('YYYY-MM-DD HH:mm');
+                    }
+                });
+            }
+
+            // 초기 실행
+            updateTimes();
         });
+
+
+
 
         // Function to show toast messages
         function showToast(message) {
