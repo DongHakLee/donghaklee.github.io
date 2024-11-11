@@ -1,15 +1,8 @@
 module Jekyll
-  module ExcerptFilter
-    def clean_excerpt(input)
-      # Jekyll::Filters를 포함시켜 기본 필터 기능 사용
-      include Jekyll::Filters
-      
-      # 디버깅을 위한 로깅
-      # Jekyll.logger.debug "ExcerptFilter:", "Processing input: #{input.inspect}"
-
-      # 입력값 검증
-      return "" if input.nil?
-      content = input.to_s.dup
+  class ExcerptFilter
+    def self.clean_excerpt(page)
+      # 페이지의 내용을 문자열로 가져오기
+      content = page.output.to_s.dup
 
       # Markdown 이미지 제거
       content.gsub!(/!\[(?:.*?)\]\((?:.*?)\)/, '')
@@ -28,19 +21,19 @@ module Jekyll
       # HTML 태그 제거 (개선된 방식)
       content.gsub!(/<(script|style)[^>]*>.*?<\/\1>/mi, '')
       content.gsub!(/<[^>]*>/, '')
-      
+
       # 특수문자 및 공백 처리
       content = CGI.unescapeHTML(content)
       content.gsub!(/\s+/, ' ')
       content.strip!
 
-      # 결과 로깅
-      # Jekyll.logger.debug "ExcerptFilter:", "Processed output: #{content.inspect}"
-      
-      content
+      # 페이지의 output을 업데이트
+      page.output = content
     end
   end
 end
 
-# 필터 등록
-Liquid::Template.register_filter(Jekyll::ExcerptFilter)
+# 후크 등록
+Jekyll::Hooks.register [:pages, :posts, :documents], :post_render do |page|
+  ExcerptFilter.clean_excerpt(page)
+end
