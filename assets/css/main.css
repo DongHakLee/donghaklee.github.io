@@ -165,8 +165,11 @@ p {
   border-bottom: 0px !important;
   flex-wrap: nowrap;
 }
-.mw-880 {
+.mw-1200 {
   max-width: 1200px !important;
+}
+.w-1200 {
+  width: 1200px !important;
 }
 .h-50 {
   height: 50%;
@@ -370,4 +373,12 @@ footer a:hover {
 /* 제목 hover시 이미지 확대 */
 .list-featured h6 a:hover ~ .ml-3 img {
   transform: scale(1.1);
+}
+
+#brandSection {
+  font-size: 1rem;
+}
+#lastUpdated, #weather {
+  font-weight: 400;
+  color: #555;
 }

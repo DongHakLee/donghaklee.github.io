@@ -34,9 +34,35 @@
 
     <style>
     #dsMenuDiv {
-        background-color: black;
+        background-color: white;
+    }
+    #brandSection {
+        display: flex;
+        justify-content: space-between; /* 좌우 정렬 */
+        align-items: center; /* 기본 세로 가운데 정렬 */
+        height: 80px; /* 섹션 높이 조정 */
     }
 
+    .logo-container {
+        display: flex;
+        align-items: center; /* 로고는 세로 가운데 */
+    }
+
+    .update-container {
+        display: flex;
+        align-items: flex-end; /* 세로 방향으로 하단 정렬 */
+        justify-content: flex-end;
+        height: 100%;
+        padding-right: 15px;
+        padding-bottom: 5px;
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+
+    #scrollingMenu {
+        background-color: #000;
+    }
     /* active 상태: 흰색 배경, 검은색 글씨 */
     #scrollingMenu .nav-link.active {
         background-color: white;
@@ -259,15 +285,24 @@
 <body class="{% if page.url == "/" %} homefirstpage {% endif %}">
 
     <nav id="MagicMenu" class="topnav navbar navbar-light bg-white nav-down px-0">
-        <div class="container-fluid px-0">
-            <!-- 로고 섹션 -->
-            <div id="brandSection" class="w-100 py-3 border-bottom text-center">
-                <a class="navbar-brand" href="{{ site.baseurl }}/">{{site.name}}</a>
+        <div class="container-fluid px-0 justify-content-center">
+            
+            <div id="brandSection" class="mw-1200 w-100 py-1 border-bottom d-flex justify-content-between align-items-center">
+                <!-- 좌측 로고 -->
+                <div class="logo-container">
+                    <a href="/" class="navbar-brand">도담뉴스</a>
+                </div>
+            
+                <!-- 우측 마지막 업데이트 시간 (모바일에서는 숨김) -->
+                <div class="update-container d-none d-md-flex align-items-end">
+                    <span id="lastUpdated">마지막 업데이트: 2024-11-12 14:35</span>
+                </div>
             </div>
+            
 
             <!-- 메뉴 섹션 -->
-            <div id="dsMenuDiv" class="w-100">
-                <div id="scrollingMenu" class="d-flex overflow-auto">
+            <div id="dsMenuDiv" class="w-100 d-flex justify-content-center">
+                <div id="scrollingMenu" class="d-flex overflow-auto mw-1200 w-1200 justify-content-center">
                     <ul class="navbar-nav d-flex flex-row mx-auto">
                         {% include menu-header.html %}
                     </ul>
