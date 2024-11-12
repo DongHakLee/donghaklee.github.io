@@ -348,6 +348,8 @@ footer a:hover {
 .excerpt {
   color: #6c757d !important;
   margin-bottom: 0.2rem;
+  white-space: normal; /* 자동 줄바꿈 허용 */
+  word-break: break-word;
 }
 
 
@@ -379,4 +381,14 @@ footer a:hover {
 
 .h5, h5 {
   font-size: 1.18rem !important;
+}
+
+.mwp-71 {
+  max-width:71% !important;
+}
+
+.text-title {
+  max-width: 100%;
+  white-space: normal; /* 자동 줄바꿈 허용 */
+  word-break: break-word;
 }
