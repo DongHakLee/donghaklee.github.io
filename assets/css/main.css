@@ -212,10 +212,17 @@ p {
   padding-right: 0px;
 }
 
+.article-headline {
+  white-space: normal; /* 자동 줄바꿈 허용 */
+  word-break: break-word;
+}
+
 .article-post p {
   padding-left: 15px;
   padding-right: 15px;
   font-size: 18px;
+  white-space: normal; /* 자동 줄바꿈 허용 */
+  word-break: break-word;
 }
 
 .article-post img {
@@ -391,4 +398,16 @@ footer a:hover {
   max-width: 100%;
   white-space: normal; /* 자동 줄바꿈 허용 */
   word-break: break-word;
+}
+
+.spanborder {
+  border-bottom: 1px solid #e8f3ec;
+  margin-bottom: 2rem;
+}
+
+.spanborder span {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.44);
+  display: inline-block;
+  padding-bottom: 20px;
+  margin-bottom: -1px;
 }
