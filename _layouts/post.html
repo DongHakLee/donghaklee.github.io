@@ -3,72 +3,57 @@ layout: default
 ---
 {% assign author = site.authors[page.author] %}
 <div class="container-fluid">
-    <div class="content-header mb-1 pl-0 pt-0 pb-0 bg-white position-relative">
-        <div class="h-100 tofront">
-			<div class="row justify-content-center">
-				<div class="col-md-12 mw-1200 align-self-center">
-                    <p class="text-uppercase font-weight-bold">
-                        <span class="catlist">
-                            {% for category in page.categories %}
-                                <a class="sscroll text-danger" href="{{site.baseurl}}/{{ category | downcase }}">{{ page.categories_name[0] | downcase }}</a>
-                            {% endfor %}
-                        </span>
-                    </p>
-                    <h1 class="mb-2 article-headline">{{ page.title }}</h1>
-                    <div class="d-flex align-items-center">
-                        <small class="ml-3"> {{ author.name }}
-                            <span class="text-muted d-block mt-1">{{ page.date | date: '%b %d, %Y' }} · {% include meta-read-time.html %}</span>
-                        </small>
-                    </div>
+    <div class="mw-1200 mx-auto">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="content-header mb-1 pl-0 pt-0 pb-0 bg-white position-relative">
+            <div class="row justify-content-center">
+              <div class="align-self-center">
+                <p class="text-uppercase font-weight-bold">
+                  <span class="catlist">
+                    {% for category in page.categories %}
+                    <a class="sscroll text-danger" href="{{site.baseurl}}/{{ category | downcase }}">{{ page.categories_name[0] | downcase }}</a>
+                    {% endfor %}
+                  </span>
+                </p>
+                <h1 class="mb-2 article-headline">{{ page.title }}</h1>
+                <div class="d-flex align-items-center">
+                  <small class="ml-3"> {{ author.name }}
+                    <span class="text-muted d-block mt-1">{{ page.date | date: '%b %d, %Y' }} · {% include meta-read-time.html %}</span>
+                  </small>
                 </div>
+              </div>
             </div>
-        </div>
-    </div>
-</div>
-
-	
-
-
-<div id="article_div" class="container-fluid pt-3 pb-3">
-	<div class="row mx-0 justify-content-center">
-		<div class="col-md-12 mw-1200 px-0">
-            
+          </div>
+          <div id="article_div" class="col-md-12 px-0">
             {% assign content_with_figure = content | replace: '<img', '||TEMP_IMG||' %}
-            {% assign content_with_figure = content_with_figure | replace: '<p><||TEMP_IMG||', '<figure><img' %}
-            {% assign content_with_figure = content_with_figure | replace: '||TEMP_IMG||', '<figure><img' %}
-            
+            {% assign content_with_figure = content_with_figure | replace: '<p><||TEMP_IMG||', '<figure class="w-100"><img' %}
+            {% assign content_with_figure = content_with_figure | replace: '||TEMP_IMG||', '<figure class="w-100"><img' %}
             {% assign splits = content_with_figure | split: 'alt="' %}
             {% assign final_content = '' %}
             {% for split in splits %}
-              {% if forloop.first %}
-                {% assign final_content = split %}
-              {% else %}
-                {% assign text_and_rest = split | split: '"' %}
-                {% assign alt_text = text_and_rest | first %}
-                {% assign rest_content = text_and_rest | slice: 1, text_and_rest.size | join: '"' %}
-                {% assign final_content = final_content | append: '" alt="' | append: alt_text | append: '" title="' | append: alt_text | append: '"><figcaption>' | append: alt_text | append: '</figcaption></figure>' %}
-                {% assign rest_content = rest_content | replace: '/>', '' %}
-                {% assign final_content = final_content | append: rest_content %}
-              {% endif %}
-            {% endfor %}
-            
-            <article class="article-post">
-            {{ final_content }}
-            </article>
-
-
-            <!-- Comments -->
-            {% if page.comments != false %}
-                {% include comments.html %}
+            {% if forloop.first %}
+            {% assign final_content = split %}
+            {% else %}
+            {% assign text_and_rest = split | split: '"' %}
+            {% assign alt_text = text_and_rest | first %}
+            {% assign rest_content = text_and_rest | slice: 1, text_and_rest.size | join: '"' %}
+            {% assign final_content = final_content | append: '" alt="' | append: alt_text | append: '" title="' | append: alt_text | append: '"><figcaption>' | append: alt_text | append: '</figcaption></figure>' %}
+            {% assign rest_content = rest_content | replace: '/>', '' %}
+            {% assign final_content = final_content | append: rest_content %}
             {% endif %}
-
-			
-			
-            
-		</div>
-	</div>
-</div>
-
-
-
-
+            {% endfor %}
+            <article class="article-post">
+              {{ final_content }}
+            </article>
+            {% if page.comments != false %}
+            {% include comments.html %}
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+          <div style="border:1px solid red; width:200px; height:200px">광고영역</div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
