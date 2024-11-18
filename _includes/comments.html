@@ -128,6 +128,7 @@
 </div>
 
 <script type="text/javascript">
+    // COMMON.showProgressBar();
     const apiUrl = 'https://ep-core.mynews1237.workers.dev';
 
     // 댓글 길이 제한과 현재 글자 수 표시
@@ -143,8 +144,8 @@
     });
 
     // Toast 메시지 표시
-    function showToast(message) {
-        alert(message);
+    function showToast(type, message) {
+        COMMON.showToast(type, message);
     }
 
     // 댓글 목록 불러오기
@@ -154,9 +155,10 @@
             const response = await fetch(`${apiUrl}/comments?post_id=${postId}`);
             const data = await response.json();
             displayComments(data.results || []);
+            COMMON.hideProgressBar();
         } catch (error) {
             console.error('Error fetching comments:', error);
-            showToast('Error fetching comments. Please try again.');
+            showToast('alert','Error fetching comments. Please try again.');
         }
     }
 
@@ -203,6 +205,7 @@
     const post_id = document.getElementById('post_id').value;
 
     try {
+        COMMON.showProgressBar();
         const response = await fetch(`${apiUrl}/generate-captcha`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -229,12 +232,12 @@
         document.getElementById('generate-captcha-btn').style.display = 'none';  // 버튼을 직접 참조
         document.getElementById('captcha-section').classList.remove('d-none');
         document.getElementById('captcha-section').style.display = 'flex';
-
+        showToast('noti','자동방지 문자를 입력하세요.');
         document.getElementById("captcha-answer").focus();
         
     } catch (error) {
         console.error('Detailed error:', error);
-        showToast('Error generating CAPTCHA. Please try again.');
+        showToast('alert','Error generating CAPTCHA. Please try again.');
     }
 });
 
@@ -248,6 +251,7 @@
         const password = document.getElementById('password').value;
 
         try {
+            COMMON.showProgressBar();
             const response = await fetch(`${apiUrl}/comments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -255,7 +259,7 @@
             });
             
             if (response.ok) {
-                showToast('Comment added successfully!');
+                showToast('noti','Comment added successfully!');
                 fetchComments();
                 
                 // 댓글 작성 폼과 CAPTCHA 초기화
@@ -265,14 +269,14 @@
                 document.getElementById('captcha-id').value = ""; // CAPTCHA ID 초기화
                 charCountDisplay.textContent = "0"; // 글자 수 초기화
             } else {
-                showToast('Incorrect CAPTCHA, please try again.');
+                showToast('alert','Incorrect CAPTCHA, please try again.');
                 document.getElementById('captcha-section').classList.add('d-none');
             }
 
             document.getElementById('generate-captcha-btn').style.display = 'block';  // 버튼을 직접 참조
         } catch (error) {
             console.error('Error verifying CAPTCHA:', error);
-            showToast('Error verifying CAPTCHA. Please try again.');
+            showToast('alert','Error verifying CAPTCHA. Please try again.');
             document.getElementById('generate-captcha-btn').style.display = 'block';  // 버튼을 직접 참조
         }
     });
@@ -290,14 +294,14 @@
             });
 
             if (response.ok) {
-                showToast('Comment deleted successfully!');
+                showToast('noti','Comment deleted successfully!');
                 fetchComments();
             } else {
-                showToast('Incorrect password. Unable to delete the comment.');
+                showToast('alert','Incorrect password. Unable to delete the comment.');
             }
         } catch (error) {
             console.error('Error deleting comment:', error);
-            showToast('Error deleting comment. Please try again.');
+            showToast('alert','Error deleting comment. Please try again.');
         }
     }
 

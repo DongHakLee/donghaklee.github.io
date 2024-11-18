@@ -7,8 +7,7 @@ layout: default
       <div class="row">
         <div class="col-md-8 px-md-3 px-0">
           <div class="content-header mb-1 pl-0 pt-0 pb-0 bg-white position-relative">
-            <div class="row justify-content-center">
-              <div class="align-self-center">
+            <div class="mw-100 px-3">
                 <p class="text-uppercase font-weight-bold">
                   <span class="catlist">
                     {% for category in page.categories %}
@@ -22,10 +21,9 @@ layout: default
                     <span class="text-muted d-block mt-1">{{ page.date | date: '%b %d, %Y' }} · {% include meta-read-time.html %}</span>
                   </small>
                 </div>
-              </div>
             </div>
           </div>
-          <div id="article_div" class="col-md-12 px-0">
+          <div id="article_div" class="px-md-3 px-0">
             {% assign content_with_figure = content | replace: '<img', '||TEMP_IMG||' %}
             {% assign content_with_figure = content_with_figure | replace: '<p><||TEMP_IMG||', '<figure class="w-100"><img' %}
             {% assign content_with_figure = content_with_figure | replace: '||TEMP_IMG||', '<figure class="w-100"><img' %}
@@ -49,7 +47,7 @@ layout: default
             {% if page.comments != false %}
             {% include comments.html %}
             {% endif %}
-        </div>
+          </div>
       </div>
       <div class="col-md-4">
         <div style="border:1px solid red; width:200px; height:200px">광고영역</div>

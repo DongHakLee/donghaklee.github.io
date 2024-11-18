@@ -85,23 +85,35 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Toast 스타일 */
-#commonToast {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #323232;
-    color: #ffffff;
-    padding: 15px 25px;
-    border-radius: 10px;
-    z-index: 10001;
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-#commonToast.show {
-    display: block;
-    opacity: 1;
-    transform: translateX(-50%) translateY(-10px);
-}
+    /* 기본 Toast 스타일 */
+    #commonToast {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 25px;
+        border-radius: 10px;
+        z-index: 10001;
+        opacity: 0;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        font-size: 16px;
+        color: #fff;
+    }
+
+    /* 일반 알림 스타일 */
+    #commonToast.notification {
+        background-color: #007bff; /* 파란색 */
+    }
+
+    /* 경고 알림 스타일 */
+    #commonToast.alert {
+        background-color: #dc3545; /* 빨간색 */
+    }
+
+    /* Toast 표시 애니메이션 */
+    #commonToast.show {
+        display: block;
+        opacity: 1;
+        transform: translateX(-50%) translateY(-10px);
+    }
