@@ -98,7 +98,7 @@
     <div id="comments-section" class="mb-4">
     </div>
 
-    <form id="comment-form" class="comment-form px-3">
+    <form id="comment-form" class="comment-form px-3" autocomplete="off">
         {% assign id_number = page.permalink | split: '/' | last %}
         <input type="hidden" id="post_id" value="{{id_number}}">
         <div class="form-row my-1">
