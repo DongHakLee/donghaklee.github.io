@@ -2,113 +2,129 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
 <style>
-  .comment-form {
-    margin-bottom: 1.5rem;
-    border-radius: 0.5rem;
-  }
-  .form-row {
-    display: flex;
-    flex-wrap: nowrap;
-    margin: -0.5rem;
-  }
-  .form-row > div {
-    flex: 1 1 300px;
-    padding: 0.5rem;
-  }
-  .form-label {
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-  }
-  .form-control {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-  }
-  .char-count {
-    text-align: right;
-    font-size: 0.875rem;
-    color: #666;
-  }
-  .captcha-section {
-    margin-top: 1rem;
-    padding: 1rem;
-    background-color: #f5f5f5;
-    border-radius: 0.5rem;
-  }
-  .captcha-canvas {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .submit-btn {
-    float: right;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    cursor: pointer;
-  }
-  .submit-btn:hover {
-    background-color: #0056b3;
-  }
-  .captcha-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-</style>
+    .comment-form {
+        margin-bottom: 1.5rem;
+        border-radius: 0.5rem;
+    }
+    .form-row {
+        display: flex;
+        flex-wrap: nowrap;
+        margin: -0.5rem;
+    }
+    .form-row > div {
+        flex: 1 1 300px;
+        padding: 0.5rem;
+    }
+    .form-control {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+    }
+    .char-count {
+        text-align: right;
+        font-size: 0.875rem;
+        color: #666;
+    }
+    .submit-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    }
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+    .captcha-section {
+        display: none;
+    }
+    .captcha-section.active {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .submit-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+    }
+    .captcha-popup-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    .captcha-canvas {
+        flex-shrink: 0;  /* 고정 크기 */
+        width: 140px;
+        height: 37px;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+    }
+    #captcha-answer {
+        flex-grow: 1; /* 남은 공간 차지 */
+        min-width: 0; /* 부모 요소 크기 초과 방지 */
+        height: 37px;
+        padding: 0.5rem;
+        text-align: right;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+    }
+    #verify-captcha-btn {
+        flex-shrink: 0; /* 고정 크기 */
+        height: 37px;
+        padding: 0.5rem 1rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    }
+    .form-control {
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+        padding: 0.5rem;
+    }
+    div.char-count{
+        margin-top: -24px;
+        margin-bottom: 10px;
+        padding-right: 13px;
+    }
+    </style>
 <div id="comments" class="row mx-0 justify-content-center mt-5">
     <h3>Comments</h3>
-    <!-- 댓글 목록 -->
     <div id="comments-section" class="mb-4">
     </div>
 
-    <div id="captcha-section" class="captcha-section d-none"></div>
-        <div class="captcha-popup-content">
-        <label for="captcha" class="form-label">Solve the CAPTCHA</label>
-        <canvas id="captcha-canvas" width="180" height="60" class="captcha-canvas"></canvas>
-        <input type="number" class="form-control" id="captcha-answer" placeholder="Enter CAPTCHA answer" required>
-        <input type="hidden" id="captcha-id">
-        <button type="button" class="submit-btn" id="verify-captcha-btn">Submit CAPTCHA</button>
-        </div>
-    </div>
-
-    <form id="comment-form" class="comment-form px-3" >
+    <form id="comment-form" class="comment-form px-3">
         {% assign id_number = page.permalink | split: '/' | last %}
         <input type="hidden" id="post_id" value="{{id_number}}">
         <div class="form-row my-1">
-          <div>
-            <input type="text" class="form-control" id="user_name" placeholder="닉네임" required>
-          </div>
-          <div>
-            <input type="password" class="form-control" id="password" placeholder="비밀번호" required>
-          </div>
+            <div>
+                <input type="text" class="form-control" id="user_name" placeholder="닉네임" required>
+            </div>
+            <div>
+                <input type="password" class="form-control" id="password" placeholder="비밀번호" required>
+            </div>
         </div>
         <div class="form-group">
-          <textarea class="form-control" id="comment" rows="4" placeholder="" maxlength="500" required></textarea>
-          <div class="char-count"><span id="char-count">0</span> / 500</div>
+            <textarea class="form-control" id="comment" rows="4" placeholder="" maxlength="500" required></textarea>
+            <div class="char-count"><span id="char-count">0</span> / 500</div>
         </div>
-        <button type="button" class="submit-btn" id="generate-captcha-btn">Submit</button>
-      </form>
-    
-    <!-- Toast 알림 -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container">
-        <div id="toast-message" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto">Notification</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        <div class="submit-container">
+            <button type="button" class="submit-btn" id="generate-captcha-btn">작성</button>
+        </div>
+        <div id="captcha-section" class="captcha-section">
+            <div class="captcha-popup-content">
+                <canvas id="captcha-canvas" width="140" height="37" class="captcha-canvas"></canvas>
+                <input type="number" class="form-control" id="captcha-answer" placeholder="Enter CAPTCHA answer" required>
+                <input type="hidden" id="captcha-id">
+                <button type="button" class="submit-btn" id="verify-captcha-btn">Submit</button>
             </div>
-            <div class="toast-body"></div>
         </div>
-    </div>
+    </form>
 </div>
 
 <script type="text/javascript">
@@ -182,33 +198,43 @@
 
     // CAPTCHA 생성
     document.getElementById('generate-captcha-btn').addEventListener('click', async () => {
-        const user_name = document.getElementById('user_name').value;
-        const comment = document.getElementById('comment').value;
-        const post_id = document.getElementById('post_id').value;
+    const user_name = document.getElementById('user_name').value;
+    const comment = document.getElementById('comment').value;
+    const post_id = document.getElementById('post_id').value;
 
-        try {
-            const response = await fetch(`${apiUrl}/generate-captcha`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ post_id, user_name, comment })
-            });
-            const data = await response.json();
+    try {
+        const response = await fetch(`${apiUrl}/generate-captcha`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ post_id, user_name, comment })
+        });
+        const data = await response.json();
 
-            // CAPTCHA 질문을 Canvas에 렌더링
-            const canvas = document.getElementById('captcha-canvas');
-            const context = canvas.getContext('2d');
-            context.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
-            context.font = "20px Arial";
-            context.fillStyle = "black";
-            context.fillText(data.question, 10, 30);
+        const canvas = document.getElementById('captcha-canvas');
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.font = "20px Arial";
+        context.fillStyle = "black";
+        context.textAlign = "center";  // 텍스트 중앙 정렬
+        context.textBaseline = "middle";  // 수직 중앙 정렬
 
-            document.getElementById('captcha-id').value = data.captchaId;
-            document.getElementById('captcha-section').classList.remove('d-none');
-        } catch (error) {
-            console.error('Error generating CAPTCHA:', error);
-            showToast('Error generating CAPTCHA. Please try again.');
-        }
-    });
+        // 캔버스의 중앙에 텍스트 그리기
+        const x = canvas.width / 2;   // 캔버스 가로 중앙
+        const y = canvas.height / 2;  // 캔버스 세로 중앙
+        console.log('y',y)
+        context.fillText(data.question, x, (y+2));
+
+        document.getElementById('captcha-id').value = data.captchaId;
+        
+        document.getElementById('generate-captcha-btn').style.display = 'none';  // 버튼을 직접 참조
+        document.getElementById('captcha-section').classList.remove('d-none');
+        document.getElementById('captcha-section').style.display = 'flex';
+        
+    } catch (error) {
+        console.error('Detailed error:', error);
+        showToast('Error generating CAPTCHA. Please try again.');
+    }
+});
 
     // CAPTCHA 검증 및 댓글 저장
     document.getElementById('verify-captcha-btn').addEventListener('click', async () => {
@@ -240,9 +266,12 @@
                 showToast('Incorrect CAPTCHA, please try again.');
                 document.getElementById('captcha-section').classList.add('d-none');
             }
+
+            document.getElementById('generate-captcha-btn').style.display = 'block';  // 버튼을 직접 참조
         } catch (error) {
             console.error('Error verifying CAPTCHA:', error);
             showToast('Error verifying CAPTCHA. Please try again.');
+            document.getElementById('generate-captcha-btn').style.display = 'block';  // 버튼을 직접 참조
         }
     });
 
