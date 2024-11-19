@@ -92,6 +92,62 @@
         margin-bottom: 10px;
         padding-right: 13px;
     }
+
+/* 전체 comments-section 스타일링 */
+#comments-section {
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  max-width: 800px;
+}
+
+/* 각 코멘트 컨테이너 */
+#comments-section .border {
+  border: none !important;
+  border-bottom: 1px solid #eee !important;
+  border-radius: 0 !important;
+  padding: 1.25rem 0.5rem !important;
+  margin-bottom: 0 !important;
+}
+
+/* 사용자 정보 영역 */
+#comments-section .bi-person-fill {
+  color: #333;
+  font-size: 0.9em;
+}
+
+#comments-section strong {
+  color: #000;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+/* 삭제 버튼 */
+#comments-section .btn-link {
+  line-height: 1;
+}
+
+#comments-section .close-x {
+  color: #666;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+#comments-section .btn-link:hover .close-x {
+  color: #ff4444;
+}
+
+/* 날짜 텍스트 */
+#comments-section .text-muted {
+  color: #888 !important;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+/* 코멘트 내용 */
+#comments-section p {
+  color: #333;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+}
     </style>
 <div id="comments" class="row mx-0 justify-content-center mt-5">
     <h3>Comments</h3>
@@ -188,7 +244,7 @@
                         <i class="bi bi-person-fill me-1"></i><strong>${comment.user_name}</strong>
                     </div>
                     <button class="btn btn-link p-0 m-0 text-decoration-none" onclick="deleteComment(${comment.id})">
-                        <i class="bi bi-trash" style="font-size: 1.2em;"></i>
+                        <span class="close-x">×</span>
                     </button>
                 </div>
                 <small class="text-muted">${formatDate(comment.created_at)}</small>
