@@ -150,7 +150,7 @@
 }
     </style>
 <div id="comments" class="row mx-0 justify-content-center mt-5">
-    <h3>Comments</h3>
+    <h3>댓글</h3>
     <div id="comments-section" class="mb-4">
     </div>
 
@@ -208,6 +208,7 @@
     async function fetchComments() {
         const postId = document.getElementById('post_id').value;
         try {
+            COMMON.showProgressBar();
             const response = await fetch(`${apiUrl}/comments?post_id=${postId}`);
             const data = await response.json();
             displayComments(data.results || []);
@@ -339,10 +340,11 @@
 
     // 댓글 삭제
     async function deleteComment(commentId) {
-        const password = prompt("Enter the password to delete this comment:");
+        const password = prompt("비밀번호를 입력하세요.");
         if (!password) return;
 
         try {
+            COMMON.showProgressBar();
             const response = await fetch(`${apiUrl}/comments`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
@@ -350,10 +352,10 @@
             });
 
             if (response.ok) {
-                showToast('noti','Comment deleted successfully!');
+                showToast('noti','삭제 되었습니다.');
                 fetchComments();
             } else {
-                showToast('alert','Incorrect password. Unable to delete the comment.');
+                showToast('alert','비밀번호가 다릅니다.');
             }
         } catch (error) {
             console.error('Error deleting comment:', error);

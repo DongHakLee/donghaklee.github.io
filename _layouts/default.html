@@ -391,25 +391,27 @@
     <!-- Footer -->
     <footer class="bg-white border-top p-3 text-muted small">
         <div class="container-fluid">
-            <div class="row align-items-center justify-content-between">
-                <div>
-                    <span class="navbar-brand mr-2 mb-0"><strong>{{site.name}}</strong></span>
-                    <span>© {{site.name}}. All rights reserved.</span>
+            <div class="mw-1200 mx-auto">
+                <div class="row align-items-center justify-content-between">
+                    <div>
+                        <span class="navbar-brand mr-2 mb-0"><strong>{{site.name}}</strong></span>
+                        <span>© {{site.name}}. All rights reserved.</span>
+                    </div>
+                    <div>
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item"><a href="/about-us" class="text-muted">{{site.menu_name_company}}</a></li>
+                            <li class="list-inline-item"><a href="/terms-of-service" class="text-muted">{{site.menu_name_terms}}</a></li>
+                            <li class="list-inline-item"><a href="/contact-us" class="text-muted">{{site.menu_name_contact}}</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div>
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item"><a href="/about-us" class="text-muted">{{site.menu_name_company}}</a></li>
-                        <li class="list-inline-item"><a href="/terms-of-service" class="text-muted">{{site.menu_name_terms}}</a></li>
-                        <li class="list-inline-item"><a href="/contact-us" class="text-muted">{{site.menu_name_contact}}</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <p class="mb-0">
-                        대표자: {{site.company.ceo}} | 사업자 등록번호: {{site.company.registration_number}}<br>
-                        주소: {{site.company.address}} | 전화: {{site.company.phone}} | 이메일: {{site.company.email}}
-                    </p>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <p class="mb-0">
+                            대표자: {{site.company.ceo}} | 사업자 등록번호: {{site.company.registration_number}}<br>
+                            주소: {{site.company.address}} | 전화: {{site.company.phone}} | 이메일: {{site.company.email}}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
