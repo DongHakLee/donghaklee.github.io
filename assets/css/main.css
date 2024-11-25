@@ -82,11 +82,9 @@ p {
   --primary-color: #000000;
 }
 
-
 /* top logo and menu*/
-
 #lastUpdated {
-  font-weight: 400;
+  font-weight: 500;
   color: #555;
 }
 #brandSection {
@@ -109,7 +107,6 @@ p {
   align-items: flex-end; /* 세로 방향으로 하단 정렬 */
   justify-content: flex-end;
   height: 100%;
-  padding-right: 15px;
   padding-bottom: 5px;
   font-size: 0.9rem;
   color: #555;
@@ -166,7 +163,7 @@ p {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: auto;
   border-top: 1px solid;
-  border-bottom: 1px solid;
+  border-bottom: 2px solid;
   border-color: var(--brand-border-color);
 }
 #scrollingMenu ul, #scrollingHiddenMenu ul {
