@@ -21,8 +21,6 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 }
 
 
-
-
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -36,7 +34,6 @@ body {
   text-align: left;
   background-color: #fff;
 }
-
 
 /* 폰트 웨이트별 클래스 (필요시 사용) */
 .font-thin {
@@ -371,6 +368,23 @@ footer a:hover {
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease; /* 확대 효과 */
+}
+
+
+.list-featured {
+  list-style-type: none; /* 기본 점 제거 */
+  counter-reset: list-counter; /* 카운터 초기화 */
+}
+
+.list-featured li {
+  counter-increment: list-counter; /* 카운터 증가 */
+}
+
+.list-featured li::marker {
+  content: counter(list-counter) " "; /* 숫자 뒤에 공백 추가 */
+  font-family: 'Courier New', monospace; /* 원하는 폰트 */
+  font-size: 1.4em;
+  font-weight: bold;
 }
 
 /* 이미지 hover 효과 */

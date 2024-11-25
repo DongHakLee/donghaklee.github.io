@@ -95,8 +95,7 @@ layout: default
   </div>
 
   <script>
-  const FONT_SIZE_KEY = 'authorFontSize'; // Key for storing font size in localStorage
-  const authorText = document.getElementById('author-text');
+  const FONT_SIZE_KEY = 'dhlFontSize'; // Key for storing font size in localStorage
   const articlePost = document.getElementById('article-post'); // Parent container for paragraphs
   const fontSizeModal = document.getElementById('fontSizeModal'); // Font size modal
 
@@ -105,10 +104,6 @@ layout: default
     const savedFontSize = localStorage.getItem(FONT_SIZE_KEY);
     const defaultSize = '18px'; // Default font size
     articlePost.style.setProperty('--font-size', savedFontSize || defaultSize);
-    if (savedFontSize) {
-      console.log('작서앚도')
-      authorText.style.fontSize = savedFontSize;
-    }
   }
   
   function adjustFontSize(action) {
@@ -117,9 +112,6 @@ layout: default
     if (newSize < 14) newSize = 14; // Minimum font size
     if (newSize > 28) newSize = 28; // Maximum font size
     articlePost.style.setProperty('--font-size', `${newSize}px`);
-    console.log('작서앚도',newSize)
-    authorText.style.fontSize = newSize;
-    console.log('작서앚도',authorText)
     localStorage.setItem(FONT_SIZE_KEY, `${newSize}px`); // Save to localStorage
   }
 
