@@ -1,7 +1,7 @@
 <div class="sticky-top sticky-top-offset">
     <h4 class="font-weight-bold spanborder"><span>추천기사</span></h4>
     <ol class="list-featured">
-      {% assign main_articles = site.posts | where: "article_group_name", "main" | sort: "article_group_order" %}
+      {% assign main_articles = site.posts | where: "article_group_name", "recommended" | sort: "article_group_order" %}
       {% for article in main_articles %}
         <li class="mb-4">
           <div class="d-flex align-items-center">
