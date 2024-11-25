@@ -16,11 +16,45 @@ layout: default
                   </span>
                 </p>
                 <h1 class="mb-2 article-headline">{{ page.title }}</h1>
-                <div class="d-flex align-items-center">
-                  <small class="ml-3"> {{ page.author }}
-                    <span class="text-muted d-block mt-1">{{ page.date | date: "%Y-%m-%d" }} {{ page.time }}</span>
-                  </small>
-                </div>
+
+
+                <div class="d-flex justify-content-between align-items-center border p-2">
+                  <!-- Left-aligned content -->
+                  <div class="d-flex align-items-center">
+                    <small id="author-text" class="ml-3">
+                      {{ page.author }}
+                      <span class="text-muted d-block mt-1">
+                        {{ page.date | date: "%Y-%m-%d" }} {{ page.time }}
+                      </span>
+                    </small>
+                  </div>
+                  
+                  <!-- Right-aligned buttons -->
+                  <div class="d-flex">
+
+                    
+                      <!-- Share Button -->
+                      <button class="btn btn-secondary btn-icon mx-1" onclick="copyURL()">🔗</button>
+
+                      <!-- Font Size Adjust Buttons -->
+                      <div class="position-relative">
+                        <button class="btn btn-secondary btn-icon mx-1" onclick="toggleFontSizeModal()">가</button>
+                        
+                        <!-- Font Size Modal -->
+                        <div class="modal position-absolute text-center" id="fontSizeModal" style="display: none;">
+                          <div class="border p-2 bg-white shadow rounded">
+                            <button class="btn btn-light mx-1" onclick="adjustFontSize('-')">−</button>
+                            <button class="btn btn-light mx-1" onclick="adjustFontSize('+')">+</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Print Button -->
+                      <button class="btn btn-secondary btn-icon mx-1" onclick="printPage()">🖨️</button>
+
+
+                  </div>
+                </div>                  
             </div>
           </div>
           <div id="article_div" class="px-md-3 px-0">
@@ -41,7 +75,7 @@ layout: default
             {% assign final_content = final_content | append: rest_content %}
             {% endif %}
             {% endfor %}
-            <article class="article-post">
+            <article id="article-post" class="article-post">
               {{ final_content }}
             </article>
             {% if page.comments != false %}
@@ -59,3 +93,89 @@ layout: default
       </div>
     </div>
   </div>
+
+  <script>
+  const FONT_SIZE_KEY = 'authorFontSize'; // Key for storing font size in localStorage
+  const authorText = document.getElementById('author-text');
+  const articlePost = document.getElementById('article-post'); // Parent container for paragraphs
+  const fontSizeModal = document.getElementById('fontSizeModal'); // Font size modal
+
+  // Load the font size from localStorage
+  function loadFontSize() {
+    const savedFontSize = localStorage.getItem(FONT_SIZE_KEY);
+    const defaultSize = '18px'; // Default font size
+    articlePost.style.setProperty('--font-size', savedFontSize || defaultSize);
+    if (savedFontSize) {
+      console.log('작서앚도')
+      authorText.style.fontSize = savedFontSize;
+    }
+  }
+  
+  function adjustFontSize(action) {
+    const currentSize = parseFloat(window.getComputedStyle(articlePost).getPropertyValue('--font-size'));
+    let newSize = action === '+' ? currentSize + 2 : currentSize - 2;
+    if (newSize < 14) newSize = 14; // Minimum font size
+    if (newSize > 28) newSize = 28; // Maximum font size
+    articlePost.style.setProperty('--font-size', `${newSize}px`);
+    console.log('작서앚도',newSize)
+    authorText.style.fontSize = newSize;
+    console.log('작서앚도',authorText)
+    localStorage.setItem(FONT_SIZE_KEY, `${newSize}px`); // Save to localStorage
+  }
+
+
+  // Toggle the font size modal
+  function toggleFontSizeModal() {
+    fontSizeModal.style.display = fontSizeModal.style.display === 'block' ? 'none' : 'block';
+  }
+
+  // Copy URL to clipboard and show alert
+  function copyURL() {
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => showToast('noti','URL이 클립보드에 복사 되었습니다.'))
+      .catch(err => console.error('alert','URL을 복사할 수 없습니다.'));
+  }
+
+  // Print the page
+  function printPage() {
+    window.print();
+  }
+
+  // Initialize font size on page load
+  document.addEventListener('DOMContentLoaded', loadFontSize);
+
+  // Close modal if clicked outside
+  window.addEventListener('click', (event) => {
+    if (!fontSizeModal.contains(event.target) && event.target.getAttribute('onclick') !== "toggleFontSizeModal()") {
+      fontSizeModal.style.display = 'none';
+    }
+  });
+  </script>
+
+<script
+src="{{site.baseurl}}/assets/js/bootstrap.js"></script>
+
+<style>
+  .modal {
+    background: transparent;
+    z-index: 1050;
+  }
+
+  #fontSizeModal{
+    width: 135px;
+    height: 56px;
+    top: 40px;
+    left: -45px;
+  }
+  .btn-icon {
+    font-size: 16px;
+    line-height: 1.5;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+</style>
+</style>

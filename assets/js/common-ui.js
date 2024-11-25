@@ -31,25 +31,34 @@ var COMMON = (function() {
         // Prompt 모달 생성
         promptOverlay = document.createElement('div');
         promptOverlay.className = 'common-modal-overlay';
+        var uniqueId = 'promptInput_' + new Date().getTime();
         promptOverlay.innerHTML = `
             <div class="common-modal">
                 <h2>입력 요청</h2>
                 <p id="promptMessage"></p>
-                <input type="text" id="promptInput" />
-                <button onclick="COMMON.submitPrompt()">확인</button>
+                <input type="text" id="${uniqueId}" />
+                <button onclick="COMMON.submitPrompt('${uniqueId}')">확인</button>
                 <button class="secondary" onclick="COMMON.closePrompt()">취소</button>
             </div>`;
+        
         document.body.appendChild(promptOverlay);
     });
 
     return {
         showProgressBar: function() {
-            progressBar.style.display = 'flex';
+            if (progressBar) { // progressBar가 정의되어 있는지 확인
+                progressBar.style.display = 'flex';
+            }
         },
         hideProgressBar: function() {
             progressBar.style.display = 'none';
         },
         showToast: function(type, message, duration) {
+            if (!toast) { // toast가 정의되어 있는지 확인
+                console.error('Toast element is not defined.');
+                return;
+            }
+        
             // 타입에 따라 색상 변경
             if (type === 'alert') {
                 toast.classList.add('alert');
@@ -63,12 +72,9 @@ var COMMON = (function() {
             toast.classList.add('show');
         
             // Progress Bar도 같이 사라지게 설정
-            function hideProgressBarIfVisible() {
-                if (progressBar && progressBar.style.display === 'flex') {
-                    progressBar.style.display = 'none';
-                }
+            if (progressBar && progressBar.style.display === 'flex') {
+                progressBar.style.display = 'none';
             }
-            hideProgressBarIfVisible(); // Toast가 사라질 때 Progress Bar도 숨김
         
             if (toastTimeout) clearTimeout(toastTimeout);
             toastTimeout = setTimeout(function() {
@@ -91,8 +97,8 @@ var COMMON = (function() {
         closePrompt: function() {
             promptOverlay.style.display = 'none';
         },
-        submitPrompt: function() {
-            var input = document.getElementById('promptInput').value;
+        submitPrompt: function(inputId) {
+            var input = document.getElementById(inputId).value;
             promptOverlay.style.display = 'none';
             if (promptCallback) promptCallback(input);
         }

@@ -199,11 +199,6 @@
         charCountDisplay.textContent = currentLength;
     });
 
-    // Toast 메시지 표시
-    function showToast(type, message) {
-        COMMON.showToast(type, message);
-    }
-
     // 댓글 목록 불러오기
     async function fetchComments() {
         const postId = document.getElementById('post_id').value;

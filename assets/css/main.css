@@ -22,6 +22,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 
 
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -218,7 +219,7 @@ p {
 }
 
 .article-post p {
-  font-size: 18px;
+  font-size: var(--font-size, 18px); /* Default to 18px if no variable is set */
   white-space: normal;
   word-break: break-word;
 }

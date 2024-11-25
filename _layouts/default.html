@@ -23,6 +23,8 @@
     <!-- Theme Stylesheet -->
     <link rel="stylesheet" href="{{site.baseurl}}/assets/css/main.css">
 
+    <script src="/assets/js/common-ui.js"></script>
+
     <!-- Jquery on header to make sure everything works, the rest  of the scripts in footer for fast loading -->
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -31,6 +33,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/ko.js"></script>
+      <!-- Jquery on header to make sure everything works, the rest  of the scripts in footer for fast loading -->
+
+  
 
     <style>
     #dsMenuDiv {
@@ -254,28 +259,31 @@
         });
 
 
-
+    // Toast 메시지 표시
+    function showToast(type, message) {
+        COMMON.showToast(type, message);
+    }
 
         // Function to show toast messages
-        function showToast(message) {
-            const toastContainer = document.getElementById('toastContainer');
-            const toastElement = document.createElement('div');
-            toastElement.className = 'toast align-items-center text-bg-primary border-0 show';
-            toastElement.setAttribute('role', 'alert');
-            toastElement.innerHTML = `
-                <div class="d-flex">
-                    <div class="toast-body">
-                        ${message}
-                    </div>
-                </div>
-            `;
-            toastContainer.appendChild(toastElement);
+        // function showToast(message) {
+        //     const toastContainer = document.getElementById('toastContainer');
+        //     const toastElement = document.createElement('div');
+        //     toastElement.className = 'toast align-items-center text-bg-primary border-0 show';
+        //     toastElement.setAttribute('role', 'alert');
+        //     toastElement.innerHTML = `
+        //         <div class="d-flex">
+        //             <div class="toast-body">
+        //                 ${message}
+        //             </div>
+        //         </div>
+        //     `;
+        //     toastContainer.appendChild(toastElement);
 
-            // Automatically remove toast after 3 seconds
-            setTimeout(function() {
-                toastElement.remove();
-            }, 3000);
-        }
+        //     // Automatically remove toast after 3 seconds
+        //     setTimeout(function() {
+        //         toastElement.remove();
+        //     }, 3000);
+        // }
     </script>
 
     {% include tracking-header.html %}

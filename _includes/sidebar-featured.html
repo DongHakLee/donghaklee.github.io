@@ -9,16 +9,6 @@
               <h5 class="font-weight-bold text-title">
                 <a href="{{ article.permalink }}" class="text-dark">{{ article.title }}</a>
               </h5>
-              <span class="d-block text-muted">
-                <span class="catlist">
-                  {% if article.categories_name %}
-                    {% for category in article.categories_name %}
-                      <a class="text-capitalize text-muted smoothscroll" href="/{{ article.categories | first }}">{{ category }}</a>
-                    {% endfor %}
-                  {% endif %}
-                </span>
-                • <span class="timeago" data-date="{{ article.date | date: "%Y-%m-%d" }} {% if article.time %}{{ latest_post.time | date: "%H:%M" }}{% endif %}"></span>
-              </span>
             </div>
             <div class="ml-3 image-container">
               {% if article.image %}
