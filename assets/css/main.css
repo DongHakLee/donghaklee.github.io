@@ -294,6 +294,10 @@ p {
   word-break: break-word;
 }
 
+.article_info small {
+  font-size: 1rem;
+}
+
 .article-post p {
   font-size: var(--font-size, 18px); /* Default to 18px if no variable is set */
   white-space: normal;
