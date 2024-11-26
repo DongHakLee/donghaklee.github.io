@@ -1,0 +1,170 @@
+<style>
+    .floating-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    .floating-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.9); /* 흰색 배경 + 약간의 투명도 */
+        color: #0d6efd; /* 아이콘 색상 (부트스트랩 기본 색상) */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .floating-btn:hover {
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강화 */
+    }
+
+    .floating-btn.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .function-buttons {
+        position: absolute;
+        display: flex;
+        bottom: 0;
+        right: 70px;
+        gap: 10px;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .function-buttons.active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .function-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.9); /* 동일한 흰색 배경 */
+        color: #0d6efd; /* 아이콘 색상 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .function-btn:hover {
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
+    }
+</style>
+
+
+
+
+<!-- Floating Buttons -->
+<div class="floating-container">
+    <!-- "Scroll to Top" Button -->
+    <div id="scrollTopButton" class="floating-btn hidden" title="Scroll to Top">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <!-- Main Button -->
+    <div id="mainButton" class="floating-btn" title="Menu">
+        <i class="bi bi-three-dots"></i>
+    </div>
+
+    <!-- Function Buttons -->
+    <div id="functionButtons" class="function-buttons">
+        <!-- Facebook Button -->
+        <div id="facebookButton" class="function-btn" title="Share on Facebook">
+            <i class="bi bi-facebook"></i>
+        </div>
+        <!-- X (Twitter) Button -->
+        <div id="xButton" class="function-btn" title="Share on X">
+            <i class="bi bi-twitter"></i>
+        </div>
+        <!-- Copy URL Button -->
+        <div id="copyButton" class="function-btn" title="Copy URL">
+            <i class="bi bi-link-45deg"></i>
+        </div>
+        <!-- Zoom Out Button -->
+        <div id="zoomOutButton" class="function-btn" title="Zoom Out">
+            <i class="bi bi-zoom-out"></i>
+        </div>
+        <!-- Zoom In Button -->
+        <div id="zoomInButton" class="function-btn" title="Zoom In">
+            <i class="bi bi-zoom-in"></i>
+        </div>
+        <!-- Print Button -->
+        <div id="printButton" class="function-btn" title="Print">
+            <i class="bi bi-printer"></i>
+        </div>
+    </div>
+</div>
+
+<script>
+    const scrollTopButton = document.getElementById('scrollTopButton');
+    const mainButton = document.getElementById('mainButton');
+    const functionButtons = document.getElementById('functionButtons');
+    const copyButton = document.getElementById('copyButton');
+    const facebookButton = document.getElementById('facebookButton');
+    const xButton = document.getElementById('xButton');
+
+    // Scroll event to show/hide menu bar and "scroll to top" button
+    document.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            scrollTopButton.classList.remove('hidden');
+        } else {
+            scrollTopButton.classList.add('hidden');
+        }
+    });
+
+        // Scroll to top functionality
+    scrollTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+
+    // Facebook 공유 버튼
+    facebookButton.addEventListener('click', () => {
+        closeFunctionButton();
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    });
+
+    // X 공유 버튼
+    xButton.addEventListener('click', () => {
+        closeFunctionButton();
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank');
+    });
+
+
+
+
+    // Toggle function buttons visibility
+    mainButton.addEventListener('click', () => {
+        functionButtons.classList.toggle('active');
+    });
+
+    copyButton.addEventListener('click', () => {
+        closeFunctionButton();
+        navigator.clipboard.writeText(window.location.href)
+            .then(() => showToast('noti','URL이 클립보드에 복사 되었습니다.'))
+            .catch(err => console.error('alert','URL을 복사할 수 없습니다.'));
+    });
+    
+    function closeFunctionButton(){
+        functionButtons.classList.remove('active');
+    }
+
+</script>

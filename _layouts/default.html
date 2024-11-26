@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="{{site.baseurl}}/assets/css/main.css">
     <!-- Bootstap Stylesheet -->
     <link rel="stylesheet" href="{{site.baseurl}}/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{site.baseurl}}/assets/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <!-- Bootstrap -->
+    <script src="{{site.baseurl}}/assets/js/bootstrap.js"></script>
     <!-- Scripts: popper, bootstrap, theme, lunr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <!-- Common Stylesheet -->
@@ -86,19 +88,6 @@
                 if (hamburgerMenu && !hamburgerButton.contains(event.target) && !hamburgerMenu.contains(event.target)) {
                     hamburgerMenu.style.display = 'none';
                 }
-            });
-
-            // Share button functionality
-            document.getElementById('shareX').addEventListener('click', function() {
-                showToast('Shared to X');
-            });
-            document.getElementById('shareFacebook').addEventListener('click', function() {
-                showToast('Shared to Facebook');
-            });
-            document.getElementById('shareUrl').addEventListener('click', function() {
-                navigator.clipboard.writeText(window.location.href).then(function() {
-                    showToast('URL copied to clipboard');
-                });
             });
 
             // 초기 로드 시 - 애니메이션 없이 즉시 이동
@@ -211,41 +200,23 @@
     <div id="hiddenMenuBar" class="topnav navbar navbar-light bg-light fixed-top" style="display: none;">
         <div class="container-fluid custom-flex-container d-flex justify-content-between align-items-center py-2">
             <!-- Title Section -->
-            <div id="hiddenTitle" class="text-truncate" style="max-width: 60%;">
+            <div id="hiddenTitle" class="text-truncate">
                 <strong>{{page.title}}</strong>
             </div>
 
             <!-- Buttons Section -->
             <div id="buttonSection" class="d-flex align-items-center">
                 <!-- Scroll to Top Button -->
+                <!--
                 <button id="scrollTopButton" class="btn">
                     <i class="fas fa-arrow-up"></i>
                 </button>
-
-                <!-- Share Button -->
-                <div id="shareButtonContainer" class="position-relative">
-                    <button id="shareButton" class="btn">
-                        <i class="fas fa-share-alt"></i>
-                    </button>
-
-                    <!-- Hidden Share Options -->
-                    <div id="shareOptions" class="position-absolute bg-white shadow p-2" style="display: none; top: 120%; right: 0;">
-                        <button id="shareX" class="btn btn-link">
-                            <i class="fa-brands fa-x-twitter"></i> X
-                        </button>
-                        <button id="shareFacebook" class="btn btn-link">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <button id="shareUrl" class="btn btn-link">
-                            <i class="fas fa-link"></i>
-                        </button>
-                    </div>
-                </div>
+                -->
 
                <!-- Hamburger Menu -->
                <div id="hamburgerButtonContainer" class="position-relative">
                 <button id="hamburgerButton" class="btn">
-                    <i class="fas fa-bars"></i>
+                    <i class="bi bi-list"></i>
                 </button>
 
                 <!-- Hidden Hamburger Menu -->
@@ -303,7 +274,7 @@
     </footer>
 
     {% include tracking-footer.html %}
-
+    {% include tracking-floating.html %}
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {

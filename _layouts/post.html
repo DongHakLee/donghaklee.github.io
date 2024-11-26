@@ -87,9 +87,7 @@ layout: default
       </div>
       <div class="col-md-4">
         <div class="sticky-top sticky-top-offset">
-          <div style="border:0px; width:100%; height:200px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; background-color: #f4f4f4; font-size: 20px; color: #333; font-weight: bold;">
-            Advertisement
-        </div>
+            {% include adv-sidebar.html %}
             <div class="p-2">
                 {% include sidebar-featured.html %}
             </div>
@@ -152,9 +150,6 @@ layout: default
     }
   });
   </script>
-
-<script
-src="{{site.baseurl}}/assets/js/bootstrap.js"></script>
 
 <style>
 @media print {

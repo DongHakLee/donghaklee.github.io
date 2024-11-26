@@ -266,10 +266,13 @@ p {
   align-items: center; /* 자식 요소들을 수직 가운데 정렬 */
 }
 
-.custom-flex-container #hiddenTitle,
+.custom-flex-container #hiddenTitle{
+  flex: 1; /* 각 요소가 동일하게 공간을 차지 */
+  max-width: 80%; /* 각각 최대 80%의 폭을 차지하도록 설정 */
+}
 .custom-flex-container #buttonSection {
   flex: 1; /* 각 요소가 동일하게 공간을 차지 */
-  max-width: 50%; /* 각각 최대 50%의 폭을 차지하도록 설정 */
+  max-width: 20%; /* 각각 최대 80%의 폭을 차지하도록 설정 */
 }
 
 .custom-flex-container #buttonSection {
