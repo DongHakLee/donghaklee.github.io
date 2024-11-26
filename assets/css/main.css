@@ -522,3 +522,8 @@ footer a:hover {
   margin-bottom: -1px;
 }
 
+
+
+.sticky-top {
+  z-index: 1000; /* 낮은 값을 설정 */
+}
