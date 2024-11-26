@@ -125,13 +125,10 @@
 
             function updateTimes() {
                 document.querySelectorAll('.timeago').forEach(function(element) {
-                    console.log('haha',element)
                     const date = moment(element.getAttribute('data-date'));
                     const now = moment();
                     const diffDays = now.diff(date, 'days');
                     const diffHours = now.diff(date, 'hours');
-                    
-                    console.log('diffDays',diffDays)
                     if (diffDays === 0) {
                         // 오늘인 경우 - 시간 단위로 표시
                         if (diffHours === 0) {

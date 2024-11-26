@@ -89,7 +89,6 @@ layout: default
   //const currentFontSizeDisplay = document.getElementById('currentFontSizeDisplay'); // Display for current font size
 
   const articlePost = document.getElementById('article-post'); // Parent container for paragraphs
-  const fontSizeModal = document.getElementById('fontSizeModal'); // Font size modal
 
   // Load the font size from localStorage
   function loadFontSize() {
@@ -111,10 +110,6 @@ layout: default
   }
 
 
-  // Toggle the font size modal
-  function toggleFontSizeModal() {
-    fontSizeModal.style.display = fontSizeModal.style.display === 'block' ? 'none' : 'block';
-  }
 
   // Copy URL to clipboard and show alert
   function copyURL() {
@@ -131,12 +126,6 @@ layout: default
   // Initialize font size on page load
   document.addEventListener('DOMContentLoaded', loadFontSize);
 
-  // Close modal if clicked outside
-  window.addEventListener('click', (event) => {
-    if (!fontSizeModal.contains(event.target) && event.target.getAttribute('onclick') !== "toggleFontSizeModal()") {
-      fontSizeModal.style.display = 'none';
-    }
-  });
   </script>
 
 <style>
@@ -148,12 +137,6 @@ layout: default
     display: block !important; /* print_area와 그 하위 요소만 보이도록 설정 */
   }
 }
-  #fontSizeModal{
-    width: 135px;
-    height: auto;
-    top: 40px;
-    left: -50px;
-  }
   .icon-button {
     background: transparent;
     border: none;

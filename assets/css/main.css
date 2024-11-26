@@ -61,7 +61,6 @@ body {
   font-weight: 900;
 }
 
-
 [tabindex="-1"]:focus {
   outline: 0 !important; }
 
@@ -83,6 +82,7 @@ p {
   font-weight: 500;
   color: #555;
 }
+
 #brandSection {
   display: flex;
   justify-content: space-between; /* 좌우 정렬 */
@@ -158,13 +158,16 @@ p {
   letter-spacing: -0.5px;
   padding: 0 !important;
 }
+
 #hiddenTitle{
   padding-right: 30px;
 }
+
 #hiddenMenuBar{
   border-bottom: 1px solid;
   border-color: var(--brand-border-color);
 }
+
 #scrollingMenu, #scrollingHiddenMenu {
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
@@ -172,24 +175,30 @@ p {
   border-bottom: 1px solid;
   border-color: var(--brand-border-color);
 }
+
 #scrollingMenu ul, #scrollingHiddenMenu ul {
   padding-left: 0;
   margin: 0;
 }
+
 #scrollingMenu li, #scrollingHiddenMenu li {
   list-style: none;
 }
+
 #scrollingMenu a, #scrollingHiddenMenu a {
   text-decoration: none;
   color: #000;
   /* padding: 5px 10px; */
 }
+
 #scrollingMenu a.active, #scrollingHiddenMenu a.active {
   font-weight: bold;
 }
+
 #scrollingMenu a:focus, #scrollingHiddenMenu a:focus {
   outline: none;
 }
+
 /* 버튼 스타일 수정 */
 #buttonSection .btn {
   border: none;
@@ -507,8 +516,6 @@ footer a:hover {
   padding-bottom: 20px;
   margin-bottom: -1px;
 }
-
-
 
 .sticky-top {
   z-index: 1000; /* 낮은 값을 설정 */

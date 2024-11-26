@@ -63,6 +63,7 @@
         cursor: pointer;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         font-size:21px;
+        border: 0px;
     }
 
     .function-btn:hover {
@@ -118,6 +119,7 @@
     const zoomOutButton = document.getElementById('zoomOutButton');
     const zoomInButton = document.getElementById('zoomInButton');
     const printButton = document.getElementById('printButton');
+
     //const facebookButton = document.getElementById('facebookButton');
     //const xButton = document.getElementById('xButton');
 
@@ -136,17 +138,19 @@
     });
 
     zoomOutButton.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        console.log(adjustFontSize)
+        adjustFontSize('-')
     });
 
     zoomInButton.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        console.log(adjustFontSize)
+        adjustFontSize('+')
     });
 
     printButton.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        console.log(printPage)
+        printPage();
     });
-
 
     // Facebook 공유 버튼
     /*
