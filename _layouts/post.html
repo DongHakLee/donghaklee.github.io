@@ -34,24 +34,12 @@ layout: default
     <button class="icon-button mx-1" onclick="copyURL()">
       <i class="bi bi-link-45deg"></i>
     </button>
-    <div class="position-relative">
-      <button class="icon-button mx-1" onclick="toggleFontSizeModal()">
-        가
-      </button>
-      <!-- Font Size Modal -->
-      <div class="modal position-absolute text-center" id="fontSizeModal" style="display: none;">
-        <div class="border p-2 bg-white shadow rounded">
-          <!-- Current Font Size Display -->
-          <div id="currentFontSizeDisplay" style="font-size: 18px;">가나AB</div>
-          
-          <!-- Font Size Adjustment Buttons -->
-          <div class="mt-2">
-            <button class="btn btn-light mx-1" onclick="adjustFontSize('-')">−</button>
-            <button class="btn btn-light mx-1" onclick="adjustFontSize('+')">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <button class="icon-button mx-1" onclick="adjustFontSize('-')" style="font-size: 16px;">
+      가
+    </button>
+    <button class="icon-button mx-1" onclick="adjustFontSize('+')">
+      가
+    </button>
     <button class="icon-button mx-1" onclick="printPage()">
       <i class="bi bi-printer"></i>
     </button>
@@ -98,7 +86,7 @@ layout: default
 
   <script>
   const FONT_SIZE_KEY = 'dhlFontSize'; // Key for storing font size in localStorage
-  const currentFontSizeDisplay = document.getElementById('currentFontSizeDisplay'); // Display for current font size
+  //const currentFontSizeDisplay = document.getElementById('currentFontSizeDisplay'); // Display for current font size
 
   const articlePost = document.getElementById('article-post'); // Parent container for paragraphs
   const fontSizeModal = document.getElementById('fontSizeModal'); // Font size modal
@@ -108,7 +96,7 @@ layout: default
     const savedFontSize = localStorage.getItem(FONT_SIZE_KEY);
     const defaultSize = '18px'; // Default font size
     const fontSize = savedFontSize || defaultSize;
-    currentFontSizeDisplay.style.fontSize = fontSize; // Set font size for display
+    //currentFontSizeDisplay.style.fontSize = fontSize; // Set font size for display
     articlePost.style.setProperty('--font-size', savedFontSize || defaultSize);
   }
   
@@ -117,7 +105,7 @@ layout: default
     let newSize = action === '+' ? currentSize + 2 : currentSize - 2;
     if (newSize < 14) newSize = 14; // Minimum font size
     if (newSize > 28) newSize = 28; // Maximum font size
-    currentFontSizeDisplay.style.fontSize =  `${newSize}px`; // Update the display size
+    //currentFontSizeDisplay.style.fontSize =  `${newSize}px`; // Update the display size
     articlePost.style.setProperty('--font-size', `${newSize}px`);
     localStorage.setItem(FONT_SIZE_KEY, `${newSize}px`); // Save to localStorage
   }
@@ -176,7 +164,7 @@ layout: default
     margin: 0 10px; /* 버튼 사이에 10px 간격 추가 */
   }
   .icon-button:hover {
-    color: #007bff; /* Optional hover color */
+    color: #666 !important;
   }
   .modal {
     background: transparent;

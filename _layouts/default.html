@@ -198,37 +198,31 @@
     
     <!-- Hidden Menu Bar (Updated) -->
     <div id="hiddenMenuBar" class="topnav navbar navbar-light bg-light fixed-top" style="display: none;">
-        <div class="container-fluid custom-flex-container d-flex justify-content-between align-items-center py-2">
+
+        <div class="container-fluid custom-flex-container d-flex align-items-center py-2 position-relative">
             <!-- Title Section -->
-            <div id="hiddenTitle" class="text-truncate">
+            <div id="hiddenTitle" class="text-truncate text-center mx-auto">
                 <strong>{{page.title}}</strong>
             </div>
-
+        
             <!-- Buttons Section -->
-            <div id="buttonSection" class="d-flex align-items-center">
-                <!-- Scroll to Top Button -->
-                <!--
-                <button id="scrollTopButton" class="btn">
-                    <i class="fas fa-arrow-up"></i>
-                </button>
-                -->
-
-               <!-- Hamburger Menu -->
-               <div id="hamburgerButtonContainer" class="position-relative">
-                <button id="hamburgerButton" class="btn">
-                    <i class="bi bi-list"></i>
-                </button>
-
-                <!-- Hidden Hamburger Menu -->
-                <div id="hamburgerMenu" class="position-absolute bg-white shadow p-2" style="display: none; top: 120%; right: 0;">
-                    <ul class="navbar-nav">
-                        {% include menu-header.html %}
-                    </ul>
+            <div id="buttonSection" class="d-flex align-items-center position-absolute" style="right: 0;">
+                <!-- Hamburger Menu -->
+                <div id="hamburgerButtonContainer" class="position-relative">
+                    <button id="hamburgerButton" class="btn">
+                        <i class="bi bi-list"></i>
+                    </button>
+        
+                    <!-- Hidden Hamburger Menu -->
+                    <div id="hamburgerMenu" class="position-absolute bg-white shadow p-2" style="display: none; top: 120%; right: 0;">
+                        <ul class="navbar-nav">
+                            {% include menu-header.html %}
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            </div>
         </div>
+        
     </div>
     </nav>
     

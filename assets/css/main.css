@@ -78,10 +78,6 @@ p {
   margin-top: 0;
   margin-bottom: 1rem; }
 
-:root {
-  --primary-color: #000000;
-}
-
 /* top logo and menu*/
 #lastUpdated {
   font-weight: 500;
@@ -95,6 +91,11 @@ p {
   border-bottom: 0px !important;
   flex-wrap: nowrap;
   font-size: 1rem;
+}
+
+#hamburgerButton{
+  font-size:21px;
+  color: var(--primary-color);
 }
 
 .logo-container {
@@ -157,13 +158,18 @@ p {
   letter-spacing: -0.5px;
   padding: 0 !important;
 }
-
+#hiddenTitle{
+  padding-right: 30px;
+}
+#hiddenMenuBar{
+  border-bottom: 1px solid;
+  border-color: var(--brand-border-color);
+}
 #scrollingMenu, #scrollingHiddenMenu {
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: auto;
-  border-top: 1px solid;
-  border-bottom: 2px solid;
+  border-bottom: 1px solid;
   border-color: var(--brand-border-color);
 }
 #scrollingMenu ul, #scrollingHiddenMenu ul {
@@ -194,8 +200,7 @@ p {
 }
 
 #buttonSection .btn:hover {
-  background-color: rgba(0, 123, 255, 0.1);
-  color: #007bff;
+  color: var(--primary-color);
 }
 
 #shareOptions {
@@ -234,7 +239,7 @@ p {
 }
 
 #hamburgerMenu .nav-link.active {
-  color: #007bff;
+  color: #000;
   font-weight: bold;
   background-color: #f8f9fa;
 }
@@ -254,50 +259,37 @@ p {
 .justify-content-center {
   justify-content: center !important;
 }
-
 .pl-0{
   padding-left: 0px !important;
 }
-
-
 .custom-flex-container {
   display: flex; /* 자식 요소들을 한 줄로 배치 */
   justify-content: space-between; /* 자식 요소들 간의 간격을 균등하게 배치 */
   align-items: center; /* 자식 요소들을 수직 가운데 정렬 */
 }
-
-.custom-flex-container #hiddenTitle{
-  flex: 1; /* 각 요소가 동일하게 공간을 차지 */
-  max-width: 80%; /* 각각 최대 80%의 폭을 차지하도록 설정 */
+.custom-flex-container {
+  padding-left: 50px; /* 버튼 섹션이 제목과 겹치지 않도록 */
+  padding-right: 50px;
 }
 .custom-flex-container #buttonSection {
-  flex: 1; /* 각 요소가 동일하게 공간을 차지 */
-  max-width: 20%; /* 각각 최대 80%의 폭을 차지하도록 설정 */
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
-
-.custom-flex-container #buttonSection {
-  justify-content: flex-end; /* 버튼들이 오른쪽에 정렬되도록 설정 */
-}
-
-
 .main-news.card{
   border: 0px;
 }
-
 #article_div{
   padding-left: 0px;
   padding-right: 0px;
 }
-
 .article-headline {
   white-space: normal; /* 자동 줄바꿈 허용 */
   word-break: break-word;
 }
-
 .article_info small {
   font-size: 1rem;
 }
-
 .article-post p {
   font-size: var(--font-size, 18px); /* Default to 18px if no variable is set */
   white-space: normal;
@@ -315,18 +307,15 @@ p {
     height: auto;
     display: block;
 }
-
 figure {
   margin: 1.5em 0;
   text-align: center;
 }
-
 figure > img {
   max-width: 100%;
   margin: 0 auto;
   display: block;
 }
-
 figcaption {
   text-align: center;
   font-size: 0.9rem;
@@ -334,7 +323,6 @@ figcaption {
   padding: 8px 0;
   font-style: italic;
 }
-
 /* 기본 링크 스타일 */
 a {
   text-decoration: none;
@@ -342,12 +330,9 @@ a {
   position: relative;
   transition: all 0.3s ease;
 }
-
 /* a.nav-link  {
   color: white !important;
 } */
-
-
 /* 기본 링크 스타일 - 최우선 적용 */
 .site-content a {
   text-decoration: none;
@@ -471,6 +456,7 @@ footer a:hover {
 
 
 .list-featured {
+  padding-left: 1.3rem;
   list-style-type: none; /* 기본 점 제거 */
   counter-reset: list-counter; /* 카운터 초기화 */
 }
@@ -481,8 +467,8 @@ footer a:hover {
 
 .list-featured li::marker {
   content: counter(list-counter) " "; /* 숫자 뒤에 공백 추가 */
-  font-family: 'Courier New', monospace; /* 원하는 폰트 */
-  font-size: 1.4em;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.3em;
   font-weight: bold;
 }
 

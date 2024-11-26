@@ -12,11 +12,11 @@
     }
 
     .floating-btn {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.9); /* 흰색 배경 + 약간의 투명도 */
-        color: #0d6efd; /* 아이콘 색상 (부트스트랩 기본 색상) */
+        color: var(--primary-color);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -43,15 +43,6 @@
         visibility: hidden;
         opacity: 0;
         transition: all 0.3s ease;
-        overflow-x: auto; /* 가로 스크롤 가능 */
-        white-space: nowrap; /* 버튼들이 한 줄로 유지되도록 설정 */
-        padding: 10px; /* 스크롤 여백 추가 */
-        max-width: calc(100vw - 20px); /* 화면 너비에서 20px 여유 */
-        scrollbar-width: none; /* 파이어폭스 스크롤바 숨김 */
-    }
-
-    .function-buttons::-webkit-scrollbar {
-        display: none; /* 크롬, 사파리 스크롤바 숨김 */
     }
 
     .function-buttons.active {
@@ -60,25 +51,33 @@
     }
 
     .function-btn {
-        width: 45px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.9); /* 동일한 흰색 배경 */
-        color: #0d6efd; /* 아이콘 색상 */
+        color: var(--primary-color);
         display: flex;
         justify-content: center;
         align-items: center;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         cursor: pointer;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-        flex-shrink: 0; /* 버튼 크기 고정 */
+        font-size:21px;
     }
 
     .function-btn:hover {
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
     }
+
+    .fs-16 {
+        font-size:16px;
+    }
 </style>
 
+
+
+
+<!-- Floating Buttons -->
 <div class="floating-container">
     <!-- "Scroll to Top" Button -->
     <div id="scrollTopButton" class="floating-btn hidden" title="Scroll to Top">
@@ -92,118 +91,96 @@
 
     <!-- Function Buttons -->
     <div id="functionButtons" class="function-buttons">
-        <!-- Facebook Button -->
-        <div id="facebookButton" class="function-btn" title="Share on Facebook">
-            <i class="bi bi-facebook"></i>
-        </div>
-        <!-- X (Twitter) Button -->
-        <div id="xButton" class="function-btn" title="Share on X">
-            <i class="bi bi-twitter"></i>
-        </div>
         <!-- Copy URL Button -->
-        <div id="copyButton" class="function-btn" title="Copy URL">
+        <button id="copyButton" class="function-btn" title="Copy URL">
             <i class="bi bi-link-45deg"></i>
-        </div>
+        </button>
         <!-- Zoom Out Button -->
-        <div id="zoomOutButton" class="function-btn" title="Zoom Out">
-            <i class="bi bi-zoom-out"></i>
-        </div>
+        <button id="zoomOutButton" class="function-btn fs-16" title="Zoom Out">
+            <span>가</span>
+        </button>
         <!-- Zoom In Button -->
-        <div id="zoomInButton" class="function-btn" title="Zoom In">
-            <i class="bi bi-zoom-in"></i>
-        </div>
+        <button id="zoomInButton" class="function-btn" title="Zoom In">
+            <span>가</span>
+        </button>
         <!-- Print Button -->
-        <div id="printButton" class="function-btn" title="Print">
+        <button id="printButton" class="function-btn" title="Print">
             <i class="bi bi-printer"></i>
-        </div>
+        </button>
     </div>
 </div>
 
-
 <script>
-const scrollTopButton = document.getElementById('scrollTopButton');
-const mainButton = document.getElementById('mainButton');
-const functionButtons = document.getElementById('functionButtons');
-const copyButton = document.getElementById('copyButton');
-const facebookButton = document.getElementById('facebookButton');
-const xButton = document.getElementById('xButton');
+    const scrollTopButton = document.getElementById('scrollTopButton');
+    const mainButton = document.getElementById('mainButton');
+    const functionButtons = document.getElementById('functionButtons');
+    const copyButton = document.getElementById('copyButton');
+    const zoomOutButton = document.getElementById('zoomOutButton');
+    const zoomInButton = document.getElementById('zoomInButton');
+    const printButton = document.getElementById('printButton');
+    //const facebookButton = document.getElementById('facebookButton');
+    //const xButton = document.getElementById('xButton');
 
-let isDragging = false;
-let startX, scrollLeft;
+    // Scroll event to show/hide menu bar and "scroll to top" button
+    document.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            scrollTopButton.classList.remove('hidden');
+        } else {
+            scrollTopButton.classList.add('hidden');
+        }
+    });
 
-// Scroll event to show/hide menu bar and "scroll to top" button
-document.addEventListener('scroll', function () {
-    if (window.scrollY > 100) {
-        scrollTopButton.classList.remove('hidden');
-    } else {
-        scrollTopButton.classList.add('hidden');
+    // Scroll to top functionality
+    scrollTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    zoomOutButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    zoomInButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    printButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+
+    // Facebook 공유 버튼
+    /*
+    facebookButton.addEventListener('click', () => {
+        closeFunctionButton();
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    });
+
+    // X 공유 버튼
+    xButton.addEventListener('click', () => {
+        closeFunctionButton();
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank');
+    });
+    */
+
+
+
+
+    // Toggle function buttons visibility
+    mainButton.addEventListener('click', () => {
+        functionButtons.classList.toggle('active');
+    });
+
+    copyButton.addEventListener('click', () => {
+        closeFunctionButton();
+        navigator.clipboard.writeText(window.location.href)
+            .then(() => showToast('noti','URL이 클립보드에 복사 되었습니다.'))
+            .catch(err => console.error('alert','URL을 복사할 수 없습니다.'));
+    });
+    
+    function closeFunctionButton(){
+        functionButtons.classList.remove('active');
     }
-});
-
-// Scroll to top functionality
-scrollTopButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// Facebook 공유 버튼
-facebookButton.addEventListener('click', () => {
-    closeFunctionButton();
-    const url = encodeURIComponent(window.location.href);
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-});
-
-// X 공유 버튼
-xButton.addEventListener('click', () => {
-    closeFunctionButton();
-    const url = encodeURIComponent(window.location.href);
-    window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank');
-});
-
-// Toggle function buttons visibility
-mainButton.addEventListener('click', () => {
-    functionButtons.classList.toggle('active');
-});
-
-// Copy URL Button
-copyButton.addEventListener('click', () => {
-    closeFunctionButton();
-    navigator.clipboard.writeText(window.location.href)
-        .then(() => showToast('noti', 'URL이 클립보드에 복사 되었습니다.'))
-        .catch(err => console.error('alert', 'URL을 복사할 수 없습니다.'));
-});
-
-function closeFunctionButton() {
-    functionButtons.classList.remove('active');
-}
-
-// 드래그 시작
-functionButtons.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX = e.pageX - functionButtons.offsetLeft;
-    scrollLeft = functionButtons.scrollLeft;
-    functionButtons.classList.add('dragging');
-});
-
-// 드래그 중
-functionButtons.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - functionButtons.offsetLeft;
-    const walk = (x - startX) * 2; // 드래그 속도 조정
-    functionButtons.scrollLeft = scrollLeft - walk;
-});
-
-// 드래그 종료
-functionButtons.addEventListener('mouseup', () => {
-    isDragging = false;
-    functionButtons.classList.remove('dragging');
-});
-
-// 드래그 취소
-functionButtons.addEventListener('mouseleave', () => {
-    isDragging = false;
-    functionButtons.classList.remove('dragging');
-});
-
 
 </script>
