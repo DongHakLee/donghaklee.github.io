@@ -502,11 +502,18 @@ footer a:hover {
   counter-increment: list-counter; /* 카운터 증가 */
 }
 
-.list-featured li::marker {
-  content: counter(list-counter) " "; /* 숫자 뒤에 공백 추가 */
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 1.3em;
-  font-weight: bold;
+@supports (list-style-type: disc) {
+  .list-featured li::marker {
+    content: counter(list-counter) " ";
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+}
+
+/* 대체 스타일 */
+.list-featured li {
+  list-style: decimal; /* 기본 list 스타일 */
 }
 
 /* 이미지 hover 효과 */
