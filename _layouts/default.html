@@ -172,13 +172,14 @@
             <div id="brandSection" class="mw-1200 w-100 py-1 border-bottom d-flex align-items-center position-relative">
                 <!-- 좌측 로고 -->
                 <div class="logo-container position-absolute text-center w-100">
-                    <a href="/" class="navbar-brand mx-auto">도담뉴스</a>
+                    <a href="/" class="navbar-brand mx-auto">{{site.name}}</a>
                 </div>
             
                 <!-- 우측 마지막 업데이트 시간 (모바일에서는 숨김) -->
                 <div class="update-container d-none d-md-flex align-items-end position-absolute" style="right: 0;">
+                    {% assign latest_post = site.posts | sort: "date" | last %}
                     <span id="lastUpdated">
-                        Updated: 2024-11-13 11:37:15
+                        Updated: {{ latest_post.date | date: "%Y-%m-%d" }} {{ latest_post.time }}
                     </span>
                 </div>
             </div>
@@ -261,8 +262,8 @@
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <p class="mb-0">
-                            대표자: {{site.company.ceo}} | 사업자 등록번호: {{site.company.registration_number}}<br>
-                            주소: {{site.company.address}} | 전화: {{site.company.phone}} | 이메일: {{site.company.email}}
+                            대표자: {{site.company.ceo}} | 사업자 등록번호: <span>{{site.company.registration_number}}</span><br>
+                            주소: <span>{{site.company.address}}</span> | 전화: <span>{{site.company.phone}}</span> | 이메일: {{site.company.email}}
                         </p>
                     </div>
                 </div>
