@@ -65,8 +65,38 @@ layout: default
             {% assign final_content = final_content | append: rest_content %}
             {% endif %}
             {% endfor %}
+
+            {% if page.subtitle %}
+              <div class="article-subtitle">
+                {{ page.subtitle | newline_to_br }}
+              </div>
+            {% endif %}
+
+
             <article id="article-post" class="article-post">
-              {{ final_content }}
+
+              {% assign paragraphs = final_content | split: '</p>' %}
+              {% assign ads = site.ads | shuffle %} <!-- 광고 리스트를 랜덤하게 섞음 -->
+              {% assign ad_index = 0 %} <!-- 광고 리스트의 현재 인덱스 -->
+            
+              {% for paragraph in paragraphs %}
+                {{ paragraph }}</p> <!-- 단락 출력 -->
+            
+                {% if ad_index < ads.size %} <!-- 광고가 남아 있는 경우 -->
+                  {% include {{ ads[ad_index] }} %} <!-- 현재 광고 삽입 -->
+                  {% assign ad_index = ad_index | plus: 1 %} <!-- 다음 광고로 이동 -->
+                {% endif %}
+              {% endfor %}
+            
+              <!-- 남은 광고를 단락 외부에 표시 -->
+              {% if ad_index < ads.size %}
+                <div class="remaining-ads">
+                  {% for ad in ads offset: ad_index %}
+                    {% include {{ ad }} %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+
             </article>
             {% if page.comments != false %}
             {% include comments.html %}
@@ -88,7 +118,8 @@ layout: default
   const FONT_SIZE_KEY = 'dhlFontSize'; // Key for storing font size in localStorage
   //const currentFontSizeDisplay = document.getElementById('currentFontSizeDisplay'); // Display for current font size
 
-  const articlePost = document.getElementById('article-post'); // Parent container for paragraphs
+  const articleSubTitle = document.getElementById('article-subtitle');
+  const articlePost = document.getElementById('article-post');
 
   // Load the font size from localStorage
   function loadFontSize() {
@@ -97,6 +128,7 @@ layout: default
     const fontSize = savedFontSize || defaultSize;
     //currentFontSizeDisplay.style.fontSize = fontSize; // Set font size for display
     articlePost.style.setProperty('--font-size', savedFontSize || defaultSize);
+    articleSubTitle.style.setProperty('--font-size', savedFontSize || defaultSize);
   }
   
   function adjustFontSize(action) {
@@ -106,6 +138,7 @@ layout: default
     if (newSize > 28) newSize = 28; // Maximum font size
     //currentFontSizeDisplay.style.fontSize =  `${newSize}px`; // Update the display size
     articlePost.style.setProperty('--font-size', `${newSize}px`);
+    articleSubTitle.style.setProperty('--font-size', `${newSize}px`);
     localStorage.setItem(FONT_SIZE_KEY, `${newSize}px`); // Save to localStorage
   }
 

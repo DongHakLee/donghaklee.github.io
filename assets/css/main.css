@@ -332,6 +332,30 @@ figcaption {
   padding: 8px 0;
   font-style: italic;
 }
+
+.article-subtitle {
+  position: relative;
+  display: block;
+  font-size: var(--font-size, 18px);
+  color: var(--text-color);
+  line-height: 1.5;
+  margin-left: 10px;
+  padding-left: 15px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.article-subtitle::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background-color: var(--text-color);
+  content: '';
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
 /* 기본 링크 스타일 */
 a {
   text-decoration: none;
@@ -518,5 +542,31 @@ footer a:hover {
 }
 
 .sticky-top {
-  z-index: 1000; /* 낮은 값을 설정 */
+  z-index: 1000;
+}
+
+.ad-banner {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  text-align: center;
+  position: relative; /* [AD] 표시 위치를 위한 기준 */
+}
+.ad-banner img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+}
+.ad-banner .ad-label {
+  position: absolute;
+  top: 5px; /* 상단에서 5px 아래 */
+  right: 5px; /* 우측에서 5px 왼쪽 */
+  background-color: rgba(0, 0, 0, 0.6); /* 반투명 검은 배경 */
+  color: white; /* 텍스트 색상 */
+  font-size: 10px; /* 텍스트 크기 */
+  padding: 2px 5px; /* 텍스트 여백 */
+  border-radius: 3px; /* 모서리 둥글게 */
+  font-weight: bold; /* 텍스트 굵게 */
+  z-index: 10; /* 다른 요소 위에 표시 */
 }
