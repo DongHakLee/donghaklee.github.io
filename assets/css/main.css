@@ -550,14 +550,26 @@ footer a:hover {
   padding: 15px;
   margin: 20px 0;
   border: 1px solid #ddd;
-  text-align: center;
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 가로 정렬: 중앙 */
+  align-items: center; /* 세로 정렬: 중앙 */
   position: relative; /* [AD] 표시 위치를 위한 기준 */
 }
+
 .ad-banner img {
   max-width: 100%;
   height: auto;
-  display: inline-block;
+  display: block; /* 이미지 블록화로 불필요한 여백 제거 */
+  margin: 0 auto; /* 백업용 가운데 정렬 */
 }
+
+.ad-banner div {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Flexbox 내에서 작동 */
+  margin: 0 auto; /* 백업용 가운데 정렬 */
+}
+
 .ad-banner .ad-label {
   position: absolute;
   top: 5px; /* 상단에서 5px 아래 */
