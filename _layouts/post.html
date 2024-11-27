@@ -79,18 +79,29 @@ layout: default
               {% assign ads = site.ads | shuffle %}
               {% assign ad_index = 0 %}
               {% assign total_ads = ads.size %}
+              {% assign ad_interval = 2 %}
             
               {% for paragraph in paragraphs %}
                 {{ paragraph }}</p> <!-- 단락 출력 -->
             
                 <!-- 광고 삽입 조건 -->
-                {% if total_ads > 0 %}
+                {% assign modulo_result = forloop.index | modulo: ad_interval %}
+                {% if modulo_result == 0 and ad_index < total_ads %}
                   {% capture ad_file %}{{ ads[ad_index] }}{% endcapture %}
                   {% include {{ ad_file }} %} <!-- 광고 삽입 -->
                   {% assign ad_index = ad_index | plus: 1 %}
-                  {% if ad_index >= total_ads %} {% assign ad_index = 0 %} {% endif %} <!-- 광고 리스트 순환 -->
                 {% endif %}
               {% endfor %}
+            
+              <!-- 남은 광고를 본문 마지막에 표시 -->
+              {% if ad_index < total_ads %}
+                <div class="remaining-ads">
+                  {% for ad in ads offset: ad_index %}
+                    {% capture ad_file %}{{ ad }}{% endcapture %}
+                    {% include {{ ad_file }} %} <!-- 남은 광고 삽입 -->
+                  {% endfor %}
+                </div>
+              {% endif %}
 
             </article>
             {% if page.comments != false %}
