@@ -491,12 +491,12 @@ footer a:hover {
   .list-featured li::marker {
     font-size: 1.18rem;
     font-weight: 600;
-    line-height: 1.5;
+    line-height: 1;
   }
 }
 
 .list-featured {
-  padding-left: 1.2rem;
+  padding-left: 1.26rem;
   /* list-style-type: none; */
   /* counter-reset: list-counter; */
   }
