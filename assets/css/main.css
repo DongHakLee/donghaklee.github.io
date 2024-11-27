@@ -163,10 +163,6 @@ p {
   padding: 0 !important;
 }
 
-#hiddenTitle{
-  padding-right: 30px;
-}
-
 #hiddenMenuBar{
   border-bottom: 1px solid;
   border-color: var(--brand-border-color);
@@ -593,4 +589,16 @@ footer a:hover {
   border-radius: 3px; /* 모서리 둥글게 */
   font-weight: bold; /* 텍스트 굵게 */
   z-index: 10; /* 다른 요소 위에 표시 */
+}
+
+.w-95{
+  width: 95% !important;
+}
+
+/* px-xs-3 정의 */
+@media (max-width: 576px) { /* xs 화면 크기 기준: 576px 이하 */
+  .px-xs-3 {
+      padding-left: 1rem;
+      padding-right: 1rem;
+  }
 }
