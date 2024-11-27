@@ -83,18 +83,20 @@ layout: default
                 {{ paragraph }}</p> <!-- 단락 출력 -->
             
                 {% if ad_index < ads.size %} <!-- 광고가 남아 있는 경우 -->
-                  {% include {{ ads[ad_index] }} %} <!-- 현재 광고 삽입 -->
+                  {% capture ad_file %}{{ ads[ad_index] }}{% endcapture %} <!-- 동적 파일명 저장 -->
+                  {% include {{ ad_file }} %} <!-- 광고 삽입 -->
                   {% assign ad_index = ad_index | plus: 1 %} <!-- 다음 광고로 이동 -->
                 {% endif %}
               {% endfor %}
             
-              <!-- 남은 광고를 단락 외부에 표시 -->
+              <!-- 남은 광고 순환 삽입 -->
               {% if ad_index < ads.size %}
-                <div class="remaining-ads">
-                  {% for ad in ads offset: ad_index %}
-                    {% include {{ ad }} %}
-                  {% endfor %}
-                </div>
+                {% assign remaining_ads = ads | slice: ad_index, ads.size %}
+                {% cycle_remaining: remaining_ads %}
+                {% for ad in remaining_ads %}
+                  {% capture ad_file %}{{ ad }}{% endcapture %}
+                  {% include {{ ad_file }} %}
+                {% endfor %}
               {% endif %}
 
             </article>
