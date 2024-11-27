@@ -76,28 +76,21 @@ layout: default
             <article id="article-post" class="article-post">
 
               {% assign paragraphs = final_content | split: '</p>' %}
-              {% assign ads = site.ads | shuffle %} <!-- 광고 리스트를 랜덤하게 섞음 -->
-              {% assign ad_index = 0 %} <!-- 광고 리스트의 현재 인덱스 -->
+              {% assign ads = site.ads | shuffle %}
+              {% assign ad_index = 0 %}
+              {% assign total_ads = ads.size %}
             
               {% for paragraph in paragraphs %}
                 {{ paragraph }}</p> <!-- 단락 출력 -->
             
-                {% if ad_index < ads.size %} <!-- 광고가 남아 있는 경우 -->
-                  {% capture ad_file %}{{ ads[ad_index] }}{% endcapture %} <!-- 동적 파일명 저장 -->
+                <!-- 광고 삽입 조건 -->
+                {% if total_ads > 0 %}
+                  {% capture ad_file %}{{ ads[ad_index] }}{% endcapture %}
                   {% include {{ ad_file }} %} <!-- 광고 삽입 -->
-                  {% assign ad_index = ad_index | plus: 1 %} <!-- 다음 광고로 이동 -->
+                  {% assign ad_index = ad_index | plus: 1 %}
+                  {% if ad_index >= total_ads %} {% assign ad_index = 0 %} {% endif %} <!-- 광고 리스트 순환 -->
                 {% endif %}
               {% endfor %}
-            
-              <!-- 남은 광고 순환 삽입 -->
-              {% if ad_index < ads.size %}
-                {% assign remaining_ads = ads | slice: ad_index, ads.size %}
-                {% cycle_remaining: remaining_ads %}
-                {% for ad in remaining_ads %}
-                  {% capture ad_file %}{{ ad }}{% endcapture %}
-                  {% include {{ ad_file }} %}
-                {% endfor %}
-              {% endif %}
 
             </article>
             {% if page.comments != false %}
