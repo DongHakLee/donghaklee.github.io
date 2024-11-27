@@ -5,6 +5,10 @@
   --brand-border-color:rgba(0, 0, 0, 0.44);
 }
 
+html, body {
+  touch-action: manipulation; /* 더블탭 확대 방지 */
+}
+
 html {
   font-family: 'Noto Sans KR', sans-serif;
   line-height: 1.15;
