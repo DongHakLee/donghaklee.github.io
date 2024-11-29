@@ -166,6 +166,32 @@
         <button id="hamburgerButton" class="btn btn-sm btn-outline-secondary"><i class="bi bi-list"></i></button>
         </div>
     </nav>
+    <!-- 슬라이드 메뉴 -->
+    <div class="slide-menu" id="hamburgerMenu">
+        <button id="closeMenu" class="btn btn-sm btn-secondary mb-3">닫기</button>
+        <ul>
+          {% include menu-header.html %}
+        </ul>
+          <!-- 모바일 테마 드롭다운 -->
+          <div class="theme-dropdown">
+              <div class="theme-button">
+              <span id="currentTheme"><i class="bi bi-brightness-high"></i></span>
+              <i class="bi bi-chevron-down"></i>
+              </div>
+              <div class="theme-dropdown-menu">
+              <div class="theme-option" data-theme="light">
+                  <i class="bi bi-brightness-high"></i> 라이트
+              </div>
+              <div class="theme-option" data-theme="dark">
+                  <i class="bi bi-moon"></i> 다크
+              </div>
+              <div class="theme-option" data-theme="auto">
+                  <i class="bi bi-circle-half"></i> 자동
+              </div>
+              </div>
+          </div>
+      </div>
+
 
     <!-- None Mobile Device 네비게이션 -->
     <nav class="navbar-desktop d-none d-md-flex align-items-center" id="desktopNav">
@@ -200,13 +226,7 @@
             {% include menu-header.html %}
         </ul>
     </div>
-    <!-- 슬라이드 메뉴 -->
-    <div class="slide-menu" id="hamburgerMenu">
-      <button id="closeMenu" class="btn btn-sm btn-secondary mb-3">닫기</button>
-      <ul>
-        {% include menu-header.html %}
-      </ul>
-    </div>
+
 
     <!-- 투명막 -->
     <div id="overlay" class="overlay"></div>
@@ -279,6 +299,7 @@
 	const desktopNav = document.getElementById('desktopNav');
 	const menuBarDesktop = document.getElementById('menuBarDesktop');
 	const body = document.body;
+    const themeKey = 'dhlTheme';
 	let lastScrollTop = 0;
 
 	// 검색창 동작
@@ -331,8 +352,69 @@
 	
 
 	// 테마 드롭다운 처리
-	const themeDropdowns = document.querySelector('.theme-dropdown');
+    const themeDropdowns = document.querySelectorAll('.theme-dropdown');
 
+    themeDropdowns.forEach(dropdown => {
+    const button = dropdown.querySelector('.theme-button');
+    const menu = dropdown.querySelector('.theme-dropdown-menu');
+    const options = menu.querySelectorAll('.theme-option');
+    const currentThemeDisplay = dropdown.querySelector('#currentTheme');
+
+    // 로컬 스토리지에서 테마 읽기 (기본값: 'auto')
+    const savedTheme = localStorage.getItem(themeKey) || 'auto';
+
+    // 초기화: 테마 설정
+    if (savedTheme === 'auto') {
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.body.setAttribute('data-theme', prefersDarkScheme ? 'dark' : 'light');
+    } else {
+        document.body.setAttribute('data-theme', savedTheme);
+    }
+
+    // 초기화: 저장된 테마로 현재 테마 표시 업데이트
+    const initialOption = [...options].find(option => option.getAttribute('data-theme') === savedTheme);
+    if (initialOption) {
+        currentThemeDisplay.innerHTML = initialOption.innerHTML.split('</i>')[0] + '</i>';
+    }
+
+    // 드롭다운 열기/닫기
+    button.addEventListener('click', () => {
+        menu.classList.toggle('active');
+    });
+
+    // 옵션 선택 시 테마 변경
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+        const selectedTheme = option.getAttribute('data-theme');
+
+        // 테마 설정
+        if (selectedTheme === 'auto') {
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.body.setAttribute('data-theme', prefersDarkScheme ? 'dark' : 'light');
+        } else {
+            document.body.setAttribute('data-theme', selectedTheme);
+        }
+
+        // 로컬 스토리지에 테마 저장
+        localStorage.setItem(themeKey, selectedTheme);
+
+        // 현재 테마 버튼 업데이트
+        currentThemeDisplay.innerHTML = option.innerHTML.split('</i>')[0] + '</i>';
+
+        // 드롭다운 메뉴 닫기
+        menu.classList.remove('active');
+        });
+    });
+
+    // 외부 클릭 시 드롭다운 닫기
+    document.addEventListener('click', (event) => {
+        if (!dropdown.contains(event.target)) {
+        menu.classList.remove('active');
+        }
+    });
+    });
+
+/*
 	if (themeDropdowns) {
 	  const button = themeDropdowns.querySelector('.theme-button');
 	  const menu = themeDropdowns.querySelector('.theme-dropdown-menu');
@@ -340,7 +422,7 @@
 	  const currentThemeDisplay = themeDropdowns.querySelector('#currentTheme');
 
 	  // 로컬 스토리지에서 테마 읽기 (기본값: 'auto')
-	  const savedTheme = localStorage.getItem('theme') || 'auto';
+	  const savedTheme = localStorage.getItem(themeKey) || 'auto';
 
 	  // 초기화: 테마 설정
 	  if (savedTheme === 'auto') {
@@ -375,7 +457,7 @@
 		  }
 
 		  // 로컬 스토리지에 테마 저장
-		  localStorage.setItem('theme', selectedTheme);
+		  localStorage.setItem(themeKey, selectedTheme);
 
 		  // 현재 테마 버튼 업데이트
 		  currentThemeDisplay.innerHTML = option.innerHTML.split('</i>')[0] + '</i>';
@@ -396,7 +478,7 @@
 		}
 	  });
 	}
-
+*/
 
     document.addEventListener("DOMContentLoaded", function () {
         const pageLinks = document.querySelectorAll(".page-link");
@@ -419,7 +501,7 @@
 
 
         // 로컬 스토리지에서 저장된 테마 읽기
-        const savedTheme = localStorage.getItem('dhlTheme') || 'auto';
+        const savedTheme = localStorage.getItem(themeKey) || 'auto';
 
         // 테마 적용
         if (savedTheme === 'auto') {
