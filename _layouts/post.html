@@ -6,7 +6,7 @@ layout: default
     <div class="mw-1200 mx-auto">
       <div class="row">
         <div class="col-md-8 px-md-3 px-0 print_area">
-          <div class="content-header mb-2 pl-0 pt-0 pb-0 bg-white position-relative">
+          <div class="content-header mb-2 pl-0 pt-0 pb-0 position-relative">
             <div class="mw-100 px-xs-3">
                 <p class="text-uppercase font-weight-bold">
                   <span class="catlist">
@@ -132,9 +132,10 @@ layout: default
     const savedFontSize = localStorage.getItem(FONT_SIZE_KEY);
     const defaultSize = '18px'; // Default font size
     const fontSize = savedFontSize || defaultSize;
+    console.log('articleSubTitle',articleSubTitle);
     //currentFontSizeDisplay.style.fontSize = fontSize; // Set font size for display
     articlePost.style.setProperty('--font-size', savedFontSize || defaultSize);
-    articleSubTitle.style.setProperty('--font-size', savedFontSize || defaultSize);
+    articleSubTitle?.style.setProperty('--font-size', savedFontSize || defaultSize);
   }
   
   function adjustFontSize(action) {
@@ -144,7 +145,8 @@ layout: default
     if (newSize > 28) newSize = 28; // Maximum font size
     //currentFontSizeDisplay.style.fontSize =  `${newSize}px`; // Update the display size
     articlePost.style.setProperty('--font-size', `${newSize}px`);
-    articleSubTitle.style.setProperty('--font-size', `${newSize}px`);
+    if(null != articleSubTitle)
+      articleSubTitle.style.setProperty('--font-size', `${newSize}px`);
     localStorage.setItem(FONT_SIZE_KEY, `${newSize}px`); // Save to localStorage
   }
 
@@ -168,28 +170,4 @@ layout: default
   </script>
 
 <style>
-@media print {
-  body * {
-    display: none; /* 모든 요소 숨김 */
-  }
-  .print_area, .print_area * {
-    display: block !important; /* print_area와 그 하위 요소만 보이도록 설정 */
-  }
-}
-  .icon-button {
-    background: transparent;
-    border: none;
-    font-size: 21px;
-    color: #333;
-    cursor: pointer;
-    padding: 5px;
-    margin: 0 10px; /* 버튼 사이에 10px 간격 추가 */
-  }
-  .icon-button:hover {
-    color: #666 !important;
-  }
-  .modal {
-    background: transparent;
-    z-index: 1050;
-  }
 </style>

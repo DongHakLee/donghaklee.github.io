@@ -32,6 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/ko.js"></script>
 
     <script>
+        /*
         // JavaScript for showing/hiding the hidden menu bar and share options
         document.addEventListener('DOMContentLoaded', function() {
             document.addEventListener('scroll', function() {
@@ -149,89 +150,73 @@
             // 초기 실행
             updateTimes();
         });
-
-
-    // Toast 메시지 표시
-    function showToast(type, message) {
-        COMMON.showToast(type, message);
-    }
+        */
     </script>
 
     {% include tracking-header.html %}
 
 </head>
 
-<body class="{% if page.url == "/" %} homefirstpage {% endif %}">
-
-    <nav id="MagicMenu" class="topnav navbar navbar-light bg-white nav-down px-0">
-        <div class="container-fluid px-0 justify-content-center">
-            
-
-
-
-            <div id="brandSection" class="mw-1200 w-100 py-1 border-bottom d-flex align-items-center position-relative">
-                <!-- 좌측 로고 -->
-                <div class="logo-container position-absolute text-center w-100">
-                    <a href="/" class="navbar-brand mx-auto">{{site.name}}</a>
-                </div>
-            
-                <!-- 우측 마지막 업데이트 시간 (모바일에서는 숨김) -->
-                <div class="update-container d-none d-md-flex align-items-end position-absolute" style="right: 0;">
-                    {% assign latest_post = site.posts | sort: "date" | last %}
-                    <span id="lastUpdated">
-                        Updated: {{ latest_post.date | date: "%Y-%m-%d" }} {{ latest_post.time }}
-                    </span>
-                </div>
-            </div>
-            
-
-            <!-- 메뉴 섹션 -->
-            <div id="dsMenuDiv" class="w-100 d-flex justify-content-center">
-                <div id="scrollingMenu" class="d-flex overflow-auto mw-1200 w-1200 justify-content-center">
-                    <ul class="navbar-nav d-flex flex-row mx-auto">
-                        {% include menu-header.html %}
-                    </ul>
-                </div>
-            </div>
-
+<body class="{% if page.url == "/" %} homefirstpage {% endif %}" data-theme="light">
+    <!-- Mobile Device 네비게이션 -->
+    <nav class="navbar-mobile d-block d-md-none d-flex justify-content-between align-items-center">
+        <span><a href="/" class="navbar-brand mx-auto">{{site.name}}</a></span>
+        <div>
+        <button id="searchButton" class="btn btn-sm btn-outline-secondary"><i class="bi bi-search"></i></button>
+        <button id="hamburgerButton" class="btn btn-sm btn-outline-secondary"><i class="bi bi-list"></i></button>
         </div>
     </nav>
-    
-    <!-- Hidden Menu Bar (Updated) -->
-    <div id="hiddenMenuBar" class="topnav navbar navbar-light bg-light fixed-top" style="display: none;">
 
-        <!-- <div class="container-fluid custom-flex-container d-flex align-items-center py-2 position-relative">
-            <div id="hiddenTitle" class="text-truncate text-center mx-auto"> -->
-            <div class="container-fluid custom-flex-container d-flex align-items-center py-2 position-relative">
-                <!-- Title Section -->
-                <div id="hiddenTitle" class="text-truncate text-center w-95" style="left: 0; right: 0;">
-                <strong>{{page.title}}</strong>
+    <!-- None Mobile Device 네비게이션 -->
+    <nav class="navbar-desktop d-none d-md-flex align-items-center" id="desktopNav">
+        <span class="logo"><a href="/" class="navbar-brand mx-auto">{{site.name}}</a></span>
+        <!-- 오른쪽 컨테이너 -->
+        <div class="navbar-right">
+        <!-- 테마 드롭다운 -->
+        <div class="theme-dropdown" id="themeDropdownDesktop">
+            <div class="theme-button">
+            <span id="currentTheme"><i class="bi bi-brightness-high"></i></span>
             </div>
-
-
-            <!-- Buttons Section -->
-            <div id="buttonSection" class="d-flex align-items-center position-absolute" style="right: 0;">
-                <!-- Hamburger Menu -->
-                <div id="hamburgerButtonContainer" class="position-relative">
-                    <button id="hamburgerButton" class="btn">
-                        <i class="bi bi-list"></i>
-                    </button>
-        
-                    <!-- Hidden Hamburger Menu -->
-                    <div id="hamburgerMenu" class="position-absolute bg-white shadow p-2" style="display: none; top: 120%; right: 0;">
-                        <ul class="navbar-nav">
-                            {% include menu-header.html %}
-                        </ul>
-                    </div>
-                </div>
+            <div class="theme-dropdown-menu">
+            <div class="theme-option" data-theme="light">
+                <i class="bi bi-brightness-high"></i> 라이트
+            </div>
+            <div class="theme-option" data-theme="dark">
+                <i class="bi bi-moon"></i> 다크
+            </div>
+            <div class="theme-option" data-theme="auto">
+                <i class="bi bi-circle-half"></i> 자동
+            </div>
             </div>
         </div>
-        
+        <!-- 검색 버튼 -->
+        <button id="searchButtonDesktop" class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-search"></i>
+        </button>
+        </div>
+    </nav>
+	<div class="menu-bar-desktop d-none d-md-flex" id="menuBarDesktop">
+        <ul>
+            {% include menu-header.html %}
+        </ul>
     </div>
-    </nav>
-    
-    <div id="toastContainer" class="position-fixed p-3" style="z-index: 11; bottom: 20px; left: 50%; transform: translateX(-50%);"></div>
+    <!-- 슬라이드 메뉴 -->
+    <div class="slide-menu" id="hamburgerMenu">
+      <button id="closeMenu" class="btn btn-sm btn-secondary mb-3">닫기</button>
+      <ul>
+        {% include menu-header.html %}
+      </ul>
+    </div>
 
+    <!-- 투명막 -->
+    <div id="overlay" class="overlay"></div>
+    <!-- 검색창 -->
+    <div class="search-overlay" id="searchOverlay">
+        <input type="text" placeholder="검색어를 입력하세요">
+        <button id="closeSearch" class="btn btn-primary">닫기</button>
+    </div>
+    <!-- TOAST -->
+    <div id="toastContainer" class="position-fixed p-3" style="z-index: 11; bottom: 20px; left: 50%; transform: translateX(-50%);"></div>
     <!-- Search Results -->
     <div id="lunrsearchresults">
         <ul class="mb-0"></ul>
@@ -243,6 +228,7 @@
     </main>
 
     <!-- Footer -->
+    <!--
     <footer class="bg-white p-3 text-muted">
         <div class="container-fluid">
             <div class="mw-1200 mx-auto border-top pt-3">
@@ -270,27 +256,182 @@
             </div>
         </div>
     </footer>
-
+    -->
     {% include tracking-footer.html %}
     {% include tracking-floating.html %}
 </body>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const pageLinks = document.querySelectorAll(".page-link");
-    pageLinks.forEach(link => {
-        link.addEventListener("click", function () {
-            const loader = document.createElement("div");
-            loader.className = "spinner-border text-primary";
-            loader.setAttribute("role", "status");
-            document.body.appendChild(loader);
-        });
-    });
+    // Toast 메시지 표시
+    function showToast(type, message) {
+        COMMON.showToast(type, message);
+    }
 
-    document.addEventListener('touchend', function(event) {
-        if (event.touches.length > 1) {
-            event.preventDefault(); // 여러 손가락 확대 방지
+	const root = document.documentElement;
+	const navbarHeight = getComputedStyle(root).getPropertyValue('--navbar-height').trim(); 	
+	const searchButton = document.getElementById('searchButton');
+	const searchButtonDesktop = document.getElementById('searchButtonDesktop');
+	const searchOverlay = document.getElementById('searchOverlay');
+	const closeSearch = document.getElementById('closeSearch');
+	const hamburgerButton = document.getElementById('hamburgerButton');
+	const hamburgerMenu = document.getElementById('hamburgerMenu');
+	const overlay = document.getElementById('overlay');
+	const closeMenu = document.getElementById('closeMenu');
+	const desktopNav = document.getElementById('desktopNav');
+	const menuBarDesktop = document.getElementById('menuBarDesktop');
+	const body = document.body;
+	let lastScrollTop = 0;
+
+	// 검색창 동작
+	searchButton?.addEventListener('click', () => {
+	  searchOverlay.classList.add('active');
+	});
+	// 검색창 동작
+	searchButtonDesktop?.addEventListener('click', () => {
+	  searchOverlay.classList.add('active');
+	});
+	// 검색창 닫기
+	closeSearch?.addEventListener('click', () => {
+	  searchOverlay.classList.remove('active');
+	});
+	// 슬라이드 메뉴 동작
+	hamburgerButton?.addEventListener('click', () => {
+	  hamburgerMenu.classList.add('active');
+	  overlay.classList.add('active');
+	});
+
+	closeMenu?.addEventListener('click', () => {
+	  hamburgerMenu.classList.remove('active');
+	  overlay.classList.remove('active');
+	});
+
+	// 스크롤 방향에 따라 태블릿 네비게이션 동작
+	window.addEventListener('scroll', () => {
+	  const currentScroll = window.scrollY;
+
+	  if (currentScroll > lastScrollTop) {
+		// 아래로 스크롤: navbar 숨기기, menu-bar 최상단 고정
+		desktopNav.classList.add('hidden');
+		menuBarDesktop.style.top = '0'; // menu-bar를 최상단으로 이동
+	  } else {
+		// 위로 스크롤: navbar 보이기, menu-bar 원래 위치로 복귀
+		desktopNav.classList.remove('hidden');
+		//console.log('navbarHeight',navbarHeight)
+		menuBarDesktop.style.top = navbarHeight; // navbar 높이만큼 아래로 이동
+	  }
+
+	  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // 스크롤 위치 업데이트
+	});
+
+
+	// 투명막 클릭 시 메뉴 닫기
+	overlay.addEventListener('click', () => {
+	  hamburgerMenu.classList.remove('active');
+	  overlay.classList.remove('active');
+	});
+	
+
+	// 테마 드롭다운 처리
+	const themeDropdowns = document.querySelector('.theme-dropdown');
+
+	if (themeDropdowns) {
+	  const button = themeDropdowns.querySelector('.theme-button');
+	  const menu = themeDropdowns.querySelector('.theme-dropdown-menu');
+	  const options = menu.querySelectorAll('.theme-option');
+	  const currentThemeDisplay = themeDropdowns.querySelector('#currentTheme');
+
+	  // 로컬 스토리지에서 테마 읽기 (기본값: 'auto')
+	  const savedTheme = localStorage.getItem('theme') || 'auto';
+
+	  // 초기화: 테마 설정
+	  if (savedTheme === 'auto') {
+		const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		document.body.setAttribute('data-theme', prefersDarkScheme ? 'dark' : 'light');
+	  } else {
+		document.body.setAttribute('data-theme', savedTheme);
+	  }
+
+	  // 초기화: 저장된 테마로 현재 테마 표시 업데이트
+	  const initialOption = [...options].find(option => option.getAttribute('data-theme') === savedTheme);
+	  if (initialOption) {
+                currentThemeDisplay.innerHTML = initialOption.innerHTML.split('</i>')[0] + '</i>';
+	  }
+
+	  // 드롭다운 열기/닫기
+	  button.addEventListener('click', () => {
+		menu.classList.toggle('active');
+	  });
+
+	  // 옵션 선택 시 테마 변경
+	  options.forEach(option => {
+		option.addEventListener('click', () => {
+		  const selectedTheme = option.getAttribute('data-theme');
+
+		  // 테마 설정
+		  if (selectedTheme === 'auto') {
+			const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			document.body.setAttribute('data-theme', prefersDarkScheme ? 'dark' : 'light');
+		  } else {
+			document.body.setAttribute('data-theme', selectedTheme);
+		  }
+
+		  // 로컬 스토리지에 테마 저장
+		  localStorage.setItem('theme', selectedTheme);
+
+		  // 현재 테마 버튼 업데이트
+		  currentThemeDisplay.innerHTML = option.innerHTML.split('</i>')[0] + '</i>';
+
+		  // 드롭다운 메뉴 닫기
+		  menu.classList.remove('active');
+		});
+	  });
+
+	  // 외부 클릭 시 드롭다운 닫기
+	  document.addEventListener('click', (event) => {
+		if (!themeDropdowns.contains(event.target)) {
+		  menu.classList.remove('active');
+
+		  // 아이콘 복구
+		  icon.classList.remove('bi-chevron-up');
+		  icon.classList.add('bi-chevron-down');
+		}
+	  });
+	}
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const pageLinks = document.querySelectorAll(".page-link");
+        pageLinks.forEach(link => {
+            link.addEventListener("click", function () {
+                const loader = document.createElement("div");
+                loader.className = "spinner-border text-primary";
+                loader.setAttribute("role", "status");
+                document.body.appendChild(loader);
+            });
+        });
+
+        document.addEventListener('touchend', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault(); // 여러 손가락 확대 방지
+            }
+        });
+
+        //themeDropdownMenu.classList.remove('active');
+
+
+        // 로컬 스토리지에서 저장된 테마 읽기
+        const savedTheme = localStorage.getItem('dhlTheme') || 'auto';
+
+        // 테마 적용
+        if (savedTheme === 'auto') {
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.body.setAttribute('data-theme', prefersDarkScheme ? 'dark' : 'light');
+        } else {
+            document.body.setAttribute('data-theme', savedTheme);
         }
-    });
+
+        // 테마 적용 완료 후 화면 표시
+        document.body.classList.add('theme-loaded');
+    
 });
 </script>
 </html>
