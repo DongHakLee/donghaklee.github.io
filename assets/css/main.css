@@ -378,10 +378,8 @@ p {
   font-size: 1rem;
 }
 
-#hamburgerButton{
-  font-size:21px;
-  color: var(--bg-color);
-}
+
+
 
 .logo-container {
   display: flex;
@@ -886,11 +884,14 @@ footer a:hover {
   background-color: var(--bg-color) !important;
   background-clip: border-box;
 }
-.btn-outline-secondary {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
+
+
+.btn {
+  font-size: 1.2rem !important;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
 }
+
 
 .icon-button {
   background: transparent;
