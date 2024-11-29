@@ -8,7 +8,7 @@
   --font-size: 1rem;
 }
 [data-theme="dark"] {
-  --bg-color: #000000;
+  --bg-color: #222;
   --text-color: #ffffff;
   --border-color: #333333;
   --hover-color: #444444;
