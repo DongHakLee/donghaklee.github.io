@@ -15,27 +15,23 @@
         flex: 1 1 300px;
         padding: 0.5rem;
     }
+    /*
     .form-control {
         width: 100%;
         padding: 0.5rem;
         border: 1px solid #ccc;
         border-radius: 0.25rem;
     }
+    .form-control {
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+        padding: 0.5rem;
+    }
+    */
     .char-count {
         text-align: right;
         font-size: 0.875rem;
         color: #666;
-    }
-    .submit-btn {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 0.25rem;
-        cursor: pointer;
-    }
-    .submit-btn:hover {
-        background-color: #0056b3;
     }
     .captcha-section {
         display: none;
@@ -81,11 +77,6 @@
         border: none;
         border-radius: 0.25rem;
         cursor: pointer;
-    }
-    .form-control {
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
-        padding: 0.5rem;
     }
     div.char-count{
         margin-top: -24px;
@@ -184,6 +175,25 @@
 </div>
 
 <script type="text/javascript">
+function getCurrentTextColor() {
+    const rootElement = document.documentElement;
+
+    // 현재 테마 확인
+    const currentTheme = document.body.getAttribute('data-theme') || 'light';
+    console.log('currentTheme:', currentTheme);
+
+    // 브라우저가 CSS를 다시 계산하도록 강제 적용
+    setTimeout(() => {
+        const color = getComputedStyle(rootElement).getPropertyValue('--text-color').trim();
+        console.log('Computed --text-color after force:', color); // 올바른 값 확인
+    }, 50);
+
+    // 현재 테마에 따른 텍스트 색상 확인
+    const color = getComputedStyle(rootElement).getPropertyValue('--text-color').trim();
+
+    return color || 'black'; // 색상이 없을 경우 기본값 반환
+}
+
     // COMMON.showProgressBar();
     const apiUrl = 'https://ep-core.mynews1237.workers.dev';
 
@@ -198,6 +208,7 @@
         }
         charCountDisplay.textContent = currentLength;
     });
+    
 
     // 댓글 목록 불러오기
     async function fetchComments() {
@@ -269,7 +280,8 @@
         const context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.font = "20px Arial";
-        context.fillStyle = "black";
+        context.fillStyle = getCurrentTextColor();
+        console.log('가즈아',getCurrentTextColor())
         context.textAlign = "center";  // 텍스트 중앙 정렬
         context.textBaseline = "middle";  // 수직 중앙 정렬
 
