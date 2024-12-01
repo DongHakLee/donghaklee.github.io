@@ -201,7 +201,7 @@
             </nav>
         </div>
     </div>
-	<div class="menu-bar-desktop d-none d-md-flex" id="menuBarDesktop">
+	<div class="menu-bar-desktop d-none d-md-flex py-0" id="menuBarDesktop">
         <ul>
             {% include menu-header.html %}
         </ul>
@@ -215,7 +215,7 @@
         <input type="text" placeholder="검색어를 입력하세요">
         <button id="closeSearch" class="btn btn-primary">닫기</button>
     </div>
-    <!-- TOAST -->
+    <!-- Toast -->
     <div id="toastContainer" class="position-fixed p-3" style="z-index: 11; bottom: 20px; left: 50%; transform: translateX(-50%);"></div>
     <!-- Search Results -->
     <div id="lunrsearchresults">
@@ -305,23 +305,22 @@
 	  overlay.classList.remove('active');
 	});
 
-	// 스크롤 방향에 따라 태블릿 네비게이션 동작
-	window.addEventListener('scroll', () => {
-	  const currentScroll = window.scrollY;
+    // 스크롤 방향에 따라 태블릿 네비게이션 동작
+    window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
 
-	  if (currentScroll > lastScrollTop) {
-		// 아래로 스크롤: navbar 숨기기, menu-bar 최상단 고정
-		desktopNav.classList.add('hidden');
-		menuBarDesktop.style.top = '0'; // menu-bar를 최상단으로 이동
-	  } else {
-		// 위로 스크롤: navbar 보이기, menu-bar 원래 위치로 복귀
-		desktopNav.classList.remove('hidden');
-		//console.log('navbarHeight',navbarHeight)
-		menuBarDesktop.style.top = navbarHeight; // navbar 높이만큼 아래로 이동
-	  }
+    if (currentScroll === 0) {
+        // 가장 위로 스크롤: navbar 보이기, menu-bar 원래 위치로 복귀
+        desktopNav.classList.remove('hidden');
+        menuBarDesktop.style.top = navbarHeight; // navbar 높이만큼 아래로 이동
+    } else if (currentScroll > lastScrollTop) {
+        // 아래로 스크롤: navbar 숨기기, menu-bar 최상단 고정
+        desktopNav.classList.add('hidden');
+        menuBarDesktop.style.top = '0'; // menu-bar를 최상단으로 이동
+    }
 
-	  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // 스크롤 위치 업데이트
-	});
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // 스크롤 위치 업데이트
+    });
 
 
 	// 투명막 클릭 시 메뉴 닫기
