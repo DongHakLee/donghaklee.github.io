@@ -1,78 +1,97 @@
 <style>
-    .floating-container {
-        position: fixed; /* 화면 고정 */
-        bottom: 20px;
-        right: 20px;
-        z-index: 9999; /* sticky-top보다 높은 값 */
-        transform: translateZ(0); /* 새로운 쌓임 맥락 생성 */
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 10px;
-    }
+:root {
+  /* Floating button */
+  --floating-btn-bg-color: var(--bg-color); /* 배경색 */
+  --floating-btn-text-color: var(--text-color); /* 텍스트 색상 */
+  --floating-btn-hover-bg-color: var(--hover-color); /* 호버 배경색 */
+  --floating-btn-shadow-color: rgba(0, 0, 0, 0.2); /* 그림자 색상 */
+}
 
-    .floating-btn {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.9); /* 흰색 배경 + 약간의 투명도 */
-        color: var(--primary-color);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
-        cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+[data-theme="dark"] {
+  --floating-btn-bg-color: var(--button-bg-color); /* 다크 테마 배경 */
+  --floating-btn-text-color: var(--button-text-color); /* 다크 테마 텍스트 */
+  --floating-btn-hover-bg-color: var(--button-hover-bg-color); /* 다크 테마 호버 배경 */
+  --floating-btn-shadow-color: rgba(255, 255, 255, 0.1); /* 다크 테마 그림자 */
+}
 
-    .floating-btn:hover {
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강화 */
-    }
+/* Floating Container */
+.floating-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
 
-    .floating-btn.hidden {
-        opacity: 0;
-        visibility: hidden;
-    }
+/* Floating Button */
+.floating-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: var(--floating-btn-bg-color);
+  color: var(--floating-btn-text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 8px var(--floating-btn-shadow-color);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    .function-buttons {
-        position: absolute;
-        display: flex;
-        bottom: 0;
-        right: 70px;
-        gap: 10px;
-        visibility: hidden;
-        opacity: 0;
-        transition: all 0.3s ease;
-    }
+.floating-btn:hover {
+  background-color: var(--floating-btn-hover-bg-color);
+  box-shadow: 0px 6px 12px var(--floating-btn-shadow-color);
+}
 
-    .function-buttons.active {
-        visibility: visible;
-        opacity: 1;
-    }
+.floating-btn.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
 
-    .function-btn {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.9); /* 동일한 흰색 배경 */
-        color: var(--primary-color);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        font-size:21px;
-        border: 0px;
-    }
+/* Function Buttons */
+.function-buttons {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  right: 70px;
+  gap: 10px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
 
-    .function-btn:hover {
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
-    }
+.function-buttons.active {
+  visibility: visible;
+  opacity: 1;
+}
 
-    .fs-16 {
-        font-size:16px;
-    }
+.function-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: var(--floating-btn-bg-color);
+  color: var(--floating-btn-text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 8px var(--floating-btn-shadow-color);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 21px;
+  border: 0px;
+}
+
+.function-btn:hover {
+  background-color: var(--floating-btn-hover-bg-color);
+  box-shadow: 0px 6px 12px var(--floating-btn-shadow-color);
+}
+
+.fs-16 {
+  font-size: 16px;
+}
 </style>
 
 

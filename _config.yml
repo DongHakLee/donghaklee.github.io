@@ -89,6 +89,8 @@ exclude: [
 , node_modules
 ]
 
+ad_enable: false
+
 ads:
   - ad1.html
   - ad2.html
