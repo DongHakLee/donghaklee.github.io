@@ -99,14 +99,20 @@
   justify-content: center;
 }
 
-.sup-text {
+.sup-text-floating {
   font-size: 16px;
   font-weight: bold;
   color: var(--text-color);
   position: absolute;
+  pointer-events: none;
+}
+.sup-text-floating.plus {
   top: -11px;
   right: -6px;
-  pointer-events: none;
+}
+.sup-text-floating.minus {
+  top: -13px;
+  right: -5px;;
 }
 .fs-16 {
   font-size: 16px;
@@ -137,14 +143,14 @@
         <button id="zoomOutButton" class="function-btn fs-16" title="Zoom Out">
             <div class="button-content">
                 <span>가</span>
-                <span class="sup-text">-</span>
+                <span class="sup-text-floating minus">-</span>
             </div>
         </button>
         <!-- Zoom In Button -->
         <button id="zoomInButton" class="function-btn" title="Zoom In">
             <div class="button-content">
                 <span>가</span>
-                <span class="sup-text">+</span>
+                <span class="sup-text-floating plus">+</span>
             </div>
         </button>
         <!-- Print Button -->

@@ -1020,15 +1020,46 @@ footer a:hover {
 .icon-button {
   background: transparent;
   border: none;
-  font-size: 21px;
+  font-size: 21px; /* 기본 버튼 글씨 크기 */
   color: var(--text-color);
   cursor: pointer;
   padding: 5px;
   margin: 0 10px; /* 버튼 사이에 10px 간격 추가 */
+  position: relative; /* sup-text 위치 설정을 위해 필요 */
 }
+
 .icon-button:hover {
   color: var(--hover-color) !important;
 }
+
+/* 글씨 크기 조정 버튼 */
+.font-adjust-minus-btn {
+  font-size: 16px; /* "가" 텍스트 크기 */
+}
+
+.btn-content {
+  position: relative; /* sup-text 위치 기준 */
+  display: inline-block; /* 내용이 정렬되도록 설정 */
+  text-align: center; /* "가"와 sup-text 정렬 */
+}
+
+.sup-text-post {
+  font-size: 14px; /* 기호 크기 */
+  font-weight: bold;
+  color: var(--text-color); /* 텍스트 색상 */
+  position: absolute; /* 부모(btn-content) 기준으로 위치 조정 */
+  pointer-events: none; /* 클릭 방지 */
+}
+.sup-text-post.plus {
+  top: -5px;
+  right: -5px;
+}
+.sup-text-post.minus {
+  top: -8px;
+  right: -5px;
+}
+
+
 .modal {
   background: transparent;
   z-index: 1050;
