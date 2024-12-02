@@ -4,14 +4,16 @@
   --floating-btn-bg-color: var(--bg-color); /* 배경색 */
   --floating-btn-text-color: var(--text-color); /* 텍스트 색상 */
   --floating-btn-hover-bg-color: var(--hover-color); /* 호버 배경색 */
-  --floating-btn-shadow-color: rgba(0, 0, 0, 0.2); /* 그림자 색상 */
+  --floating-btn-border-color: var(--border-color); /* 기본 테두리 */
+  --floating-btn-hover-border-color: var(--hover-color); /* 호버 테두리 */
 }
 
 [data-theme="dark"] {
   --floating-btn-bg-color: var(--button-bg-color); /* 다크 테마 배경 */
   --floating-btn-text-color: var(--button-text-color); /* 다크 테마 텍스트 */
   --floating-btn-hover-bg-color: var(--button-hover-bg-color); /* 다크 테마 호버 배경 */
-  --floating-btn-shadow-color: rgba(255, 255, 255, 0.1); /* 다크 테마 그림자 */
+  --floating-btn-border-color: var(--sample-ad-border-color); /* 다크 테마 테두리 */
+  --floating-btn-hover-border-color: var(--button-hover-bg-color); /* 다크 테마 호버 테두리 */
 }
 
 /* Floating Container */
@@ -36,14 +38,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 4px 8px var(--floating-btn-shadow-color);
+  border: 2px solid var(--floating-btn-border-color); /* 테두리 추가 */
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .floating-btn:hover {
   background-color: var(--floating-btn-hover-bg-color);
-  box-shadow: 0px 6px 12px var(--floating-btn-shadow-color);
+  border-color: var(--floating-btn-hover-border-color); /* 호버 시 테두리 강조 */
 }
 
 .floating-btn.hidden {
@@ -69,6 +71,7 @@
 }
 
 .function-btn {
+  position: relative; /* sup 배치를 위한 기준 */
   width: 55px;
   height: 55px;
   border-radius: 50%;
@@ -77,18 +80,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 4px 8px var(--floating-btn-shadow-color);
+  border: 2px solid var(--floating-btn-border-color);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
   font-size: 21px;
-  border: 0px;
 }
 
 .function-btn:hover {
   background-color: var(--floating-btn-hover-bg-color);
-  box-shadow: 0px 6px 12px var(--floating-btn-shadow-color);
+  border-color: var(--floating-btn-hover-border-color); /* 호버 테두리 강조 */
 }
 
+.button-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sup-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--text-color);
+  position: absolute;
+  top: -11px;
+  right: -6px;
+  pointer-events: none;
+}
 .fs-16 {
   font-size: 16px;
 }
@@ -97,10 +116,9 @@
 
 
 
-<!-- Floating Buttons -->
 <div class="floating-container">
     <!-- "Scroll to Top" Button -->
-    <div id="scrollTopButton" class="floating-btn hidden" title="Scroll to Top">
+    <div id="scrollTopButton" class="floating-btn" title="Scroll to Top">
         <i class="bi bi-arrow-up"></i>
     </div>
 
@@ -117,11 +135,17 @@
         </button>
         <!-- Zoom Out Button -->
         <button id="zoomOutButton" class="function-btn fs-16" title="Zoom Out">
-            <span>가</span>
+            <div class="button-content">
+                <span>가</span>
+                <span class="sup-text">-</span>
+            </div>
         </button>
         <!-- Zoom In Button -->
         <button id="zoomInButton" class="function-btn" title="Zoom In">
-            <span>가</span>
+            <div class="button-content">
+                <span>가</span>
+                <span class="sup-text">+</span>
+            </div>
         </button>
         <!-- Print Button -->
         <button id="printButton" class="function-btn" title="Print">
@@ -129,6 +153,7 @@
         </button>
     </div>
 </div>
+
 
 <script>
     const scrollTopButton = document.getElementById('scrollTopButton');
