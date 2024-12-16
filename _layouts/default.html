@@ -144,31 +144,36 @@
     </nav>
     <!-- 슬라이드 메뉴 -->
     <div class="slide-menu" id="hamburgerMenu">
-        <button id="closeMenu" class="btn btn-sm btn-secondary mb-3">닫기</button>
-        <ul>
-          {% include menu-header.html %}
+        <!-- 상단 로고 및 닫기 버튼 -->
+        <div class="menu-header pb-3">
+          <span class="menu-logo">{{site.name}}</span> <!-- 텍스트 로고 -->
+          <a id="closeMenu" class="close-link" href="#">×</a>
+        </div>
+      
+        <!-- 메뉴 리스트 -->
+        <ul class="menu-list my-3">
+            {% include menu-header.html %}
         </ul>
-          <!-- 모바일 테마 드롭다운 -->
-          <div class="theme-dropdown">
-              <div class="theme-button">
-              <span id="currentTheme"><i class="bi bi-brightness-high"></i></span>
-              <i class="bi bi-chevron-down"></i>
-              </div>
-              <div class="theme-dropdown-menu">
-              <div class="theme-option" data-theme="light">
-                  <i class="bi bi-brightness-high"></i> 라이트
-              </div>
-              <div class="theme-option" data-theme="dark">
-                  <i class="bi bi-moon"></i> 다크
-              </div>
-              <div class="theme-option" data-theme="auto">
-                  <i class="bi bi-circle-half"></i> 자동
-              </div>
-              </div>
-          </div>
-      </div>
-
-
+      
+        <!-- 테마 토글 -->
+        <div class="theme-dropdown theme-mobile">
+            <div class="theme-button">
+            <span id="currentTheme"><i class="bi bi-brightness-high"></i> 테마</span>
+            <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="theme-dropdown-menu">
+            <div class="theme-option" data-theme="light">
+                <i class="bi bi-brightness-high"></i> 라이트
+            </div>
+            <div class="theme-option" data-theme="dark">
+                <i class="bi bi-moon"></i> 다크
+            </div>
+            <div class="theme-option" data-theme="auto">
+                <i class="bi bi-circle-half"></i> 자동
+            </div>
+            </div>
+        </div>
+    </div>
     <!-- None Mobile Device 네비게이션 -->
     <div class="container-fluid px-0">
         <div class="row justify-content-center px-0 mx-0">
