@@ -89,7 +89,7 @@ exclude: [
 , node_modules
 ]
 
-ad_enable: false
+ad_enable: true
 
 ads:
   - ad1.html

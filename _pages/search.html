@@ -1,0 +1,200 @@
+---
+layout: default
+title: "검색"
+permalink: /search/
+---
+<div class="container-fluid">
+    <div class="mw-1200 mx-auto">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="search-container">
+                    <form id="search-form" class="search-form">
+                        <input type="text" id="lunrsearch" class="search-input" placeholder="검색어를 입력하세요" value="">
+                        <button type="reset" class="clear-button" id="clear-btn">&times;</button>
+                        <button type="submit" class="search-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001a1 1 0 0 0 .172.196l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85a1 1 0 0 0-.196-.172zm-5.242 1.106a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+                <!-- 검색어 표시 -->
+                <h4 class="font-weight-bold spanborder"><span id="search-title">검색 결과</span></h4>
+                
+                <!-- 검색 결과 목록 -->
+                <div id="search-results" class="posts-list mb-4">
+                    <!-- JavaScript로 검색 결과가 동적으로 추가됩니다 -->
+                </div>
+
+                <!-- 검색 결과 없을 때 알림 -->
+                <div id="no-results" class="alert alert-info d-none">
+                    검색 결과가 없습니다.
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="sticky-top-lr">
+                    {% include adv-sidebar.html %}
+                    {% include sidebar-featured.html %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/lunr/lunr.min.js"></script>
+<script src="https://unpkg.com/lunr-languages/lunr.stemmer.support.js"></script>
+<script src="https://unpkg.com/lunr-languages/tinyseg.js"></script>
+<script src="https://unpkg.com/lunr-languages/lunr.ja.js"></script>
+<script src="https://unpkg.com/lunr-languages/lunr.ko.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var documents = [
+            {% assign counter = 0 %}
+            {% for post in site.posts %}
+            {
+                "id": {{ counter }},
+                "url": "{{ site.url }}{{ site.baseurl }}{{ post.url }}",
+                "title": "{{ post.title | strip_html | strip_newlines | escape | downcase }}"
+            }{% unless forloop.last %},{% endunless %}
+            {% assign counter = counter | plus: 1 %}
+            {% endfor %}
+        ];
+
+
+        // 검색 URL 처리
+        const queryParams = new URLSearchParams(window.location.search);
+        const searchQuery = queryParams.get('q');
+    
+        if (searchQuery) {
+            displaySearchResults(searchQuery);
+        } else {
+            document.getElementById('search-title').textContent = "검색어를 입력해주세요.";
+            document.getElementById('no-results').classList.remove('d-none');
+        }
+
+        
+
+        function displaySearchResults(query) {
+            console.log('호출...');
+            console.log('문서:', documents);
+
+            // 검색어 정제
+            const cleanedQuery = query.trim().toLowerCase();
+            console.log('정제된 검색어:', cleanedQuery);
+
+            // Lunr.js 한국어 전용 인덱스 생성
+            var idx = lunr(function () {
+                this.use(lunr.ko); // 한국어 토크나이저 활성화
+                this.ref('id'); // 참조 필드
+                this.field('title'); // 제목 필드만 인덱싱
+
+                documents.forEach(function (doc) {
+                    this.add(doc);
+                }, this);
+            });
+
+            // 검색 실행
+            const results = idx.search(cleanedQuery);
+
+            const resultsContainer = document.getElementById('search-results');
+            const noResultsContainer = document.getElementById('no-results');
+
+            document.getElementById('search-title').textContent = `검색 결과: "${query}"`;
+
+            resultsContainer.innerHTML = ''; // 기존 결과 초기화
+            noResultsContainer.classList.add('d-none'); // 결과 없을 때 메시지 숨김
+
+            console.log('검색 결과:', results);
+
+            if (results.length > 0) {
+                results.forEach(function (result) {
+                    const doc = documents[result.ref];
+                    resultsContainer.innerHTML += `
+                        <div class="mb-4">
+                            <a href="${doc.url}" class="d-block font-weight-bold">${doc.title}</a>
+                        </div>
+                    `;
+                });
+            } else {
+                noResultsContainer.classList.remove('d-none');
+            }
+        }
+
+
+
+
+        // 검색 폼 처리: 검색어 입력 시 URL 이동
+        document.getElementById('search-form').onsubmit = function (e) {
+            e.preventDefault();
+            const searchInput = document.getElementById('lunrsearch').value.trim();
+            if (searchInput) {
+                const searchURL = `${window.location.origin}/search/?q=${encodeURIComponent(searchInput)}`;
+                window.location.href = searchURL;
+            }
+        };
+    });
+    </script>
+    
+<style>
+    /* 검색창 컨테이너 */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #222; /* 배경색 */
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* 폼 스타일 */
+.search-form {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+}
+
+/* 검색 입력창 스타일 */
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    font-size: 16px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #111;
+    color: #fff;
+    outline: none;
+}
+
+/* 검색 버튼 스타일 */
+.search-button {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.search-button:hover {
+    color: #fff;
+}
+
+/* 삭제 버튼 스타일 (X 버튼) */
+.clear-button {
+    position: absolute;
+    right: 40px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.clear-button:hover {
+    color: #fff;
+}
+</style>

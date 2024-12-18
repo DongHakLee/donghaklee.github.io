@@ -227,6 +227,26 @@ button:hover {
 /**********************************************************************************/
 
 /******************************* Mobile Device Menu *******************************/
+.navbar-mobile {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  z-index: 1040;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--navbar-height);
+}
+.navbar-mobile .logo {
+  line-height: 1.5rem; /* 라인 높이로 정렬 */
+  display: flex; /* 플렉스를 활용한 수직 중앙 정렬 */
+  align-items: center;
+  transform: translateY(4px); /* 미세 조정 */
+}
 .slide-menu {
   position: fixed;
   top: 0;
