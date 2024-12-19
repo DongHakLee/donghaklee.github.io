@@ -15,19 +15,6 @@
         flex: 1 1 300px;
         padding: 0.5rem;
     }
-    /*
-    .form-control {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
-    }
-    .form-control {
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
-        padding: 0.5rem;
-    }
-    */
     .char-count {
         text-align: right;
         font-size: 0.875rem;
@@ -53,15 +40,15 @@
         width: 100%;
     }
     .captcha-canvas {
-        flex-shrink: 0;  /* 고정 크기 */
+        flex-shrink: 0;
         width: 140px;
         height: 100%;
         border: 1px solid #ccc;
         border-radius: 0.25rem;
     }
     #captcha-answer {
-        flex-grow: 1; /* 남은 공간 차지 */
-        min-width: 0; /* 부모 요소 크기 초과 방지 */
+        flex-grow: 1;
+        min-width: 0;
         height: 100%;
         padding: 0.5rem;
         text-align: right;
@@ -69,7 +56,7 @@
         border-radius: 0.25rem;
     }
     #verify-captcha-btn {
-        flex-shrink: 0; /* 고정 크기 */
+        flex-shrink: 0;
         height: 100%;
         padding: 0.5rem 1rem;
         background-color: #007bff;
@@ -84,13 +71,11 @@
         padding-right: 13px;
     }
 
-/* 전체 comments-section 스타일링 */
 #comments-section {
   font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   max-width: 800px;
 }
 
-/* 각 코멘트 컨테이너 */
 #comments-section .border {
   border: none !important;
   border-bottom: 1px solid #eee !important;
@@ -99,19 +84,17 @@
   margin-bottom: 0 !important;
 }
 
-/* 사용자 정보 영역 */
 #comments-section .bi-person-fill {
-  color: #333;
+  color: var(--text-color) !important;
   font-size: 0.9em;
 }
 
 #comments-section strong {
-  color: #000;
+  color: var(--text-color) !important;
   font-weight: 500;
   margin-left: 4px;
 }
 
-/* 삭제 버튼 */
 #comments-section .btn-link {
   line-height: 1;
 }
@@ -126,16 +109,14 @@
   color: #ff4444;
 }
 
-/* 날짜 텍스트 */
 #comments-section .text-muted {
   color: #888 !important;
   font-size: 0.8rem;
   margin-top: 4px;
 }
 
-/* 코멘트 내용 */
 #comments-section p {
-  color: #333;
+  color: var(--text-color) !important;
   line-height: 1.5;
   margin-top: 0.75rem;
 }
@@ -161,7 +142,7 @@
             <div class="char-count"><span id="char-count">0</span> / 500</div>
         </div>
         <div class="submit-container">
-            <button type="button" class="submit-btn" id="generate-captcha-btn">작성</button>
+            <button type="button" class="submit-btn" id="generate-captcha-btn">Submit</button>
         </div>
         <div id="captcha-section" class="captcha-section">
             <div class="captcha-popup-content">

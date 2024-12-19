@@ -216,10 +216,18 @@
     <!-- 투명막 -->
     <div id="overlay" class="overlay"></div>
     <!-- 검색창 -->
-    <div class="search-overlay" id="searchOverlay">
-        <input type="text" placeholder="검색어를 입력하세요">
-        <button id="closeSearch" class="btn btn-primary">닫기</button>
+    <div class="search-overlay-top" id="searchOverlay">
+        <div class="search-container-top">
+            <input type="text" placeholder="검색어를 입력하세요" id="searchInput">
+            <button class="btn search-button-top" id="searchSubmit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001a1 1 0 0 0 .172.196l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85a1 1 0 0 0-.196-.172zm-5.242 1.106a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z" />
+                </svg>
+            </button>
+        </div>
+        <button id="closeSearch" class="btn btn-secondary close-button-top">Close</button>
     </div>
+    
     <!-- Toast -->
     <div id="toastContainer" class="position-fixed p-3" style="z-index: 11; bottom: 20px; left: 50%; transform: translateX(-50%);"></div>
     <!-- Search Results -->
@@ -287,18 +295,66 @@
     const themeKey = 'dhlTheme';
 	let lastScrollTop = 0;
 
-	// 검색창 동작
-	searchButton?.addEventListener('click', () => {
-	  searchOverlay.classList.add('active');
-	});
-	// 검색창 동작
-	searchButtonDesktop?.addEventListener('click', () => {
-	  searchOverlay.classList.add('active');
-	});
-	// 검색창 닫기
-	closeSearch?.addEventListener('click', () => {
-	  searchOverlay.classList.remove('active');
-	});
+
+    
+    // 검색창 동작
+searchButton?.addEventListener('click', () => {
+  searchOverlay.classList.add('active');
+  searchOverlay.querySelector('input')?.focus(); // 검색창 활성화 시 자동 포커스
+});
+
+// 검색창 동작 (데스크톱)
+searchButtonDesktop?.addEventListener('click', () => {
+  searchOverlay.classList.add('active');
+  searchOverlay.querySelector('input')?.focus(); // 검색창 활성화 시 자동 포커스
+});
+
+// 검색창 닫기
+closeSearch?.addEventListener('click', () => {
+  searchOverlay.classList.remove('active');
+});
+
+// 오버레이 클릭 시 닫기
+searchOverlay?.addEventListener('click', (e) => {
+  if (e.target === searchOverlay) { // 오버레이 바깥 영역을 클릭했을 때만 닫기
+    searchOverlay.classList.remove('active');
+  }
+});
+
+
+// 검색 버튼 클릭 및 Enter 키 처리
+const searchSubmit = document.querySelector('.search-button-top'); // 검색 버튼
+const searchInput = document.querySelector('.search-overlay-top input'); // 검색창 입력 필드
+
+function handleSearch() {
+  const query = searchInput?.value.trim(); // 검색어 가져오기
+  if (query) {
+    const searchURL = `/search/?q=${encodeURIComponent(query)}`;
+    window.location.href = searchURL; // 검색 결과 페이지로 이동
+  } else {
+    alert('검색어를 입력하세요.'); // 검색어가 없을 경우 알림
+  }
+}
+
+// 검색 버튼 클릭 시 동작
+searchSubmit?.addEventListener('click', handleSearch);
+
+// 검색창에서 Enter 키 처리
+searchInput?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault(); // 기본 폼 제출 방지
+    handleSearch(); // 검색 처리 함수 호출
+  }
+});
+
+// ESC 키로 검색창 닫기
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+    searchOverlay.classList.remove('active');
+  }
+});
+
+
 	// 슬라이드 메뉴 동작
 	hamburgerButton?.addEventListener('click', () => {
 	  hamburgerMenu.classList.add('active');

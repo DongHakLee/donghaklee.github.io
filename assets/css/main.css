@@ -435,35 +435,91 @@ button:hover {
 /**********************************************************************************/
 
 
-/************************************Search Overay*********************************/
-  .search-overlay {
-    position: fixed;
-    top: -100%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    z-index: 1050;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: top 0.3s ease-in-out;
-  }
-  .search-overlay.active {
-    top: 0;
-  }
-  .search-overlay input {
-    width: 80%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-  }
-/**********************************************************************************/
+/************************************ Search Overlay *********************************/
+.search-overlay-top{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-overlay-top.active {
+  opacity: 1;
+  visibility: visible; /* 활성화 시 보이게 변경 */
+}
+
+.search-container-top {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color);
+  padding: 10px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  width: 80%;
+  max-width: 500px;
+}
+
+.search-container-top input {
+  flex: 1; /* 남은 공간 차지 */
+  padding: 10px;
+  border: none;
+  outline: none;
+  font-size: var(--font-size);
+  color: var(--input-text-color);
+  background-color: var(--input-bg-color);
+  border-radius: 4px 0 0 4px; /* 왼쪽 둥근 모서리 */
+}
+
+.search-container-top input::placeholder {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.search-container-top .search-button-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  background-color: var(--button-bg-color);
+  border: none;
+  border-radius: 0 4px 4px 0; /* 오른쪽 둥근 모서리 */
+  cursor: pointer;
+  color: var(--button-text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-container-top .search-button-top:hover {
+  background-color: var(--button-hover-bg-color);
+  color: var(--button-hover-text-color);
+}
+
+.close-button-top {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.close-button-top:hover {
+  background-color: var(--button-hover-bg-color);
+  color: var(--button-hover-text-color);
+}
+/************************************************************************************/
+
 
 .container-fluid {
   padding-left: 0 !important;
@@ -655,11 +711,9 @@ p {
   transition: background-color 0.2s;
 }
 
-
 #menuBarDesktop {
   min-width: 200px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   right: -12px !important;
 }
 
@@ -712,6 +766,12 @@ p {
 .main-news:hover .main-image img {
   transform: scale(1.08);
   border-radius: .45rem !important;
+}
+.mw-750 {
+  max-width: 750px !important;
+}
+.mw-450 {
+  max-width: 450px !important;
 }
 .mw-1200 {
   max-width: 1200px !important;
@@ -1015,44 +1075,6 @@ footer a:hover {
   z-index: 1000;
 }
 
-.ad-banner {
-  background-color: #f9f9f9;
-  padding: 15px;
-  margin: 20px 0;
-  border: 1px solid #ddd;
-  display: flex; /* Flexbox 사용 */
-  justify-content: center; /* 가로 정렬: 중앙 */
-  align-items: center; /* 세로 정렬: 중앙 */
-  position: relative; /* [AD] 표시 위치를 위한 기준 */
-}
-
-.ad-banner img {
-  max-width: 100%;
-  height: auto;
-  display: block; /* 이미지 블록화로 불필요한 여백 제거 */
-  margin: 0 auto; /* 백업용 가운데 정렬 */
-}
-
-.ad-banner div {
-  max-width: 100%;
-  height: auto;
-  display: block; /* Flexbox 내에서 작동 */
-  margin: 0 auto; /* 백업용 가운데 정렬 */
-}
-
-.ad-banner .ad-label {
-  position: absolute;
-  top: 5px; /* 상단에서 5px 아래 */
-  right: 5px; /* 우측에서 5px 왼쪽 */
-  background-color: rgba(0, 0, 0, 0.6); /* 반투명 검은 배경 */
-  color: white; /* 텍스트 색상 */
-  font-size: 10px; /* 텍스트 크기 */
-  padding: 2px 5px; /* 텍스트 여백 */
-  border-radius: 3px; /* 모서리 둥글게 */
-  font-weight: bold; /* 텍스트 굵게 */
-  z-index: 10; /* 다른 요소 위에 표시 */
-}
-
 .w-95{
   width: 95% !important;
 }
@@ -1118,24 +1140,53 @@ footer a:hover {
   top: -8px;
   right: -5px;
 }
-
-
 .modal {
   background: transparent;
   z-index: 1050;
 }
-.ad_sample {
-  border:0px; width:100%; 
-  height:200px; 
-  margin-bottom: 15px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  font-size: 20px; 
-  font-weight: bold;
+.border-top {
+  border-top: 1px solid var(--input-border-color) !important;
+}
+
+/******************************* Ad Banner *******************************/
+
+.ad-banner {
   background-color: var(--bg-color) !important;
   color: var(--text-color) !important;
   border: 1px solid var(--border-color) !important;
+  min-height: 200px;
+  margin: 20px 0px 20px 0px;
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 가로 정렬: 중앙 */
+  align-items: center; /* 세로 정렬: 중앙 */
+  position: relative; /* [AD] 표시 위치를 위한 기준 */
+}
+
+.ad-banner img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* 이미지 블록화로 불필요한 여백 제거 */
+  margin: 0 auto; /* 백업용 가운데 정렬 */
+}
+
+.ad-banner div {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Flexbox 내에서 작동 */
+  margin: 0 auto; /* 백업용 가운데 정렬 */
+}
+
+.ad-banner .ad-label {
+  position: absolute;
+  top: 5px; /* 상단에서 5px 아래 */
+  right: 5px; /* 우측에서 5px 왼쪽 */
+  background-color: rgba(0, 0, 0, 0.6); /* 반투명 검은 배경 */
+  color: white; /* 텍스트 색상 */
+  font-size: 10px; /* 텍스트 크기 */
+  padding: 2px 5px; /* 텍스트 여백 */
+  border-radius: 3px; /* 모서리 둥글게 */
+  font-weight: bold; /* 텍스트 굵게 */
+  z-index: 10; /* 다른 요소 위에 표시 */
 }
 .sticky-top-lr {
   position: sticky;
@@ -1143,10 +1194,15 @@ footer a:hover {
   z-index: 1020;
 }
 .sticky-top-lr-side {
-  background-color: var(--bg-color) !important;
-  color: var(--text-color) !important;
-  border: 1px solid var(--border-color) !important;
+  border: 0px solid var(--border-color) !important;
 }
-.border-top {
-  border-top: 1px solid var(--input-border-color) !important;
+
+@media (min-width: 768px) {
+  .sticky-top-lr p {
+      height:760px;
+      background-color: var(--bg-color) !important;
+      text-align: center;
+      align-content: center;
+  }
 }
+/************************************************************************************/
