@@ -711,7 +711,19 @@ p {
   transition: background-color 0.2s;
 }
 
+#menuBarDesktop::-webkit-scrollbar {
+  height: 8px;
+}
+#menuBarDesktop::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+#menuBarDesktop::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
 #menuBarDesktop {
+  overflow-x: auto; white-space: nowrap;
   min-width: 200px;
   border-radius: 8px;
   right: -12px !important;
@@ -1197,7 +1209,7 @@ footer a:hover {
   border: 0px solid var(--border-color) !important;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 991px) {
   .sticky-top-lr p {
       height:760px;
       background-color: var(--bg-color) !important;
@@ -1205,4 +1217,5 @@ footer a:hover {
       align-content: center;
   }
 }
+
 /************************************************************************************/
