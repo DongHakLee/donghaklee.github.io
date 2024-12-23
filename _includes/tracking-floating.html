@@ -16,7 +16,6 @@
   --floating-btn-hover-border-color: var(--button-hover-bg-color); /* 다크 테마 호버 테두리 */
 }
 
-/* Floating Container */
 .floating-container {
   position: fixed;
   bottom: 20px;
@@ -53,7 +52,6 @@
   visibility: hidden;
 }
 
-/* Function Buttons */
 .function-buttons {
   position: absolute;
   display: flex;
@@ -170,9 +168,6 @@
     const zoomInButton = document.getElementById('zoomInButton');
     const printButton = document.getElementById('printButton');
 
-    //const facebookButton = document.getElementById('facebookButton');
-    //const xButton = document.getElementById('xButton');
-
     // Scroll event to show/hide menu bar and "scroll to top" button
     document.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
@@ -198,25 +193,6 @@
     printButton.addEventListener('click', () => {
         printPage();
     });
-
-    // Facebook 공유 버튼
-    /*
-    facebookButton.addEventListener('click', () => {
-        closeFunctionButton();
-        const url = encodeURIComponent(window.location.href);
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-    });
-
-    // X 공유 버튼
-    xButton.addEventListener('click', () => {
-        closeFunctionButton();
-        const url = encodeURIComponent(window.location.href);
-        window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank');
-    });
-    */
-
-
-
 
     // Toggle function buttons visibility
     mainButton.addEventListener('click', () => {

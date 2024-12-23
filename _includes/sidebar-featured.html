@@ -11,9 +11,9 @@
             </div>
             <div class="ml-3 image-container">
               {% if article.image %}
-                <img src="{{ article.image }}" class="rounded featured-image" />
+                <img src="{{ article.image }}" class="rounded featured-image cover-image object-fit-cover" />
               {% else %}
-                <img src="placeholder.jpg" class="rounded featured-image" />
+                <img src="placeholder.jpg" class="rounded featured-image cover-image object-fit-cover" />
               {% endif %}
             </div>
           </div>
