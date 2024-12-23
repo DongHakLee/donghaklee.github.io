@@ -1209,7 +1209,7 @@ footer a:hover {
   border: 0px solid var(--border-color) !important;
 }
 
-@media (min-width: 991px) {
+@media (min-width: 1200px) {
   .sticky-top-lr p {
       height:760px;
       background-color: var(--bg-color) !important;
