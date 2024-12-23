@@ -1174,6 +1174,11 @@ footer a:hover {
   position: relative; /* [AD] 표시 위치를 위한 기준 */
 }
 
+
+.ad-banner p {
+  margin: 0px;
+}
+
 .ad-banner img {
   max-width: 100%;
   height: auto;
