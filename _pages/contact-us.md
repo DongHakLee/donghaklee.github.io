@@ -1,8 +1,9 @@
 ---
 title: "Contact Us"
+layout: page-sidebar
 permalink: "/contact-us"
+comments: false
 ---
-
 <form action="https://formspree.io/{{site.email}}" method="POST">    
 <p class="mb-4">Please send your message to {{site.name}}. We will reply as soon as possible!</p>
 <div class="form-group row">

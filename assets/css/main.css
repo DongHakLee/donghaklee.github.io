@@ -43,7 +43,7 @@
 }
 
 html, body {
-  touch-action: manipulation; /* 더블탭 확대 방지 */
+  touch-action: manipulation; /* double tab x */
 }
 
 html {
@@ -62,18 +62,18 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+  word-break: keep-all;
   margin: 0;
-  letter-spacing: -0.3px; /* 자간 살짝 조정 */
+  letter-spacing: -0.3px;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
   text-align: left;
   background-color: var(--bg-color) !important;
   color: var(--text-color) !important;
-  visibility: hidden; /* 초기 로딩 시 화면 숨기기 */
-  opacity: 0; /* 화면 깜빡임 방지 */
-  transition: opacity 0.3s ease-in-out; /* 부드러운 전환 효과 */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out
 }
 
 body.theme-loaded {
@@ -122,32 +122,24 @@ button:hover {
   color: var(--button-hover-text-color);
 }
 
-
 /******************************* Theme Toggle *******************************/
-/* 테마 드롭다운 */
 .theme-dropdown {
   position: relative;
   display: inline-block;
 }
-/* 테마 드롭다운 모바일 */
 .theme-mobile{
   padding-top: 1rem;
-  border-top: 1px solid var(--border-color); /* 구분선 유지 */
+  border-top: 1px solid var(--border-color);
   cursor: pointer;
 }
 
-/* 테마 버튼 */
 .theme-dropdown .theme-button {
   display: flex;
   align-items: center;
   background-color: var(--bg-color);
   color: var(--text-color);
-  padding: 0.25rem 0.5rem; /* 패딩 줄임 */
-  font-size: 0.875rem; /* 글꼴 크기 줄임 */
-  /*
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  */
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -156,12 +148,6 @@ button:hover {
   font-size: 1.2rem;
 }
 
-/* 테마 버튼 호버 효과 */
-/* .theme-dropdown .theme-button:hover {
-  background-color: var(--hover-color);
-} */
-
-/* 드롭다운 메뉴 */
 .theme-dropdown .theme-dropdown-menu {
   position: absolute;
   top: 100%;
@@ -171,17 +157,16 @@ button:hover {
   border: 1px solid var(--border-color);
   border-radius: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  display: none; /* 기본적으로 숨김 */
+  display: none;
 }
 
 .theme-dropdown .theme-dropdown-menu.active {
-  display: block; /* 활성화 시 표시 */
+  display: block;
 }
 
-/* 드롭다운 옵션 */
 .theme-dropdown .theme-option {
   padding: 0.5rem;
-  font-size: 0.875rem; /* 글꼴 크기 동일 */
+  font-size: 0.875rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -190,9 +175,8 @@ button:hover {
   background-color: var(--hover-color);
 }
 
-/* 모바일 슬라이드 메뉴 하단의 테마 선택 */
 .theme-selector-mobile {
-  margin-top: auto; /* 슬라이드 메뉴 하단에 고정 */
+  margin-top: auto;
   padding-top: 1rem;
   border-top: 1px solid var(--border-color);
 }
@@ -241,12 +225,14 @@ button:hover {
   align-items: center;
   height: var(--navbar-height);
 }
+
 .navbar-mobile .logo {
-  line-height: 1.5rem; /* 라인 높이로 정렬 */
-  display: flex; /* 플렉스를 활용한 수직 중앙 정렬 */
+  line-height: 1.5rem;
+  display: flex;
   align-items: center;
-  transform: translateY(4px); /* 미세 조정 */
+  transform: translateY(4px);
 }
+
 .slide-menu {
   position: fixed;
   top: 0;
@@ -261,7 +247,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   transition: right 0.3s ease-in-out;
-  overflow-y: auto; /* 세로 스크롤 활성화 */
+  overflow-y: auto;
 }
 
 .slide-menu.active {
@@ -280,33 +266,31 @@ button:hover {
   font-size: 1.2rem !important;
 }
 
-/* 닫기 링크 스타일 */
 .close-link {
-  text-decoration: none; /* 밑줄 제거 */
-  font-size: 1.2rem; /* 아이콘 크기 */
-  color: var(--text-color); /* 텍스트 색상 */
-  cursor: pointer; /* 클릭 가능한 커서 표시 */
-  padding: 0.3rem; /* 내부 여백 */
-  line-height: 1; /* 정렬 */
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.3rem;
+  line-height: 1;
 }
 
-/* 호버 효과 */
 .close-link:hover {
-  color: var(--hover-color); /* 호버 시 색상 변경 */
-  transform: scale(1.1); /* 살짝 확대 효과 */
+  color: var(--hover-color);
+  transform: scale(1.1);
 }
 
 .menu-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid; /* Grid 레이아웃으로 변경 */
-  grid-template-columns: repeat(2, 1fr); /* 2열 레이아웃 */
-  gap: 1rem; /* 항목 간격 */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
 
 .menu-list .nav-item {
-  text-align: left; /* 왼쪽 정렬 */
+  text-align: left;
 }
 
 .nav-link {
@@ -347,7 +331,7 @@ button:hover {
   display: none;
 }
 .overlay.active {
-  display: block; /* 투명막 표시 */
+  display: block;
 }
 /**********************************************************************************/
 
@@ -363,11 +347,12 @@ button:hover {
   display: flex;
   align-items: center;
   height: var(--navbar-height);
-  overflow: visible; /* 드롭다운 메뉴가 잘리지 않도록 설정 */
+  overflow: visible;
   transition: transform 0.1s ease-in-out;
   font-size: 1.5rem;
   font-weight: bold;
 }
+
 .navbar-desktop .logo {
   position: absolute;
   left: 50%;
@@ -377,24 +362,26 @@ button:hover {
   color: var(--text-color);
   margin-top:10px;
 }
+
 .logo a {
   font-size: 3rem !important;
 }
 
-/* 오른쪽 컨테이너 */
 .navbar-desktop .navbar-right {
-    display: flex; /* 버튼들을 가로로 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    gap: 0.3rem; /* 버튼 간의 간격 */
-    position: absolute; /* 오른쪽 끝에 고정 */
-    right: 1rem; /* 우측 여백 */
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    position: absolute;
+    right: 1rem;
 }
+
 .navbar-desktop.hidden {
-  transform: translateY(-100%); /* 숨김 애니메이션 */
+  transform: translateY(-100%);
 }
+
 .menu-bar-desktop {
   position: sticky;
-  top: var(--navbar-height); /* navbar 아래 위치 */
+  top: var(--navbar-height);
   background-color: var(--bg-color);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
@@ -404,16 +391,18 @@ button:hover {
   align-items: center;
   padding: 0.5rem 0;
 }
+
 .menu-bar-desktop > ul {
-  list-style: none; /* 기본 목록 스타일 제거 */
-  display: flex; /* 가로 정렬 */
-  gap: 2rem; /* 각 항목 간격 조정 */
+  list-style: none;
+  display: flex;
+  gap: 2rem;
   margin: 0;
   padding: 0;
   justify-content: space-between;
   align-items: center;
   height: var(--navbar-height);
 }
+
 .menu-bar-desktop > ul > li > a {
   min-width: 120px;
   text-decoration: none;
@@ -425,6 +414,7 @@ button:hover {
   padding-bottom: 0px;
   align-content: center;
 }
+
 .menu-bar-desktop > ul > li > a:hover {
   /* color: var(--hover-color); /* 호버 시 색상 변경 */
   /* transform: scale(1.1); /* 살짝 확대 */
@@ -455,7 +445,7 @@ button:hover {
 
 .search-overlay-top.active {
   opacity: 1;
-  visibility: visible; /* 활성화 시 보이게 변경 */
+  visibility: visible;
 }
 
 .search-container-top {
@@ -470,14 +460,14 @@ button:hover {
 }
 
 .search-container-top input {
-  flex: 1; /* 남은 공간 차지 */
+  flex: 1;
   padding: 10px;
   border: none;
   outline: none;
   font-size: var(--font-size);
   color: var(--input-text-color);
   background-color: var(--input-bg-color);
-  border-radius: 4px 0 0 4px; /* 왼쪽 둥근 모서리 */
+  border-radius: 4px 0 0 4px;
 }
 
 .search-container-top input::placeholder {
@@ -492,7 +482,7 @@ button:hover {
   padding: 0 15px;
   background-color: var(--button-bg-color);
   border: none;
-  border-radius: 0 4px 4px 0; /* 오른쪽 둥근 모서리 */
+  border-radius: 0 4px 4px 0;
   cursor: pointer;
   color: var(--button-text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -536,7 +526,7 @@ button:hover {
   color: var(--text-color);
   border: 1px solid var(--border-color);
 }
-/* 폰트 웨이트별 클래스 (필요시 사용) */
+
 .font-thin {
   font-weight: 100;
 }
@@ -580,52 +570,46 @@ p {
 /****************************삭제******************************/
 #brandSection {
   display: flex;
-  justify-content: space-between; /* 좌우 정렬 */
-  align-items: center; /* 기본 세로 가운데 정렬 */
-  height: 80px; /* 섹션 높이 조정 */
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
   border-bottom: 0px !important;
   flex-wrap: nowrap;
   font-size: 1rem;
 }
 
-
-
-
 .logo-container {
   display: flex;
-  align-items: center; /* 로고는 세로 가운데 */
+  align-items: center;
 }
 
 .update-container {
   display: flex;
-  align-items: flex-end; /* 세로 방향으로 하단 정렬 */
+  align-items: flex-end;
   justify-content: flex-end;
   height: 100%;
   padding-bottom: 5px;
   font-size: 0.9rem;
   color: #555;
 }
-/* 메뉴 아이템 간격 */
+
 .navbar-nav .nav-item {
-    margin: 0 1.5rem;  /* 좌우 여백 추가 */
+    margin: 0 1.5rem;
 }
 
-/* 기본 네비게이션 스타일 */
 .navbar-nav .nav-link {
     position: relative;
     color: #333;
     font-weight: normal;
-    padding: 0.5rem 0;  /* 좌우 패딩은 제거하고 상하 패딩만 유지 */
+    padding: 0.5rem 0;
     transition: all 0.3s ease;
     font-size: 1.2rem;
 }
 
-/* hover 효과 */
 .navbar-nav .nav-link:hover {
     font-weight: 800;
 }
 
-/* hover와 active 상태일 때 밑줄 효과 */
 .navbar-nav .nav-link:hover::after,
 .navbar-nav .nav-link.active::after {
     content: '';
@@ -638,7 +622,6 @@ p {
     color: var(--text-color) !important;
 }
 
-/* active 클래스가 있을 때 */
 .navbar-nav .nav-link.active {
     font-weight: 800;
     color: var(--bg-color);
@@ -714,10 +697,12 @@ p {
 #menuBarDesktop::-webkit-scrollbar {
   height: 8px;
 }
+
 #menuBarDesktop::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 4px;
 }
+
 #menuBarDesktop::-webkit-scrollbar-thumb:hover {
   background: #aaa;
 }
@@ -743,24 +728,21 @@ p {
 
 /****************************삭제******************************/
 
-/* 메인 뉴스 제목 크기 및 줄 간격 조정 */
 .main-news .news-title {
   font-size: 1.5rem;
   font-weight: bold;
   line-height: 1.3;
-  margin-bottom: 0.5rem; /* 제목과 날짜 사이 간격 */
+  margin-bottom: 0.5rem;
 }
 
-/* 날짜 스타일 */
 .main-news .news-date {
   font-size: 0.9rem;
   margin-bottom: 0;
 }
 
-/* 메인 뉴스 이미지 */
 .main-news .main-image {
   height: 0;
-  padding-bottom: 56.25%; /* 16:9 비율로 변경 */
+  padding-bottom: 56.25%;
   overflow: hidden;
   position: relative;
 }
@@ -779,6 +761,7 @@ p {
   transform: scale(1.08);
   border-radius: .45rem !important;
 }
+
 .mw-750 {
   max-width: 750px !important;
 }
@@ -803,66 +786,77 @@ p {
 .pl-0{
   padding-left: 0px !important;
 }
+
 .custom-flex-container {
-  display: flex; /* 자식 요소들을 한 줄로 배치 */
-  justify-content: space-between; /* 자식 요소들 간의 간격을 균등하게 배치 */
-  align-items: center; /* 자식 요소들을 수직 가운데 정렬 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
 }
+
 .custom-flex-container {
-  padding-left: 50px; /* 버튼 섹션이 제목과 겹치지 않도록 */
+  padding-left: 50px;
   padding-right: 50px;
 }
+
 .custom-flex-container #buttonSection {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
 }
+
 .main-news.card {
   border: 0px;
 }
+
 .pt-5d5{
   padding-top: 5.5rem !important;
 }
-
 
 
 #article_div{
   padding-left: 0px;
   padding-right: 0px;
 }
+
 .article-headline {
-  white-space: normal; /* 자동 줄바꿈 허용 */
-  word-break: break-word;
-}
-.article_info small {
-  font-size: 1rem;
-}
-.article-post p {
-  font-size: var(--font-size, 18px); /* Default to 18px if no variable is set */
   white-space: normal;
   word-break: break-word;
 }
 
-@media (max-width: 768px) { /* 768px 이하 화면 크기에서만 적용 */
+.article_info small {
+  font-size: 1rem;
+}
+
+.article-post p {
+  font-size: var(--font-size, 18px);
+  white-space: normal;
+  word-break: break-word;
+}
+
+@media (max-width: 768px) {
   .article-post p {
       padding-left: 15px;
       padding-right: 15px;
   }
 }
+
 .article-post img {
     max-width: 100%;
     height: auto;
     display: block;
 }
+
 figure {
   margin: 1.5em 0;
   text-align: center;
 }
+
 figure > img {
   max-width: 100%;
   margin: 0 auto;
   display: block;
 }
+
 figcaption {
   text-align: center;
   font-size: 0.9rem;
@@ -894,40 +888,32 @@ figcaption {
   margin-top: 8px;
   margin-bottom: 8px;
 }
-/* 기본 링크 스타일 */
+
 a {
   text-decoration: none;
   color: inherit;
   position: relative;
   transition: all 0.3s ease;
 }
-/* a.nav-link  {
-  color: white !important;
-} */
-/* 기본 링크 스타일 - 최우선 적용 */
+
 .site-content a {
   text-decoration: none;
   color: var(--text-color) !important;
   transition: all 0.3s ease;
 }
 
-/* 호버 효과 */
 .site-content a:hover {
   color: var(--hover-color) !important;
   text-decoration: none;
 }
 
-/* 특정 링크는 다른 색상 사용 (예: 헤더 메뉴) */
 .navbar a:hover {
   color: #1a73e8;
 }
 
-/* 푸터 링크 */
 footer a:hover {
   color: #666 ;
 }
-
-/* 페이지네이션 배경을 검은색, 텍스트를 흰색으로 설정 */
 
 .pagination .page-item .page-link {
   color: var(--bg-color);
@@ -947,8 +933,8 @@ footer a:hover {
 }
 
 .pagination .page-item.disabled .page-link {
-  background-color: #222; /* 비활성화된 버튼 배경 */
-  color: #777; /* 비활성화된 버튼 텍스트 */
+  background-color: #222;
+  color: #777;
   border-color: #444;
 }
 /*
@@ -997,13 +983,12 @@ footer a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease; /* 부드러운 확대 효과를 위한 트랜지션 */
+  transition: transform 0.3s ease;
 }
 
-/* 호버 효과 */
 .image-container:hover .cover-image,
 .image-container:focus-within .cover-image {
-  transform: scale(1.1); /* 10% 확대 */
+  transform: scale(1.1);
 }
 .rounded {
   border-radius: .45rem !important;
@@ -1012,17 +997,15 @@ footer a:hover {
 .excerpt {
   color: #6c757d !important;
   margin-bottom: 0.2rem;
-  white-space: normal; /* 자동 줄바꿈 허용 */
+  white-space: normal;
   word-break: break-word;
 }
 
-
-/* 이미지 스타일 */
 .featured-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease; /* 확대 효과 */
+  transition: transform 0.3s ease;
 }
 
 @supports (list-style-type: disc) {
@@ -1067,7 +1050,7 @@ footer a:hover {
 
 .text-title {
   max-width: 100%;
-  white-space: normal; /* 자동 줄바꿈 허용 */
+  white-space: normal;
   word-break: break-word;
 }
 
@@ -1091,13 +1074,13 @@ footer a:hover {
   width: 95% !important;
 }
 
-/* px-xs-3 정의 */
-@media (max-width: 576px) { /* xs 화면 크기 기준: 576px 이하 */
+@media (max-width: 576px) {
   .px-xs-3 {
       padding-left: 1rem;
       padding-right: 1rem;
   }
 }
+
 .card {
   background-color: var(--bg-color) !important;
   background-clip: border-box;
@@ -1110,52 +1093,54 @@ footer a:hover {
   color: var(--text-color) !important;
 }
 
-
 .icon-button {
   background: transparent;
   border: none;
-  font-size: 21px; /* 기본 버튼 글씨 크기 */
+  font-size: 21px;
   color: var(--text-color);
   cursor: pointer;
   padding: 5px;
-  margin: 0 10px; /* 버튼 사이에 10px 간격 추가 */
-  position: relative; /* sup-text 위치 설정을 위해 필요 */
+  margin: 0 10px;
+  position: relative;
 }
 
 .icon-button:hover {
   color: var(--hover-color) !important;
 }
 
-/* 글씨 크기 조정 버튼 */
 .font-adjust-minus-btn {
-  font-size: 16px; /* "가" 텍스트 크기 */
+  font-size: 16px;
 }
 
 .btn-content {
-  position: relative; /* sup-text 위치 기준 */
-  display: inline-block; /* 내용이 정렬되도록 설정 */
-  text-align: center; /* "가"와 sup-text 정렬 */
+  position: relative;
+  display: inline-block;
+  text-align: center;
 }
 
 .sup-text-post {
-  font-size: 14px; /* 기호 크기 */
+  font-size: 14px;
   font-weight: bold;
-  color: var(--text-color); /* 텍스트 색상 */
-  position: absolute; /* 부모(btn-content) 기준으로 위치 조정 */
-  pointer-events: none; /* 클릭 방지 */
+  color: var(--text-color);
+  position: absolute;
+  pointer-events: none;
 }
+
 .sup-text-post.plus {
   top: -5px;
   right: -5px;
 }
+
 .sup-text-post.minus {
   top: -8px;
   right: -5px;
 }
+
 .modal {
   background: transparent;
   z-index: 1050;
 }
+
 .border-top {
   border-top: 1px solid var(--input-border-color) !important;
 }
@@ -1168,12 +1153,11 @@ footer a:hover {
   border: 1px solid var(--border-color) !important;
   min-height: 200px;
   margin: 20px 0px 20px 0px;
-  display: flex; /* Flexbox 사용 */
-  justify-content: center; /* 가로 정렬: 중앙 */
-  align-items: center; /* 세로 정렬: 중앙 */
-  position: relative; /* [AD] 표시 위치를 위한 기준 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
-
 
 .ad-banner p {
   margin: 0px;
@@ -1182,28 +1166,28 @@ footer a:hover {
 .ad-banner img {
   max-width: 100%;
   height: auto;
-  display: block; /* 이미지 블록화로 불필요한 여백 제거 */
-  margin: 0 auto; /* 백업용 가운데 정렬 */
+  display: block;
+  margin: 0 auto;
 }
 
 .ad-banner div {
   max-width: 100%;
   height: auto;
-  display: block; /* Flexbox 내에서 작동 */
-  margin: 0 auto; /* 백업용 가운데 정렬 */
+  display: block;
+  margin: 0 auto;
 }
 
 .ad-banner .ad-label {
   position: absolute;
-  top: 5px; /* 상단에서 5px 아래 */
-  right: 5px; /* 우측에서 5px 왼쪽 */
-  background-color: rgba(0, 0, 0, 0.6); /* 반투명 검은 배경 */
-  color: white; /* 텍스트 색상 */
-  font-size: 10px; /* 텍스트 크기 */
-  padding: 2px 5px; /* 텍스트 여백 */
-  border-radius: 3px; /* 모서리 둥글게 */
-  font-weight: bold; /* 텍스트 굵게 */
-  z-index: 10; /* 다른 요소 위에 표시 */
+  top: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: bold;
+  z-index: 10;
 }
 .sticky-top-lr {
   position: sticky;
@@ -1224,3 +1208,9 @@ footer a:hover {
 }
 
 /************************************************************************************/
+
+.alert-info {
+  color: var(--text-color) !important;
+  background-color: var(--bg-color) !important;
+  border-color: 1px solid var(--border-color) !important;
+}
