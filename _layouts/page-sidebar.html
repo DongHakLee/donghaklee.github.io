@@ -1,44 +1,91 @@
 ---
 layout: default
 ---
+
+{% assign currentPermalink = page.permalink %}
+
 <div class="container-fluid">
     <div class="mw-1200 mx-auto">
 
-<!-- 햄버거 버튼 (모바일용) -->
-<button class="nav-toggle" onclick="toggleSideMenu()">☰ MENU</button>
+        <!-- 햄버거 버튼 (모바일용) -->
+        <button class="nav-toggle" onclick="toggleSideMenu()"></button>
 
-<div class="row">
-    <!-- 사이드메뉴 -->
-    <div class="side-menu col-md-3">
-        <nav class="nav flex-column" id="sideNav">
-            <a href="{{site.menu_url_about-us}}" class="nav-link active">{{site.menu_name_about-us}}</a>
-            <a href="{{site.menu_url_terms-of-service}}" class="nav-link">{{site.menu_name_terms-of-service}}</a>
-            <a href="{{site.menu_url_policy-copyright}}" class="nav-link">{{site.menu_name_policy-copyright}}</a>
-            <a href="{{site.menu_url_policy-youth}}" class="nav-link">{{site.menu_name_policy-youth}}</a>
-            <a href="{{site.menu_url_email-rejection}}" class="nav-link">{{site.menu_name_email-rejection}}</a>
-            <a href="{{site.menu_url_contact-us}}" class="nav-link">{{site.menu_name_contact-us}}</a>
-        </nav>
-    </div>
+        <div class="row">
+            <!-- 사이드메뉴 -->
+            <div class="side-menu col-md-3">
+                <nav class="nav flex-column" id="sideNav">
 
-    <!-- 본문영역 -->
-    <div class="col-md-9">
-        <h2 class="mb-3 font-weight-bold"><span>{{page.title}}</span></h2>
-        <div class="page-content">
-            {{ content }}
+
+                    <a href="{{site.menu_url_about-us}}"
+                       class="nav-link{% if currentPermalink contains site.menu_url_about-us %} active{% endif %}">
+                      {{site.menu_name_about-us}} 
+                    </a>
+                  
+                    <a href="{{site.menu_url_terms-of-service}}"
+                       class="nav-link{% if currentPermalink contains site.menu_url_terms-of-service %} active{% endif %}">
+                      {{site.menu_name_terms-of-service}}
+                    </a>
+                  
+                    <a href="{{site.menu_url_policy-copyright}}"
+                       class="nav-link{% if currentPermalink contains site.menu_url_policy-copyright %} active{% endif %}">
+                      {{site.menu_name_policy-copyright}}
+                    </a>
+                  
+                    <a href="{{site.menu_url_policy-youth}}"
+                       class="nav-link{% if currentPermalink contains site.menu_url_policy-youth %} active{% endif %}">
+                      {{site.menu_name_policy-youth}}
+                    </a>
+                  
+                    <a href="{{site.menu_url_email-rejection}}"
+                       class="nav-link{% if currentPermalink contains site.menu_url_email-rejection %} active{% endif %}">
+                      {{site.menu_name_email-rejection}}
+                    </a>
+                  
+                    <a href="{{site.menu_url_contact-us}}"
+                       class="nav-link{% if currentPermalink contains site.menu_url_contact-us %} active{% endif %}">
+                      {{site.menu_name_contact-us}}
+                    </a>
+                </nav>
+            </div>
+
+            <!-- 본문영역 -->
+            <div class="col-md-9">
+                <h2 class="mb-3 font-weight-bold"><span>{{page.title}}</span></h2>
+                <div class="page-content">
+                    {{ content }}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
 
     </div>
 </div>
 <script>
-    function toggleSideMenu() {
-      const sideNav = document.getElementById('sideNav');
-      sideNav.classList.toggle('open');
+  function toggleSideMenu() {
+    const sideNav = document.getElementById('sideNav');
+    sideNav.classList.toggle('open');
+
+    setToggleButtonText();
+  }
+
+  function setToggleButtonText() {
+    const navToggleBtn = document.querySelector('.nav-toggle');
+    const activeLink   = document.querySelector('#sideNav a.active');
+    const activeText   = activeLink ? activeLink.textContent : '메뉴'; 
+    const sideNav      = document.getElementById('sideNav');
+
+    if (sideNav.classList.contains('open')) {
+      navToggleBtn.innerHTML = activeText + ' <i class="bi bi-caret-up-fill"></i>';
+    } else {
+      navToggleBtn.innerHTML = activeText + ' <i class="bi bi-caret-down-fill"></i>';
     }
-  </script>
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    setToggleButtonText();
+  });
+</script>
 <style>
 
 .side-menu .nav-link {
@@ -75,7 +122,12 @@ layout: default
         cursor: pointer;
         font-size: 1rem;
     }
-
+    .nav-toggle {
+        display: flex; 
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
     #sideNav {
         display: none;
     }
