@@ -4,56 +4,84 @@ layout: default
 <div class="container-fluid">
     <div class="mw-1200 mx-auto">
 
-        <div class="row">
+<!-- 햄버거 버튼 (모바일용) -->
+<button class="nav-toggle" onclick="toggleSideMenu()">☰ MENU</button>
 
-            <div class="side-menu col-md-3">
-                <nav class="nav flex-column">
-                    <a href="{{site.menu_url_about-us}}" class="nav-link active">{{site.menu_name_about-us}}</a>
-                    <a href="{{site.menu_url_terms-of-service}}" class="nav-link">{{site.menu_name_terms-of-service}}</a>
-                    <a href="{{site.menu_url_policy-copyright}}" class="nav-link">{{site.menu_name_policy-copyright}}</a>
-                    <a href="{{site.menu_url_policy-youth}}" class="nav-link">{{site.menu_name_policy-youth}}</a>
-                    <a href="{{site.menu_url_email-rejection}}" class="nav-link">{{site.menu_name_email-rejection}}</a>
-                    <a href="{{site.menu_url_contact-us}}" class="nav-link">{{site.menu_name_contact-us}}</a>
-                </nav>
-            </div>
+<div class="row">
+    <!-- 사이드메뉴 -->
+    <div class="side-menu col-md-3">
+        <nav class="nav flex-column" id="sideNav">
+            <a href="{{site.menu_url_about-us}}" class="nav-link active">{{site.menu_name_about-us}}</a>
+            <a href="{{site.menu_url_terms-of-service}}" class="nav-link">{{site.menu_name_terms-of-service}}</a>
+            <a href="{{site.menu_url_policy-copyright}}" class="nav-link">{{site.menu_name_policy-copyright}}</a>
+            <a href="{{site.menu_url_policy-youth}}" class="nav-link">{{site.menu_name_policy-youth}}</a>
+            <a href="{{site.menu_url_email-rejection}}" class="nav-link">{{site.menu_name_email-rejection}}</a>
+            <a href="{{site.menu_url_contact-us}}" class="nav-link">{{site.menu_name_contact-us}}</a>
+        </nav>
+    </div>
 
-
-            <div class="col-md-9">
-                <h2 class="mb-3 font-weight-bold"><span>{{page.title}}</span></h2>
-                <div class="page-content">
-                    {{ content }}
-                </div>
-            </div>
-
+    <!-- 본문영역 -->
+    <div class="col-md-9">
+        <h2 class="mb-3 font-weight-bold"><span>{{page.title}}</span></h2>
+        <div class="page-content">
+            {{ content }}
         </div>
-
     </div>
 </div>
 
+
+
+    </div>
+</div>
+<script>
+    function toggleSideMenu() {
+      const sideNav = document.getElementById('sideNav');
+      sideNav.classList.toggle('open');
+    }
+  </script>
 <style>
-.side-menu {
-    min-height: 80vh;
-}
 
 .side-menu .nav-link {
-    /* color: #495057; */
     padding: 0.8rem 1rem;
 }
-
 .side-menu .nav-link.active {
     font-weight: bold;
 }
- /* 
-.content {
-    padding: 20px;
+
+/* PC(데스크탑) 사이즈 이상 */
+@media (min-width: 768px) {
+    .side-menu {
+        min-height: 80vh;
+    }
+    /* 햄버거 버튼은 PC에서는 숨김 */
+    .nav-toggle {
+        display: none;
+    }
+    /* PC에서 nav는 항상 보임 */
+    #sideNav {
+        display: block;
+    }
 }
 
-@media (max-width: 767.98px) {
+
+@media (max-width: 767px) {
     .side-menu {
-     min-height: auto;
-     border-right: none;
-     border-bottom: 1px solid #dee2e6;
-    } 
+        min-height: auto;
+    }
+    .nav-toggle {
+        display: inline-block;
+        margin: 0.5rem 0;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    #sideNav {
+        display: none;
+    }
+    #sideNav.open {
+        display: block;
+        margin-bottom: 1rem;
+    }
 }
-    */
 </style>
