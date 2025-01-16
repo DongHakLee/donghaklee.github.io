@@ -1159,6 +1159,18 @@ footer a:hover {
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .ad-banner-left {
+    margin-top : 0px; /* mobile */
+  }
+}
+@media (min-width: 769px) {
+  .ad-banner-left {
+    margin-top : 20px;
+  }
+}
+
+
 .ad-banner p {
   margin: 0px;
 }
