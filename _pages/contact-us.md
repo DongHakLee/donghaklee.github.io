@@ -56,7 +56,7 @@ comments: false
         cursor: pointer;
     }
 </style>
-<div id="comments" class="row mx-0 justify-content-center mt-5">
+<div id="comments" class="row mx-0 justify-content-center">
     <h5>여러분의 소중한 제보를 기다립니다. 제공해 주신 개인정보는 오직 취재를 위해서만 사용되며, 철저히 보호됩니다.</h5>
 
 
