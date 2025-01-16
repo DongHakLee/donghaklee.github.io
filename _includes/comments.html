@@ -262,14 +262,13 @@ function getCurrentTextColor() {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.font = "20px Arial";
         context.fillStyle = getCurrentTextColor();
-        console.log('가즈아',getCurrentTextColor())
         context.textAlign = "center";  // 텍스트 중앙 정렬
         context.textBaseline = "middle";  // 수직 중앙 정렬
 
         // 캔버스의 중앙에 텍스트 그리기
         const x = canvas.width / 2;   // 캔버스 가로 중앙
         const y = canvas.height / 2;  // 캔버스 세로 중앙
-        console.log('y',y)
+        // console.log('y',y)
         context.fillText(data.question, x, (y+2));
 
         document.getElementById('captcha-id').value = data.captchaId;

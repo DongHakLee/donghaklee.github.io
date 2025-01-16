@@ -1214,3 +1214,26 @@ footer a:hover {
   background-color: var(--bg-color) !important;
   border-color: 1px solid var(--border-color) !important;
 }
+
+
+.list-inline-item:not(:last-child) {
+  margin-right: 0 !important;
+}
+
+.list-inline-item:not(:last-child)::after {
+  content: "|";
+  margin-left: 8px;
+  margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .d-footer-dt-block {
+      display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .d-footer-dt-block {
+      display: block !important;
+  }
+}
