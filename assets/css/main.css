@@ -1237,3 +1237,132 @@ footer a:hover {
       display: block !important;
   }
 }
+
+
+
+
+/************************form*******************************/
+.comment-form {
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+}
+.form-row {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: -0.5rem;
+}
+.form-row > div {
+  flex: 1 1 300px;
+  padding: 0.5rem;
+}
+.char-count {
+  text-align: right;
+  font-size: 0.875rem;
+  color: #666;
+}
+.captcha-section {
+  display: none;
+}
+.captcha-section.active {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.submit-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
+.captcha-popup-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.captcha-canvas {
+  flex-shrink: 0;
+  width: 140px;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+#captcha-answer {
+  flex-grow: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0.5rem;
+  text-align: right;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+#verify-captcha-btn {
+  flex-shrink: 0;
+  height: 100%;
+  padding: 0.5rem 1rem;
+  background-color: var(--button-hover-bg-color);
+  color: var(--button-hover-text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+#verify-captcha-btn:hover {
+  background-color: var(--button-hover-bg-color);
+  color: var(--button-hover-text-color);
+}
+
+div.char-count{
+  margin-top: -24px;
+  margin-bottom: 10px;
+  padding-right: 13px;
+}
+
+#comments-section {
+font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+max-width: 800px;
+}
+
+#comments-section .border {
+border: none !important;
+border-bottom: 1px solid #eee !important;
+border-radius: 0 !important;
+padding: 1.25rem 0.5rem !important;
+margin-bottom: 0 !important;
+}
+
+#comments-section .bi-person-fill {
+color: var(--text-color) !important;
+font-size: 0.9em;
+}
+
+#comments-section strong {
+color: var(--text-color) !important;
+font-weight: 500;
+margin-left: 4px;
+}
+
+#comments-section .btn-link {
+line-height: 1;
+}
+
+#comments-section .close-x {
+color: #666;
+font-size: 24px;
+font-weight: 300;
+}
+
+#comments-section .btn-link:hover .close-x {
+color: #ff4444;
+}
+
+#comments-section .text-muted {
+color: #888 !important;
+font-size: 0.8rem;
+margin-top: 4px;
+}
+
+#comments-section p {
+color: var(--text-color) !important;
+line-height: 1.5;
+margin-top: 0.75rem;
+}

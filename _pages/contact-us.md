@@ -4,58 +4,6 @@ layout: page-sidebar
 permalink: "/contact-us"
 comments: false
 ---
-<style>
-    .comment-form {
-        margin-bottom: 1.5rem;
-        border-radius: 0.5rem;
-    }
-
-    .captcha-section {
-        display: none;
-    }
-    .captcha-section.active {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-    .submit-container {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 1rem;
-    }
-    .captcha-popup-content {
-        display: flex;
-        align-items: center;
-        width: 100%;
-    }
-    .captcha-canvas {
-        flex-shrink: 0;
-        width: 140px;
-        height: 100%;
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
-    }
-    #captcha-answer {
-        flex-grow: 1;
-        min-width: 0;
-        height: 100%;
-        padding: 0.5rem;
-        text-align: right;
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
-    }
-    #verify-captcha-btn {
-        flex-shrink: 0;
-        height: 100%;
-        padding: 0.5rem 1rem;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 0.25rem;
-        cursor: pointer;
-    }
-</style>
 <div id="comments" class="row mx-0 justify-content-center">
     <h5>여러분의 소중한 제보를 기다립니다. 제공해 주신 개인정보는 오직 취재를 위해서만 사용되며, 철저히 보호됩니다.</h5>
 
@@ -76,7 +24,7 @@ comments: false
         <div id="captcha-section" class="captcha-section">
             <div class="captcha-popup-content">
                 <canvas id="captcha-canvas" width="140" height="37" class="captcha-canvas"></canvas>
-                <input type="number" class="form-control" id="captcha-answer" placeholder="" required>
+                <input type="text" class="form-control" id="captcha-answer" placeholder="" required>
                 <input type="hidden" id="captcha-id">
                 <button type="button" class="submit-btn" id="verify-captcha-btn">Submit</button>
             </div>
@@ -87,7 +35,6 @@ comments: false
     const apiUrl = 'https://ep-core.mynews1237.workers.dev';
     const commentData = '190001021';
 
-    // 댓글 길이 제한과 현재 글자 수 표시
     const commentTextarea = document.getElementById('note');
     const charCountDisplay = document.getElementById('char-count');
 
@@ -101,21 +48,14 @@ comments: false
     
 function getCurrentTextColor() {
     const rootElement = document.documentElement;
-
-    // 현재 테마 확인
     const currentTheme = document.body.getAttribute('data-theme') || 'light';
-    console.log('currentTheme:', currentTheme);
 
-    // 브라우저가 CSS를 다시 계산하도록 강제 적용
-    setTimeout(() => {
-        const color = getComputedStyle(rootElement).getPropertyValue('--text-color').trim();
-        console.log('Computed --text-color after force:', color); // 올바른 값 확인
-    }, 50);
+    let color = '#000000';
+    if('dark' == currentTheme){
+        color = '#d0d0d0';
+    }
 
-    // 현재 테마에 따른 텍스트 색상 확인
-    const color = getComputedStyle(rootElement).getPropertyValue('--text-color').trim();
-
-    return color || 'black'; // 색상이 없을 경우 기본값 반환
+    return color || 'black';
 }
 
     // CAPTCHA 생성
@@ -138,18 +78,17 @@ function getCurrentTextColor() {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.font = "20px Arial";
         context.fillStyle = getCurrentTextColor();
-        context.textAlign = "center";  // 텍스트 중앙 정렬
-        context.textBaseline = "middle";  // 수직 중앙 정렬
+        context.textAlign = "center";
+        context.textBaseline = "middle";
 
-        // 캔버스의 중앙에 텍스트 그리기
-        const x = canvas.width / 2;   // 캔버스 가로 중앙
-        const y = canvas.height / 2;  // 캔버스 세로 중앙
+        const x = canvas.width / 2;
+        const y = canvas.height / 2;
         // console.log('y',y)
         context.fillText(data.question, x, (y+2));
 
         document.getElementById('captcha-id').value = data.captchaId;
         
-        document.getElementById('generate-captcha-btn').style.display = 'none';  // 버튼을 직접 참조
+        document.getElementById('generate-captcha-btn').style.display = 'none';
         document.getElementById('captcha-section').classList.remove('d-none');
         document.getElementById('captcha-section').style.display = 'flex';
         showToast('noti','자동방지 문자를 입력하세요.');
@@ -180,25 +119,27 @@ function getCurrentTextColor() {
             console.log('response',response)
             console.log('response.ok',response.ok)
             if (response.ok) {
-                showToast('noti','Comment added successfully!111');
+                showToast('noti','성공적으로 전송되었습니다.');
                 // fetchComments();
                 
                 // 댓글 작성 폼과 CAPTCHA 초기화
                 document.getElementById('comment-form').reset();
                 document.getElementById('captcha-section').classList.add('d-none');
-                document.getElementById('captcha-answer').value = ""; // 답변 초기화
-                document.getElementById('captcha-id').value = ""; // CAPTCHA ID 초기화
+                document.getElementById('captcha-answer').value = "";
+                document.getElementById('captcha-id').value = "";
                 charCountDisplay.textContent = "0"; // 글자 수 초기화
             } else {
-                showToast('alert','Incorrect CAPTCHA, please try again.');
+                showToast('alert','잘못된 CAPTCHA입니다. 다시 시도해주세요.');
+                document.getElementById('captcha-answer').value = "";
+                document.getElementById('captcha-id').value = "";
                 document.getElementById('captcha-section').classList.add('d-none');
             }
 
-            document.getElementById('generate-captcha-btn').style.display = 'block';  // 버튼을 직접 참조
+            document.getElementById('generate-captcha-btn').style.display = 'block';
         } catch (error) {
             console.error('Error verifying CAPTCHA:', error);
             showToast('alert','Error verifying CAPTCHA. Please try again.');
-            document.getElementById('generate-captcha-btn').style.display = 'block';  // 버튼을 직접 참조
+            document.getElementById('generate-captcha-btn').style.display = 'block';
         }
     });
 </script>
