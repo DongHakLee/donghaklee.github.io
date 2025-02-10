@@ -163,7 +163,6 @@ function loadFontSize() {
   const savedFontSize = localStorage.getItem(FONT_SIZE_KEY);
   const defaultSize = '18px'; // Default font size
   const fontSize = savedFontSize || defaultSize;
-  console.log('articleSubTitle',articleSubTitle);
   //currentFontSizeDisplay.style.fontSize = fontSize; // Set font size for display
   articlePost.style.setProperty('--font-size', savedFontSize || defaultSize);
   articleSubTitle?.style.setProperty('--font-size', savedFontSize || defaultSize);
@@ -190,7 +189,21 @@ function copyURL() {
 
 // Print the page
 function printPage() {
-  window.print()
+  var printUrl = "/print" + window.location.pathname;
+
+  // 현재 창의 높이와 너비 가져오기
+  var screenWidth = window.innerWidth || document.documentElement.clientWidth || screen.width;
+  var screenHeight = window.innerHeight || document.documentElement.clientHeight || screen.height;
+
+  var width = 825;
+  var height = Math.floor(screenHeight * 8 / 10); // 현재 창의 8/10 높이
+
+  // 사용자의 화면 중앙에 위치하도록 계산
+  var left = (window.screen.width - width) / 2;
+  var top = (window.screen.height - height) / 2;
+
+  // 새 창 열기 (A4 비율 적용)
+  window.open(printUrl, "_blank", "width=" + width + ",height=" + height + ",top=" + top + ",left=" + left + ",resizable=yes,scrollbars=yes");
 }
 
 // Initialize font size on page load
